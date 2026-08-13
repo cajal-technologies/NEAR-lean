@@ -42,6 +42,25 @@ deliverables are executable, while historical importer and corpus features stay
 withheld. Closing that gate requires a pinned archival snapshot or state-witness
 archive and independent outcome/root recomputation.
 
+`replay/witness-contract.json` makes that missing input boundary executable.
+It pins the required nearcore commit, interval, one-to-one chunk fields,
+artifact hashes, replay-result fields, and source provenance. `make
+m12-exact-gate` validates a supplied `replay/witnesses/index.json`, then executes
+its digest-pinned repository runner and requires 10,000 independently matching
+outcomes and roots. It remains red while either input is absent. Public FastNEAR
+RPC and archival nodes report
+`save_latest_witnesses: false`; pinned nearcore only persists the latest 1,800
+witnesses, up to 4 GiB, when that non-default debug option is enabled. The
+published archival mainnet snapshot is approximately 60 TB, and a regular RPC
+node requires at least 2.5 TB of storage, so neither is silently substituted by
+an incomplete local snapshot.
+
+The resource bounds come from FastNEAR's [mainnet snapshot
+documentation](https://docs.fastnear.com/snapshots/mainnet) and the NEAR node
+[RPC hardware requirements](https://near-nodes.io/rpc/hardware-rpc). The witness
+retention limits and opt-in behavior are pinned to nearcore's
+[`latest_witnesses.rs`](https://github.com/near/nearcore/blob/5af9ca74631e6cf0dae33e77d1a632e94d2952ce/chain/chain/src/store/latest_witnesses.rs).
+
 Run `make m12-validation` for the offline gate. On a clean machine,
 `python3 scripts/m12_fetch.py --fetch --check` re-fetches the fixed sources and
 requires byte-identical generated artifacts.
