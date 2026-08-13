@@ -3,8 +3,8 @@
     "allowedAxioms": [
       "propext"
     ],
-    "auditedDeclarations": 447,
-    "declarationsUsingAxioms": 37,
+    "auditedDeclarations": 883,
+    "declarationsUsingAxioms": 123,
     "headlineTheoremNames": [
       "NEARLean.Account.initial_wellFormed",
       "NEARLean.WorldState.initial_wellFormed",
@@ -18,9 +18,18 @@
       "NEARLean.NearChain.view_pure",
       "NEARLean.NearChain.apply_error_rolls_back",
       "NEARLean.NearChain.apply_preserves_wellFormed",
+      "NEARLean.ReceiptMachine.init_wellFormed",
+      "NEARLean.callback_cannot_execute_before_dependencies",
+      "NEARLean.ReceiptMachine.commit_preserves_wellFormed",
+      "NEARLean.ReceiptMachine.submit_preserves_wellFormed",
+      "NEARLean.ReceiptMachine.process_preserves_wellFormed",
+      "NEARLean.ReceiptMachine.run_preserves_wellFormed",
+      "NEARLean.ReceiptMachine.receiptId_unique",
+      "NEARLean.ReceiptMachine.processing_deterministic",
+      "NEARLean.ReceiptMachine.every_created_receipt_accounted",
       "NEARLean.SemanticsLayer.abstract_ne_concrete"
     ],
-    "headlineTheorems": 13
+    "headlineTheorems": 22
   },
   "baseline": {
     "leanToolchain": "leanprover/lean4:v4.33.0",
@@ -33,17 +42,17 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 57,
+      "unsupported": 51,
       "partial": 1,
-      "implemented": 17,
+      "implemented": 23,
       "verified": 0
     },
     "coverage": {
-      "positive": 18,
-      "negative": 18,
-      "differential": 5,
-      "executableSemantics": 18,
-      "proofObligationsDischarged": 8
+      "positive": 24,
+      "negative": 24,
+      "differential": 11,
+      "executableSemantics": 24,
+      "proofObligationsDischarged": 12
     },
     "total": 75,
     "verifiedWeightPercent": 0.0
@@ -61,6 +70,13 @@
     "seed": 1,
     "traces": 1000
   },
-  "observationLevel": "L3",
-  "schemaVersion": 3
+  "generatedReceipts": {
+    "actions": 10000,
+    "firstDifference": null,
+    "outcomes": 30000,
+    "seed": 1,
+    "traces": 10000
+  },
+  "observationLevel": "L4",
+  "schemaVersion": 4
 }

@@ -77,6 +77,10 @@ def viewNative
       if methodName = NativeMethod.balance then
         return { gasBurnt := 1, balance := some account.balance }
       throw (.methodNotFound methodName)
+  | .asyncContract =>
+      if methodName = NativeMethod.echo then
+        return { returnValue := [7], gasBurnt := 1 }
+      throw (.methodNotFound methodName)
 
 /-- Views return an explicit unchanged chain alongside their result. -/
 def NearChain.view

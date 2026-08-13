@@ -3,12 +3,13 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 3**: the proof-friendly abstract kernel is connected
-to a pinned nearcore 2.13.3 sandbox oracle through canonical, reproducible traces.
-The generated campaign compares 1,000 basic-action traces and 1,200 observations
-at L3, including success or error category, return bytes, logs, balances, and raw
-contract storage. Receipt identity, exact gas economics, and state roots remain
-future compatibility levels.
+The project is at **Milestone 4**: the proof-friendly kernel now models
+transactions, action and data receipts, promise results, dependency-gated
+callbacks, cross-contract calls, and bounded receipt queues. A generated campaign
+compares 10,000 cross-contract traces and 30,000 semantic receipt outcomes against
+the pinned nearcore 2.13.3 sandbox at L4, including receipt identity and order.
+Exact gas economics, concrete receipt hashes, and state roots remain future
+compatibility levels.
 
 ## Quick start
 
@@ -27,7 +28,8 @@ artifacts, and proves that each negative fixture is rejected.
 
 Node.js 22.22.2 or newer is required for the real nearcore oracle. Run its pinned
 smoke comparison with `make differential-smoke`; regenerate the 1,000-trace report
-with `make differential-campaign`.
+with `make differential-campaign`. `make receipt-smoke` runs the cross-contract L4
+fixture, while `make receipt-campaign` regenerates its 10,000-trace exit report.
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the

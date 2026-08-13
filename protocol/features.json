@@ -401,16 +401,16 @@
       "milestone": 4,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/verifier.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Transactions contain the Milestone 2 action surface and convert to one root action receipt; signature, nonce, access-key, and exact hash validation remain outside the abstract layer."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -420,16 +420,21 @@
       "milestone": 4,
       "weight": 5,
       "nearcoreReference": "core/primitives/src/receipt.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Action receipts use fresh natural-number identities canonicalized from nearcore creation order; exact SHA-256 receipt hashes and economic refund receipts are deferred to later concrete milestones."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "receipt-id-uniqueness",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -439,16 +444,21 @@
       "milestone": 4,
       "weight": 5,
       "nearcoreReference": "core/primitives/src/receipt.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Data receipts and multiple input dependencies are modeled abstractly; the generated nearcore corpus exercises one successful dependency per callback."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "callback-dependency-safety",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -458,16 +468,21 @@
       "milestone": 4,
       "weight": 5,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Successful and failed promise results and callbacks are represented; promise-and, yield/resume, and timeout variants remain unsupported."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "callback-dependency-safety",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -477,16 +492,16 @@
       "milestone": 4,
       "weight": 5,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Cross-contract execution is validated with a stateless echo call and callback contract; arbitrary WASM promise programs begin at Milestone 8."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -496,16 +511,29 @@
       "milestone": 4,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The deterministic single-shard queue supports bounded processing and postponement; congestion, shard routing, and persistent delayed-receipt storage are later milestones."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "processing-well-formedness",
+          "discharged": true
+        },
+        {
+          "id": "fixed-schedule-determinism",
+          "discharged": true
+        },
+        {
+          "id": "receipt-lifecycle-accounting",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1483,7 +1511,7 @@
     "maximum": 86,
     "minimum": 86
   },
-  "observationLevel": "L3",
+  "observationLevel": "L4",
   "schemaVersion": 1,
   "statusValues": [
     "unsupported",

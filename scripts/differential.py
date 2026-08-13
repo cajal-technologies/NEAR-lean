@@ -16,6 +16,7 @@ from collections.abc import Callable
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BASELINE = json.loads((ROOT / "protocol/baseline.json").read_text(encoding="utf-8"))
 DEFAULT_FIXTURE = ROOT / "differential/fixtures/counter.json"
+ASYNC_FIXTURE = ROOT / "differential/fixtures/async.json"
 LEAN_RUNNER = ROOT / ".lake/build/bin/nearLeanOracle"
 
 
@@ -112,6 +113,38 @@ def trace(seed: int) -> dict[str, object]:
     }
 
 
+def receipt_trace(seed: int) -> dict[str, object]:
+    owner = f"r{seed:08x}"
+    caller = "caller.receipts"
+    callee = "callee.receipts"
+    balance = "100000000000000000000000000"
+    return {
+        "schemaVersion": 1,
+        "nearcoreCommit": BASELINE["nearcore"]["commit"],
+        "nearcoreRelease": BASELINE["nearcore"]["release"],
+        "protocolVersion": BASELINE["protocolVersions"]["minimum"],
+        "seed": seed,
+        "genesis": [
+            {"id": owner, "balance": balance},
+            {"id": caller, "balance": balance, "contract": "async"},
+            {"id": callee, "balance": balance, "contract": "async"},
+        ],
+        "actions": [
+            {
+                "kind": "functionCall",
+                "caller": owner,
+                "receiver": caller,
+                "method": "call_then",
+                "arguments": callee,
+                "attachedDeposit": "0",
+                "prepaidGas": "100000000000000",
+            }
+        ],
+        "observeAccounts": [owner],
+        "receiptMode": True,
+    }
+
+
 def generate(count: int, seed: int, directory: pathlib.Path) -> list[pathlib.Path]:
     paths = []
     for current in range(seed, seed + count):
@@ -121,8 +154,18 @@ def generate(count: int, seed: int, directory: pathlib.Path) -> list[pathlib.Pat
     return paths
 
 
-def run_lean(paths: list[pathlib.Path], output: pathlib.Path) -> None:
-    subprocess.run(["lake", "build", "nearLeanOracle"], cwd=ROOT, check=True)
+def generate_receipts(count: int, seed: int, directory: pathlib.Path) -> list[pathlib.Path]:
+    paths = []
+    for current in range(seed, seed + count):
+        path = directory / f"{current:08d}.json"
+        write_json(path, receipt_trace(current))
+        paths.append(path)
+    return paths
+
+
+def run_lean(paths: list[pathlib.Path], output: pathlib.Path, build: bool = True) -> None:
+    if build:
+        subprocess.run(["lake", "build", "nearLeanOracle"], cwd=ROOT, check=True)
     command([str(LEAN_RUNNER), *(str(path) for path in paths)], output=output)
 
 
@@ -171,7 +214,9 @@ def first_difference(left: object, right: object, path: str = "$") -> dict[str, 
     return None
 
 
-def compare(lean_value: object, nearcore_value: object) -> dict[str, object]:
+def compare(
+    lean_value: object, nearcore_value: object, observation_level: str = "L3"
+) -> dict[str, object]:
     lean_runs = runs(lean_value)
     nearcore_runs = runs(nearcore_value)
     if len(lean_runs) != len(nearcore_runs):
@@ -191,11 +236,13 @@ def compare(lean_value: object, nearcore_value: object) -> dict[str, object]:
         lean_observations = lean_run["observations"]
         nearcore_observations = nearcore_run["observations"]
         action_count += len(lean_observations)
-        for level, fields in (
+        levels = (
             ("L1", ("success", "errorCategory")),
             ("L2", ("returnValue", "logs")),
             ("L3", ("accounts",)),
-        ):
+            ("L4", ("receiptGraph",)),
+        )
+        for level, fields in levels[: int(observation_level[1:])]:
             left = [{field: item[field] for field in fields} for item in lean_observations]
             right = [{field: item[field] for field in fields} for item in nearcore_observations]
             difference = first_difference(left, right)
@@ -210,7 +257,7 @@ def compare(lean_value: object, nearcore_value: object) -> dict[str, object]:
                 }
     return {
         "matched": True,
-        "observationLevel": "L3",
+        "observationLevel": observation_level,
         "traceCount": len(lean_runs),
         "actionCount": action_count,
         "firstDifference": None,
@@ -234,14 +281,21 @@ def minimize_actions(
     return minimized
 
 
-def execute(paths: list[pathlib.Path], directory: pathlib.Path) -> dict[str, object]:
+def execute(
+    paths: list[pathlib.Path],
+    directory: pathlib.Path,
+    observation_level: str = "L3",
+    build_lean: bool = True,
+) -> dict[str, object]:
+    directory.mkdir(parents=True, exist_ok=True)
     lean_output = directory / "lean.json"
     nearcore_output = directory / "nearcore.json"
-    run_lean(paths, lean_output)
+    run_lean(paths, lean_output, build_lean)
     run_nearcore(paths, nearcore_output)
     return compare(
         json.loads(lean_output.read_text(encoding="utf-8")),
         json.loads(nearcore_output.read_text(encoding="utf-8")),
+        observation_level,
     )
 
 
@@ -280,6 +334,15 @@ def self_test() -> None:
         result = compare(reference, corrupted)
         if result["matched"] or result["firstDifference"]["level"] != level:
             raise AssertionError(f"comparator missed {level} corruption")
+    with tempfile.TemporaryDirectory() as temporary:
+        async_output = pathlib.Path(temporary) / "lean.json"
+        run_lean([ASYNC_FIXTURE], async_output)
+        async_reference = json.loads(async_output.read_text(encoding="utf-8"))
+    corrupted = copy.deepcopy(async_reference)
+    corrupted["observations"][2]["receiptGraph"]["outcomes"][0]["receiptIds"].reverse()
+    result = compare(async_reference, corrupted, "L4")
+    if result["matched"] or result["firstDifference"]["level"] != "L4":
+        raise AssertionError("comparator missed L4 receipt-order corruption")
     synthetic = {"actions": [{"kind": "transfer"}, {"kind": "functionCall"}, {"kind": "transfer"}]}
     minimized = minimize_actions(
         synthetic,
@@ -321,6 +384,53 @@ def campaign(count: int, seed: int, output: pathlib.Path) -> None:
             raise SystemExit(f"differential mismatch recorded at {failure}")
 
 
+def receipt_campaign(count: int, seed: int, batch_size: int, output: pathlib.Path) -> None:
+    with tempfile.TemporaryDirectory() as temporary:
+        directory = pathlib.Path(temporary)
+        paths = generate_receipts(count, seed, directory / "traces")
+        matched = True
+        first_difference = None
+        action_count = 0
+        completed = 0
+        failure = None
+        for batch_index in range(0, len(paths), batch_size):
+            batch = paths[batch_index : batch_index + batch_size]
+            result = execute(
+                batch,
+                directory / f"batch-{batch_index // batch_size}",
+                "L4",
+                build_lean=batch_index == 0,
+            )
+            action_count += result["actionCount"]
+            completed += result["traceCount"]
+            print(f"receipt campaign: {completed}/{count} traces", flush=True)
+            if not result["matched"]:
+                matched = False
+                first_difference = result["firstDifference"]
+                failing_path = batch[first_difference["traceIndex"]]
+                failure = ROOT / "differential/failures" / failing_path.name
+                write_json(failure, json.loads(failing_path.read_text(encoding="utf-8")))
+                break
+        report = {
+            "matched": matched,
+            "observationLevel": "L4" if matched else "L3",
+            "traceCount": completed,
+            "actionCount": action_count,
+            "firstDifference": first_difference,
+            "actionKinds": {"functionCall": action_count},
+            "maxTraceLength": 1,
+            "receiptOutcomesPerTrace": 3,
+            "schemaVersion": 1,
+            "seed": seed,
+            "nearcoreCommit": BASELINE["nearcore"]["commit"],
+            "nearcoreRelease": BASELINE["nearcore"]["release"],
+            "protocolVersion": BASELINE["protocolVersions"]["minimum"],
+        }
+        write_json(output, report)
+        if not matched:
+            raise SystemExit(f"receipt mismatch recorded at {failure}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -334,24 +444,41 @@ def main() -> None:
     campaign_parser.add_argument(
         "--output", type=pathlib.Path, default=ROOT / "differential/report.json"
     )
+    receipt_campaign_parser = subparsers.add_parser("receipt-campaign")
+    receipt_campaign_parser.add_argument("--count", type=int, default=10000)
+    receipt_campaign_parser.add_argument("--seed", type=int, default=1)
+    receipt_campaign_parser.add_argument("--batch-size", type=int, default=500)
+    receipt_campaign_parser.add_argument(
+        "--output", type=pathlib.Path, default=ROOT / "differential/receipt-report.json"
+    )
     compare_parser = subparsers.add_parser("compare")
     compare_parser.add_argument("lean", type=pathlib.Path)
     compare_parser.add_argument("nearcore", type=pathlib.Path)
+    compare_parser.add_argument("--level", choices=["L1", "L2", "L3", "L4"], default="L3")
     minimize_parser = subparsers.add_parser("minimize")
     minimize_parser.add_argument("trace", type=pathlib.Path)
     minimize_parser.add_argument("--output", type=pathlib.Path, required=True)
     subparsers.add_parser("self-test")
     smoke_parser = subparsers.add_parser("smoke")
     smoke_parser.add_argument("trace", type=pathlib.Path, nargs="?", default=DEFAULT_FIXTURE)
+    smoke_parser.add_argument("--level", choices=["L1", "L2", "L3", "L4"], default="L3")
     arguments = parser.parse_args()
     if arguments.command == "generate":
         generate(arguments.count, arguments.seed, arguments.output)
     elif arguments.command == "campaign":
         campaign(arguments.count, arguments.seed, arguments.output)
+    elif arguments.command == "receipt-campaign":
+        receipt_campaign(
+            arguments.count,
+            arguments.seed,
+            arguments.batch_size,
+            arguments.output,
+        )
     elif arguments.command == "compare":
         result = compare(
             json.loads(arguments.lean.read_text(encoding="utf-8")),
             json.loads(arguments.nearcore.read_text(encoding="utf-8")),
+            arguments.level,
         )
         print(json.dumps(result, indent=2))
         if not result["matched"]:
@@ -363,7 +490,7 @@ def main() -> None:
         self_test()
     elif arguments.command == "smoke":
         with tempfile.TemporaryDirectory() as temporary:
-            result = execute([arguments.trace], pathlib.Path(temporary))
+            result = execute([arguments.trace], pathlib.Path(temporary), arguments.level)
         print(json.dumps(result, indent=2))
         if not result["matched"]:
             raise SystemExit(1)

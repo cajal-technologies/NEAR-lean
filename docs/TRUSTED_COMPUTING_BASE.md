@@ -34,6 +34,12 @@ library. Lean's JSON parser and serializer depend on `Classical.choice` and
 `Quot.sound`; isolating that executable boundary preserves the stricter axiom
 policy for protocol semantics and proofs.
 
+The L4 adapter additionally trusts the small `Oracle/contracts/async.wat` fixture
+and its projection of opaque nearcore receipt hashes to creation-order identities.
+The projection excludes economic refund receipts and retains semantic action
+receipt outcomes. Its order sensitivity is exercised by deliberate corruption in
+the offline comparator test.
+
 ## Axiom policy
 
 Proposition extensionality (`propext`) is approved because Lean's generated

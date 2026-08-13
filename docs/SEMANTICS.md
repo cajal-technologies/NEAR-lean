@@ -50,6 +50,21 @@ failures. It waits for nearcore finality and projects transaction gas burn out o
 balances because the abstract kernel does not model gas economics until Milestone
 7. That projection is explicit adapter code, not a claim about exact economics.
 
+## Transactions and receipts
+
+`NEARLean.Receipts` adds an abstract asynchronous state machine without changing
+the synchronous action kernel. Transactions create root action receipts. Action
+receipts contain actions, output data receivers, and input data dependencies;
+data receipts supply `PromiseResult` values. A receipt with missing inputs is
+postponed, and processing a matching data receipt may execute it immediately.
+
+Receipt identifiers are fresh natural numbers in this proof layer. The L4 oracle
+maps nearcore hashes to those numbers by transaction-root and child-creation order,
+then compares executor, child identities, status, return bytes, and execution
+order. Economic refund receipts are intentionally omitted until Milestone 7.
+The current cross-contract program covers `promise_create`, `promise_then`, and
+`promise_return` with one successful callback dependency.
+
 ## Refinement boundary
 
 An explicit abstraction function will connect concrete states and observations to

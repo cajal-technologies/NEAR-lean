@@ -1,6 +1,6 @@
 .PHONY: build test lint audit format format-check scorecard nearcore-references \
-	negative-tests differential-self-test differential-smoke differential-campaign \
-	oracle-install ci ci-online notes
+	negative-tests differential-self-test differential-smoke receipt-smoke differential-campaign \
+	receipt-campaign oracle-install ci ci-online notes
 
 build:
 	lake build --wfail
@@ -37,8 +37,14 @@ oracle-install:
 differential-smoke: oracle-install
 	python3 scripts/differential.py smoke
 
+receipt-smoke: oracle-install
+	python3 scripts/differential.py smoke differential/fixtures/async.json --level L4
+
 differential-campaign: oracle-install
 	python3 scripts/differential.py campaign --count 1000 --seed 1
+
+receipt-campaign: oracle-install
+	python3 scripts/differential.py receipt-campaign --count 10000 --seed 1
 
 notes:
 	uv run python -m http.server
@@ -48,3 +54,4 @@ ci: format-check lint test scorecard nearcore-references negative-tests differen
 ci-online: ci
 	python3 scripts/check.py nearcore-references --online
 	$(MAKE) differential-smoke
+	$(MAKE) receipt-smoke

@@ -34,7 +34,7 @@ function assertBaseline(trace) {
 }
 
 async function compileContract(name) {
-  if (name !== "counter") {
+  if (name !== "counter" && name !== "async") {
     throw new Error(`unsupported oracle contract \`${name}\``);
   }
   const source = await fs.readFile(path.join(SCRIPT_DIR, "contracts", `${name}.wat`), "utf8");
@@ -112,6 +112,65 @@ function creditFees(feeCredits, signerId, outcome) {
   feeCredits.set(signerId, (feeCredits.get(signerId) ?? 0n) + tokensBurnt(outcome));
 }
 
+function receiptGraph(outcome) {
+  const rootIds = outcome?.transaction_outcome?.outcome?.receipt_ids ?? [];
+  const rootSet = new Set(rootIds);
+  const rawOutcomes = outcome?.receipts_outcome ?? [];
+  const included = rawOutcomes.filter((entry) => {
+    if (rootSet.has(entry.id)) return true;
+    const status = entry.outcome.status;
+    const emptySuccess = status && typeof status === "object" && status.SuccessValue === "";
+    return !emptySuccess || entry.outcome.receipt_ids.length !== 0;
+  });
+  const includedIds = new Set(included.map((entry) => entry.id));
+  const ids = new Map();
+  let nextId = 0;
+  for (const id of rootIds) {
+    if (includedIds.has(id) && !ids.has(id)) ids.set(id, nextId++);
+  }
+  for (const entry of included) {
+    if (!ids.has(entry.id)) ids.set(entry.id, nextId++);
+    for (const id of entry.outcome.receipt_ids) {
+      if (includedIds.has(id) && !ids.has(id)) ids.set(id, nextId++);
+    }
+  }
+  function status(value) {
+    if (value && typeof value === "object" && "SuccessValue" in value) {
+      return {
+        statusReceiptId: null,
+        statusKind: "successValue",
+        returnValue: [...Buffer.from(value.SuccessValue, "base64")],
+        errorCategory: null
+      };
+    }
+    if (value && typeof value === "object" && "SuccessReceiptId" in value) {
+      return {
+        statusReceiptId: ids.get(value.SuccessReceiptId) ?? null,
+        statusKind: "successReceiptId",
+        returnValue: [],
+        errorCategory: null
+      };
+    }
+    return {
+      statusReceiptId: null,
+      statusKind: "failure",
+      returnValue: [],
+      errorCategory: errorCategory(value)
+    };
+  }
+  return {
+    transactionReceiptIds: rootIds.filter((id) => ids.has(id)).map((id) => ids.get(id)),
+    outcomes: included.map((entry) => ({
+      ...status(entry.outcome.status),
+      receiptIds: entry.outcome.receipt_ids
+        .filter((id) => ids.has(id))
+        .map((id) => ids.get(id)),
+      id: ids.get(entry.id),
+      executorId: bytes(entry.outcome.executor_id)
+    }))
+  };
+}
+
 async function snapshotAccount(id, provider, contracts, feeCredits) {
   try {
     const [state, contractState] = await Promise.all([
@@ -180,15 +239,17 @@ async function executeAction(action, rpcUrl, provider, contracts, feeCredits) {
         await compileContract(action.contract)
       ), provider, action.deployer);
       creditFees(feeCredits, action.deployer, deployed);
-      const initialized = await finalized(await account(action.deployer, rpcUrl).callFunctionRaw({
-        contractId: action.accountId,
-        methodName: "init",
-        args: new Uint8Array(),
-        gas: 100_000_000_000_000n,
-        deposit: 0n,
-        waitUntil: "FINAL"
-      }), provider, action.deployer);
-      creditFees(feeCredits, action.deployer, initialized);
+      if (action.contract === "counter") {
+        const initialized = await finalized(await account(action.deployer, rpcUrl).callFunctionRaw({
+          contractId: action.accountId,
+          methodName: "init",
+          args: new Uint8Array(),
+          gas: 100_000_000_000_000n,
+          deposit: 0n,
+          waitUntil: "FINAL"
+        }), provider, action.deployer);
+        creditFees(feeCredits, action.deployer, initialized);
+      }
       contracts.set(action.accountId, action.contract);
       return deployed;
     }
@@ -211,7 +272,9 @@ async function executeAction(action, rpcUrl, provider, contracts, feeCredits) {
 
 async function runTrace(trace, rpcUrl) {
   const observations = [];
-  const contracts = new Map();
+  const contracts = new Map(
+    trace.genesis.filter((entry) => entry.contract).map((entry) => [entry.id, entry.contract])
+  );
   const feeCredits = new Map();
   const provider = new JsonRpcProvider({ url: rpcUrl });
   for (const [index, action] of trace.actions.entries()) {
@@ -223,6 +286,7 @@ async function runTrace(trace, rpcUrl) {
         errorCategory: null,
         returnValue: finalBytes(outcome),
         logs: logs(outcome),
+        receiptGraph: receiptGraph(outcome),
         accounts: await snapshot(trace, provider, contracts, feeCredits)
       });
     } catch (error) {
@@ -232,6 +296,7 @@ async function runTrace(trace, rpcUrl) {
         errorCategory: errorCategory(error),
         returnValue: [],
         logs: [],
+        receiptGraph: { transactionReceiptIds: [], outcomes: [] },
         accounts: await snapshot(trace, provider, contracts, feeCredits)
       });
     }
@@ -262,11 +327,15 @@ async function main() {
     tracePaths.map(async (tracePath) => JSON.parse(await fs.readFile(tracePath, "utf8")))
   );
   traces.forEach(assertBaseline);
-  const genesisEntries = traces.flatMap((trace) => trace.genesis);
-  const genesisIds = genesisEntries.map((entry) => entry.id);
-  if (new Set(genesisIds).size !== genesisIds.length) {
-    throw new Error("batched traces must use disjoint genesis account IDs");
+  const genesisById = new Map();
+  for (const entry of traces.flatMap((trace) => trace.genesis)) {
+    const existing = genesisById.get(entry.id);
+    if (existing && JSON.stringify(existing) !== JSON.stringify(entry)) {
+      throw new Error(`batched genesis account \`${entry.id}\` has conflicting definitions`);
+    }
+    genesisById.set(entry.id, entry);
   }
+  const genesisEntries = [...genesisById.values()];
   const genesis = genesisEntries.map((entry) =>
     new GenesisAccount(
       entry.id,
@@ -285,8 +354,19 @@ async function main() {
     }
   });
   try {
+    for (const entry of genesisEntries.filter((item) => item.contract)) {
+      const provider = new JsonRpcProvider({ url: sandbox.rpcUrl });
+      await finalized(await account(entry.id, sandbox.rpcUrl).deployContract(
+        await compileContract(entry.contract)
+      ), provider, entry.id);
+    }
     const runs = [];
-    for (const trace of traces) runs.push(await runTrace(trace, sandbox.rpcUrl));
+    const concurrent = traces.every((trace) => trace.receiptMode === true) ? 50 : 1;
+    for (let index = 0; index < traces.length; index += concurrent) {
+      runs.push(...await Promise.all(
+        traces.slice(index, index + concurrent).map((trace) => runTrace(trace, sandbox.rpcUrl))
+      ));
+    }
     const result = runs.length === 1 ? runs[0] : runs;
     const encoded = `${JSON.stringify(result, null, 2)}\n`;
     if (outputPath) await fs.writeFile(outputPath, encoded, "utf8");

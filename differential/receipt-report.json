@@ -1,0 +1,17 @@
+{
+  "matched": true,
+  "observationLevel": "L4",
+  "traceCount": 10000,
+  "actionCount": 10000,
+  "firstDifference": null,
+  "actionKinds": {
+    "functionCall": 10000
+  },
+  "maxTraceLength": 1,
+  "receiptOutcomesPerTrace": 3,
+  "schemaVersion": 1,
+  "seed": 1,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "nearcoreRelease": "2.13.3",
+  "protocolVersion": 86
+}

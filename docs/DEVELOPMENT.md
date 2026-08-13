@@ -33,11 +33,15 @@ The command runs these gates:
    warnings, direct/private/transitive axioms, manifest evidence, reference
    provenance, and history ratchets.
 8. `make differential-self-test` corrupts outcome, error, balance, and storage
-   observations and checks action minimization without requiring nearcore.
+   observations, receipt order, and checks action minimization without requiring
+   nearcore.
 
 CI runs `make ci-online`, which adds a one-request verification of every stored
-nearcore Git object against the pinned upstream tree and one real L3 sandbox smoke
-trace. `make differential-campaign` regenerates the ratcheted 1,000-trace report.
+nearcore Git object against the pinned upstream tree plus real L3 and L4 sandbox
+smoke traces. `make differential-campaign` regenerates the ratcheted 1,000-trace
+report.
+`make receipt-smoke` checks the real L4 cross-contract fixture, and
+`make receipt-campaign` regenerates the ratcheted 10,000-trace receipt report.
 CI uploads `scorecard.json` as a machine-readable artifact even when another gate
 fails.
 

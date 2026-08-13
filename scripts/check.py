@@ -439,12 +439,14 @@ def validate_manifest() -> list[str]:
     return errors
 
 
-def differential_report_errors() -> list[str]:
-    report = load_json(ROOT / "differential/report.json")
+def generated_report_errors(
+    path: pathlib.Path, label: str, minimum_traces: int, minimum_level: str
+) -> list[str]:
+    report = load_json(path)
     baseline = load_json(ROOT / "protocol/baseline.json")
     manifest = load_json(ROOT / "protocol/features.json")
     if not isinstance(report, dict):
-        return ["differential report must be a JSON object"]
+        return [f"{label} report must be a JSON object"]
     errors: list[str] = []
     expected = {
         "nearcoreCommit": baseline["nearcore"]["commit"],
@@ -453,31 +455,54 @@ def differential_report_errors() -> list[str]:
     }
     for field, value in expected.items():
         if report.get(field) != value:
-            errors.append(f"differential report `{field}` does not match the pinned baseline")
+            errors.append(f"{label} report `{field}` does not match the pinned baseline")
     if report.get("matched") is not True or report.get("firstDifference") is not None:
-        errors.append("differential report must record a clean comparison")
+        errors.append(f"{label} report must record a clean comparison")
     trace_count = report.get("traceCount")
     action_count = report.get("actionCount")
     max_trace_length = report.get("maxTraceLength")
     action_kinds = report.get("actionKinds")
-    if not is_integer(trace_count) or trace_count < 1000:
-        errors.append("differential report must contain at least 1,000 traces")
+    if not is_integer(trace_count) or trace_count < minimum_traces:
+        errors.append(f"{label} report must contain at least {minimum_traces:,} traces")
     if not is_integer(action_count) or not is_integer(trace_count) or action_count < trace_count:
-        errors.append("differential report action count may not be below its trace count")
+        errors.append(f"{label} report action count may not be below its trace count")
     if not is_integer(max_trace_length) or max_trace_length < 1:
-        errors.append("differential report must record a positive maximum trace length")
+        errors.append(f"{label} report must record a positive maximum trace length")
     if not isinstance(action_kinds, dict) or any(
         not isinstance(kind, str) or not is_integer(count) or count < 1
         for kind, count in action_kinds.items()
     ):
-        errors.append("differential report must record a valid action-kind distribution")
+        errors.append(f"{label} report must record a valid action-kind distribution")
     elif is_integer(action_count) and sum(action_kinds.values()) != action_count:
-        errors.append("differential report action-kind counts must sum to its action count")
+        errors.append(f"{label} report action-kind counts must sum to its action count")
     level = report.get("observationLevel")
-    if level not in OBSERVATION_RANK or OBSERVATION_RANK[level] < OBSERVATION_RANK["L3"]:
-        errors.append("differential report must reach at least L3")
-    if manifest.get("observationLevel") != level:
-        errors.append("feature manifest observation level must match the differential report")
+    if level not in OBSERVATION_RANK or OBSERVATION_RANK[level] < OBSERVATION_RANK[minimum_level]:
+        errors.append(f"{label} report must reach at least {minimum_level}")
+    manifest_level = manifest.get("observationLevel")
+    if (
+        manifest_level not in OBSERVATION_RANK
+        or level not in OBSERVATION_RANK
+        or OBSERVATION_RANK[manifest_level] < OBSERVATION_RANK[level]
+    ):
+        errors.append(f"feature manifest observation level may not trail the {label} report")
+    return errors
+
+
+def differential_report_errors() -> list[str]:
+    errors = generated_report_errors(
+        ROOT / "differential/report.json", "basic differential", 1000, "L3"
+    )
+    errors += generated_report_errors(
+        ROOT / "differential/receipt-report.json", "receipt differential", 10000, "L4"
+    )
+    receipt = load_json(ROOT / "differential/receipt-report.json")
+    manifest = load_json(ROOT / "protocol/features.json")
+    if not isinstance(receipt, dict) or receipt.get("receiptOutcomesPerTrace") != 3:
+        errors.append("receipt differential report must record three semantic outcomes per trace")
+    if isinstance(receipt, dict) and manifest.get("observationLevel") != receipt.get(
+        "observationLevel"
+    ):
+        errors.append("feature manifest must match the strongest receipt observation level")
     return errors
 
 
@@ -585,6 +610,7 @@ def scorecard() -> dict[str, object]:
     baseline = load_json(ROOT / "protocol/baseline.json")
     audit = load_json(ROOT / "audit/report.json")
     differential = load_json(ROOT / "differential/report.json")
+    receipts = load_json(ROOT / "differential/receipt-report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -633,8 +659,15 @@ def scorecard() -> dict[str, object]:
             "seed": differential["seed"],
             "traces": differential["traceCount"],
         },
+        "generatedReceipts": {
+            "actions": receipts["actionCount"],
+            "firstDifference": receipts["firstDifference"],
+            "outcomes": receipts["traceCount"] * receipts["receiptOutcomesPerTrace"],
+            "seed": receipts["seed"],
+            "traces": receipts["traceCount"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 3,
+        "schemaVersion": 4,
     }
 
 
@@ -720,6 +753,15 @@ def run_negative_tests() -> int:
     transitive_errors, _ = audit_declarations(
         ["Tests.Negative.Axiom"], ["Tests.Negative.Axiom"]
     )
+    with tempfile.TemporaryDirectory() as temporary:
+        corrupted_report = copy.deepcopy(load_json(ROOT / "differential/receipt-report.json"))
+        corrupted_report["traceCount"] = 9999
+        corrupted_report["observationLevel"] = "L3"
+        corrupted_path = pathlib.Path(temporary) / "receipt-report.json"
+        corrupted_path.write_text(json.dumps(corrupted_report), encoding="utf-8")
+        corrupted_report_errors = generated_report_errors(
+            corrupted_path, "receipt differential", 10000, "L4"
+        )
     outcomes = [
         expect_failure("source hygiene", format_errors([negative / "BadFormat.lean"])),
         expect_failure("sorry", policy_errors([negative / "Sorry.lean"])),
@@ -741,6 +783,7 @@ def run_negative_tests() -> int:
             "nearcore reference provenance", reference_snapshot_errors(invalid_reference_manifest)
         ),
         expect_failure("feature ratchet", ratchet_errors(manifest, previous)),
+        expect_failure("differential report ratchet", corrupted_report_errors),
     ]
     warning = subprocess.run(
         ["lake", "env", "lean", "-DwarningAsError=true", "Tests/Negative/Warning.lean"],

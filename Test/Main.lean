@@ -134,5 +134,61 @@ def main : IO Unit := do
 
   expectValue [0] counterExample
   expectValue 4 escrowExample
+
+  let receiptWorld := { WorldState.initial config with
+    accounts := [([1], funded 10), ([2], asyncAccount), ([3], asyncAccount)] }
+  let receiptTransaction : Transaction := {
+    signerId := [1]
+    receiverId := [2]
+    actions := [.functionCall [1] [2] NativeMethod.callThen [3] 0 10]
+  }
+  let receiptMachine := (ReceiptMachine.init receiptWorld).submit config receiptTransaction
+  assertEqual true (receiptMachine.WellFormed config |> decide)
+  assertEqual 1 receiptMachine.queued.length
+  let receiptMachine := receiptMachine.processOne config
+  assertEqual 2 receiptMachine.queued.length
+  assertEqual 1 receiptMachine.outcomes.length
+  let receiptMachine := receiptMachine.processOne config
+  assertEqual 2 receiptMachine.queued.length
+  assertEqual 2 receiptMachine.outcomes.length
+  let receiptMachine := receiptMachine.processOne config
+  assertEqual 1 receiptMachine.queued.length
+  assertEqual 1 receiptMachine.postponed.length
+  assertEqual 2 receiptMachine.outcomes.length
+  let receiptMachine := receiptMachine.processOne config
+  assertEqual 0 receiptMachine.queued.length
+  assertEqual 0 receiptMachine.postponed.length
+  assertEqual 4 receiptMachine.completed.length
+  assertEqual true (receiptMachine.WellFormed config |> decide)
+  assertEqual crossContractExample receiptMachine.outcomes
+  match receiptMachine.outcomes.getLast? with
+  | some outcome => assertEqual (ReceiptExecutionStatus.successValue [7]) outcome.status
+  | none => throw <| IO.userError "missing callback outcome"
+
+  let failedPromise : ActionReceipt := {
+    signerId := [1]
+    outputDataReceivers := []
+    inputDataIds := [9]
+    actions := []
+  }
+  let receivedFailure : ReceivedData := { receiverId := [2], dataId := 9, data := none }
+  let promiseMachine := { ReceiptMachine.init receiptWorld with
+    receivedData := [receivedFailure] }
+  assertEqual [.failed] (failedPromise.promiseResults promiseMachine [2])
+
+  let failedTransaction : Transaction := {
+    signerId := [1]
+    receiverId := [3]
+    actions := [.transfer [1] [3] 11]
+  }
+  let failedMachine :=
+    (ReceiptMachine.init receiptWorld).submit config failedTransaction |>.processOne config
+  assertEqual receiptWorld failedMachine.world
+  match failedMachine.completed.getLast? with
+  | some completed =>
+      assertEqual (ReceiptDisposition.discarded (.insufficientBalance [1]))
+        completed.disposition
+  | none => throw <| IO.userError "missing discarded receipt"
+
   runTransferScenarios config
-  IO.println "100 transfer scenarios and Milestone 2 API tests passed"
+  IO.println "100 transfer scenarios and Milestone 2-4 API tests passed"
