@@ -3,17 +3,21 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 8**. The proof-friendly kernel covers transactions,
+The project is at **Milestone 9**. The proof-friendly kernel covers transactions,
 receipts, block scheduling, verification APIs, and aggregate economics. Generated
 campaigns compare the model with the pinned nearcore 2.13.3 sandbox through L5.
 A scheduled validation suite executes one million model actions and 10,000
 disjoint visible and held-out nearcore traces, with deterministic replay,
 metamorphic checks, shrinking, coverage ratchets, and semantic mutations.
+The concrete layer also runs the checked-in compiled counter through pinned
+Talos WebAssembly semantics and matches nearcore through L4 without a native
+counter substitution.
 
 ## Quick start
 
-Install [elan](https://github.com/leanprover/elan), Python 3.11 or newer, and
-`make`, then run the offline gates:
+Install [elan](https://github.com/leanprover/elan), Python 3.11 or newer,
+`wasm-tools` 1.248.0, Node.js 22.22.2 or newer, and `make`, then run the offline
+gates:
 
 ```sh
 make ci
@@ -25,12 +29,13 @@ project declaration transitively for axioms, validates feature evidence and
 ratchets, checks pinned nearcore-reference provenance, verifies generated
 artifacts, and proves that each negative fixture is rejected.
 
-Node.js 22.22.2 or newer is required for the real nearcore oracle. Run its pinned
-smoke comparison with `make differential-smoke`; regenerate the 1,000-trace report
+Run the pinned nearcore smoke comparison with `make differential-smoke`; regenerate the 1,000-trace report
 with `make differential-campaign`. `make receipt-smoke` runs the cross-contract L4
 fixture, while `make receipt-campaign` regenerates its 10,000-trace exit report.
 `make validation-campaign` regenerates the million-action model report, and
 `make differential-nightly` runs the two 5,000-trace L4 corpora.
+`make wasm-campaign` regenerates the compiled-counter L4 report, while
+`make wasm-validation` verifies Talos instruction and mutation evidence.
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the
@@ -52,7 +57,7 @@ keeping project build outputs isolated. See
 
 ## Pinned baseline
 
-- Lean: `v4.33.0` (`d8b18978322de05a8f3dba51ef03cf5461676c17`)
+- Lean: `v4.32.2` (`f3b06c705e6c85f5314019d5d3baab0fec5b580c`), aligned with pinned Talos
 - nearcore: `2.13.3` (`5af9ca74631e6cf0dae33e77d1a632e94d2952ce`)
 - NEAR protocol version: exactly `86`
 

@@ -4,7 +4,7 @@ The authoritative dashboard is the generated `scorecard.json` artifact. It is
 kept deliberately multidimensional rather than collapsed into one completion
 percentage.
 
-At Milestone 8 it reports:
+At Milestone 9 it reports:
 
 - the exact Lean, nearcore, and protocol baseline;
 - feature counts by lifecycle status and verified weighted coverage;
@@ -16,7 +16,9 @@ At Milestone 8 it reports:
   difference;
 - the receipt, block, and economics campaign results; and
 - the million-action validation seed, mutation score, supported-feature coverage,
-  and bit-for-bit replay digest.
+  and bit-for-bit replay digest; and
+- the pinned Talos commit, WebAssembly instruction coverage, and parser/interpreter
+  mutation score.
 
 The six abstract-kernel and seven sandbox features record executable positive and
 negative tests. Their proof obligations cover initialization, invariant

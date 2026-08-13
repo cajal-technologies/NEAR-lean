@@ -1,7 +1,8 @@
 .PHONY: build test lint audit format format-check scorecard nearcore-references \
 	negative-tests differential-self-test differential-smoke receipt-smoke differential-campaign \
-	receipt-campaign block-smoke block-campaign economic-smoke economic-campaign \
-	oracle-install validation-campaign differential-nightly ci ci-online notes
+	receipt-campaign block-smoke block-campaign economic-smoke economic-campaign wasm-campaign \
+	oracle-install wasm-artifacts wasm-validation wasm-smoke validation-campaign \
+	differential-nightly ci ci-online notes
 
 build:
 	lake build --wfail
@@ -35,6 +36,15 @@ differential-self-test:
 oracle-install:
 	npm ci --prefix Oracle --ignore-scripts
 
+wasm-artifacts: oracle-install
+	node scripts/wasm_artifacts.mjs --check
+
+wasm-validation: build
+	python3 scripts/wasm_report.py --check
+
+wasm-smoke: oracle-install
+	python3 scripts/differential.py smoke differential/fixtures/wasm-counter.json --level L4
+
 differential-smoke: oracle-install
 	python3 scripts/differential.py smoke
 
@@ -59,6 +69,9 @@ block-campaign: oracle-install
 economic-campaign: oracle-install
 	python3 scripts/differential.py economic-campaign --count 10000 --seed 1
 
+wasm-campaign: oracle-install
+	python3 scripts/differential.py wasm-campaign
+
 validation-campaign:
 	python3 scripts/validation.py --actions 1000000 --seed 1 --output validation/report.json
 
@@ -71,7 +84,8 @@ differential-nightly: oracle-install
 notes:
 	uv run python -m http.server
 
-ci: format-check lint test scorecard nearcore-references negative-tests differential-self-test
+ci: format-check lint test scorecard nearcore-references negative-tests differential-self-test \
+	wasm-artifacts wasm-validation
 	python3 scripts/validation.py --actions 1000000 --seed 1 --output validation/report.json --check
 
 ci-online: ci
@@ -80,3 +94,4 @@ ci-online: ci
 	$(MAKE) receipt-smoke
 	$(MAKE) block-smoke
 	$(MAKE) economic-smoke
+	$(MAKE) wasm-smoke

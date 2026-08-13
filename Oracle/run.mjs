@@ -37,6 +37,9 @@ async function compileContract(name) {
   if (name !== "counter" && name !== "async") {
     throw new Error(`unsupported oracle contract \`${name}\``);
   }
+  if (name === "counter") {
+    return new Uint8Array(await fs.readFile(path.join(SCRIPT_DIR, "contracts", "counter.wasm")));
+  }
   const source = await fs.readFile(path.join(SCRIPT_DIR, "contracts", `${name}.wat`), "utf8");
   const wabt = await wabtFactory();
   const module = wabt.parseWat(`${name}.wat`, source);

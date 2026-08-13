@@ -19,6 +19,7 @@ DEFAULT_FIXTURE = ROOT / "differential/fixtures/counter.json"
 ASYNC_FIXTURE = ROOT / "differential/fixtures/async.json"
 BLOCK_FIXTURE = ROOT / "differential/fixtures/block.json"
 ECONOMIC_FIXTURE = ROOT / "differential/fixtures/economic.json"
+WASM_FIXTURE = ROOT / "differential/fixtures/wasm-counter.json"
 LEAN_RUNNER = ROOT / ".lake/build/bin/nearLeanOracle"
 
 
@@ -468,6 +469,32 @@ def campaign(count: int, seed: int, output: pathlib.Path) -> None:
             raise SystemExit(f"differential mismatch recorded at {failure}")
 
 
+def wasm_campaign(output: pathlib.Path) -> None:
+    with tempfile.TemporaryDirectory() as temporary:
+        result = execute([WASM_FIXTURE], pathlib.Path(temporary), "L4")
+    generated_trace = json.loads(WASM_FIXTURE.read_text(encoding="utf-8"))
+    action_kinds: dict[str, int] = {}
+    for action in generated_trace["actions"]:
+        kind = action["kind"]
+        action_kinds[kind] = action_kinds.get(kind, 0) + 1
+    result.update(
+        {
+            "actionKinds": dict(sorted(action_kinds.items())),
+            "maxTraceLength": len(generated_trace["actions"]),
+            "schemaVersion": 1,
+            "seed": generated_trace["seed"],
+            "nearcoreCommit": BASELINE["nearcore"]["commit"],
+            "nearcoreRelease": BASELINE["nearcore"]["release"],
+            "protocolVersion": BASELINE["protocolVersions"]["minimum"],
+            "compiledArtifact": "Oracle/contracts/counter.wasm",
+            "executionBackend": "Talos",
+        }
+    )
+    write_json(output, result)
+    if not result["matched"]:
+        raise SystemExit("compiled counter WASM differs from nearcore")
+
+
 def receipt_campaign(count: int, seed: int, batch_size: int, output: pathlib.Path) -> None:
     with tempfile.TemporaryDirectory() as temporary:
         directory = pathlib.Path(temporary)
@@ -660,6 +687,10 @@ def main() -> None:
     economic_campaign_parser.add_argument(
         "--output", type=pathlib.Path, default=ROOT / "differential/economic-report.json"
     )
+    wasm_campaign_parser = subparsers.add_parser("wasm-campaign")
+    wasm_campaign_parser.add_argument(
+        "--output", type=pathlib.Path, default=ROOT / "differential/wasm-report.json"
+    )
     compare_parser = subparsers.add_parser("compare")
     compare_parser.add_argument("lean", type=pathlib.Path)
     compare_parser.add_argument("nearcore", type=pathlib.Path)
@@ -701,6 +732,8 @@ def main() -> None:
             arguments.batch_size,
             arguments.output,
         )
+    elif arguments.command == "wasm-campaign":
+        wasm_campaign(arguments.output)
     elif arguments.command == "compare":
         result = compare(
             json.loads(arguments.lean.read_text(encoding="utf-8")),

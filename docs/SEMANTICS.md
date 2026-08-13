@@ -22,7 +22,7 @@ step :
   WorldState × Except RuntimeError Output
 ```
 
-At Milestone 3 the same interface executes four abstract actions. Account creation
+The same interface executes four abstract actions. Account creation
 is represented as an authorized creator plus an initial balance, matching the
 observable effect of nearcore's create, transfer, and access-key action sequence.
 The kernel commits a candidate state only after checking `WorldState.WellFormed`;
@@ -32,8 +32,8 @@ relational semantics.
 
 `NEARLean.Sandbox` exposes `NearChain.init`, `deploy`, `call`, `view`, transfers,
 account creation, and state queries. The temporary native backend contains a
-counter and simple escrow. It is synchronous and does not model receipts, promises,
-WASM, host functions, or near-workspaces RPC.
+counter and simple escrow. It is synchronous and remains separate from receipts,
+promises, the concrete WASM machine, and near-workspaces RPC.
 
 ## Concrete compatibility semantics
 
@@ -49,6 +49,22 @@ creation, transfers, counter deployment and calls, and insufficient-balance
 failures. It waits for nearcore finality and projects transaction gas burn out of
 balances because the abstract kernel does not model gas economics until Milestone
 7. That projection is explicit adapter code, not a claim about exact economics.
+
+## WebAssembly and host boundary
+
+`NEARLean.Wasm` is a host-polymorphic wrapper around pinned Talos. It decodes and
+validates the reproducibly rendered WAT, resolves exports, initializes memory,
+globals, data segments, and tables, then executes the deterministic small-step
+machine with an explicit fuel cap. It has no NEAR-specific state or import
+behavior.
+
+`NEARLean.WasmHost` is the separate NEAR adapter. At Milestone 9 it resolves only
+the six imports used by the compiled counter: storage read/write, register length
+and read, value return, and UTF-8 logging. The checked-in `counter.wasm` is the
+single artifact consumed by nearcore; `counter.compiled.wat` is a reproducible
+`wasm-tools print` rendering of those bytes consumed by Talos. The L4 fixture sets
+`wasmMode`, which prevents the Lean canonical runner from using the native counter
+implementation for deployment, calls, storage, logs, returns, and traps.
 
 ## Transactions and receipts
 

@@ -53,7 +53,7 @@
     }
   ],
   "featureCoverage": {
-    "complete": 44,
+    "complete": 48,
     "features": [
       {
         "id": "account-identifiers",
@@ -318,9 +318,33 @@
         "differential": true,
         "negative": true,
         "positive": true
+      },
+      {
+        "id": "wasm-decoding-validation",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "wasm-interpreter",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "wasm-machine-state",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "wasm-exports",
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     ],
-    "supported": 44
+    "supported": 48
   },
   "failureFixturePolicy": "minimized-permanent-fixture",
   "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",

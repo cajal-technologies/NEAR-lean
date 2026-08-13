@@ -74,4 +74,7 @@
     call $read_register
     local.get $length
     i64.const 32
-    call $value_return))
+    call $value_return)
+
+  (func (export "trap")
+    unreachable))

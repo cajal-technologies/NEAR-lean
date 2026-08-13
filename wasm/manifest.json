@@ -1,0 +1,35 @@
+{
+  "binary": "Oracle/contracts/counter.wasm",
+  "binarySha256": "4a0edc10f897c5916ba0540db1bb638738e64810e693a74bf749a1c703becaef",
+  "decoder": "wasm-tools print followed by Talos WAT decoding",
+  "execution": "Talos deterministic small-step interpreter",
+  "instructionFamilies": [
+    "call",
+    "call_indirect",
+    "drop",
+    "i32.add",
+    "i32.const",
+    "i32.store8",
+    "i32.wrap_i64",
+    "i64.add",
+    "i64.const",
+    "global.get",
+    "local.get",
+    "local.set",
+    "unreachable"
+  ],
+  "moduleFeatures": [
+    "calls",
+    "data",
+    "exports",
+    "function-imports",
+    "globals",
+    "memory",
+    "tables",
+    "traps"
+  ],
+  "schemaVersion": 1,
+  "talosCommit": "87336df09b41d819c670be99860481573fd00055",
+  "wasmTools": "wasm-tools 1.248.0",
+  "wasmVersion": "WebAssembly Core 1.0 (MVP)"
+}

@@ -2,6 +2,7 @@ import Lean.Data.Json
 import NEARLean.Blocks
 import NEARLean.Economics
 import NEARLean.Sandbox
+import NEARLean.WasmHost
 
 /-!
 # Canonical differential traces
@@ -50,6 +51,7 @@ structure CanonicalTrace where
   receiptMode : Option Bool
   blockMode : Option Bool
   economicMode : Option Bool
+  wasmMode : Option Bool
   deriving FromJson, Repr
 
 structure CanonicalStorageEntry where
@@ -382,11 +384,117 @@ private def runActions
           }
       runActions trace (index + 1) next rest (observation :: observations)
 
+private def directReceiptGraph
+    (executor : String)
+    (success : Bool)
+    (returnValue : List Nat)
+    (errorCategory : Option String) : CanonicalReceiptGraph := {
+  transactionReceiptIds := [0]
+  outcomes := [{
+    id := 0
+    executorId := naturals (bytes executor)
+    receiptIds := []
+    statusKind := if success then "successValue" else "failure"
+    returnValue := returnValue
+    statusReceiptId := none
+    errorCategory := errorCategory
+    blockIndex := none
+  }]
+}
+
+private def updateWasmStorage
+    (chain : NearChain)
+    (accountId : String)
+    (storage : WasmHost.Storage) : Except String NearChain := do
+  let id := bytes accountId
+  let account ← match chain.state.account? id with
+    | some account => pure account
+    | none => throw s!"WASM account `{accountId}` does not exist"
+  return { chain with state := chain.state.setAccount id { account with storage := storage } }
+
+private def runWasmActions
+    (trace : CanonicalTrace)
+    (index : Nat)
+    (chain : NearChain)
+    (host : WasmHost.State)
+    (actions : List TraceAction)
+    (observations : List CanonicalObservation) : Except String (List CanonicalObservation) := do
+  match actions with
+  | [] => return observations.reverse
+  | action :: rest =>
+      let (next, nextHost, success, errorCategory, output, executor) ←
+        match action.kind with
+        | "functionCall" =>
+            let receiver ← requireField "receiver" action.receiver
+            let method ← requireField "method" action.method
+            if action.attachedDeposit.getD "0" != "0" then
+              throw "Milestone 9 WASM calls do not yet support attached deposits"
+            match WasmHost.runCounter host method with
+            | .error (.missingExport _) =>
+                pure (chain, host, false, some "methodNotFound", Output.empty, receiver)
+            | .error executionError =>
+                throw s!"WASM execution failed: {repr executionError}"
+            | .ok run => match run.outcome with
+              | .trap _ =>
+                  pure (chain, host, false, some "contractFailure", Output.empty, receiver)
+              | .success _ store =>
+                  let next ← updateWasmStorage chain receiver store.host.storage
+                  let output := { Output.empty with
+                    returnValue := store.host.returnValue
+                    logs := store.host.logs }
+                  pure (next, store.host, true, none, output, receiver)
+        | "deployContract" =>
+            let accountId ← requireField "accountId" action.accountId
+            let input ← action.toInput
+            let (deployed, result) := chain.apply input
+            match result with
+            | .error runtimeError =>
+                pure (chain, host, false, some runtimeError.category, Output.empty, accountId)
+            | .ok output =>
+                match WasmHost.runCounter host "init" with
+                | .error executionError =>
+                    throw s!"WASM initialization failed: {repr executionError}"
+                | .ok run => match run.outcome with
+                  | .trap _ =>
+                      pure (chain, host, false, some "contractFailure", Output.empty, accountId)
+                  | .success _ store =>
+                      let deployed ← updateWasmStorage deployed accountId store.host.storage
+                      pure (deployed, store.host, true, none, output, accountId)
+        | _ =>
+            let input ← action.toInput
+            let (next, result) := chain.apply input
+            let executor ← match action.accountId.orElse fun _ => action.receiver with
+              | some executor => pure executor
+              | none => throw s!"action `{action.kind}` has no executor"
+            match result with
+            | .error runtimeError =>
+                pure (chain, host, false, some runtimeError.category, Output.empty, executor)
+            | .ok output =>
+                pure (next, host, true, none, output, executor)
+      let returnValue := naturals output.returnValue
+      let receiptGraph := if trace.receiptMode.getD false ∧ success then
+        directReceiptGraph executor success returnValue errorCategory
+      else CanonicalReceiptGraph.empty
+      let observation : CanonicalObservation := {
+        index := index
+        success := success
+        errorCategory := errorCategory
+        returnValue := returnValue
+        logs := output.logs.map naturals
+        receiptGraph := receiptGraph
+        economics := economics trace action success
+        accounts := snapshot next.state trace.observeAccounts
+      }
+      runWasmActions trace (index + 1) next nextHost rest (observation :: observations)
+
 def CanonicalTrace.run (trace : CanonicalTrace) : Except String CanonicalRun := do
   if trace.schemaVersion != 1 then
     throw s!"unsupported trace schema {trace.schemaVersion}"
   let chain ← initialChain trace
-  let observations ← runActions trace 0 chain trace.actions []
+  let observations ← if trace.wasmMode.getD false then
+    runWasmActions trace 0 chain {} trace.actions []
+  else
+    runActions trace 0 chain trace.actions []
   return {
     schemaVersion := trace.schemaVersion
     nearcoreCommit := trace.nearcoreCommit

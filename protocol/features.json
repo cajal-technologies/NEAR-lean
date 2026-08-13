@@ -994,16 +994,16 @@
       "milestone": 9,
       "weight": 5,
       "nearcoreReference": "runtime/near-vm-runner/src/prepare.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Binary decoding is a reproducible wasm-tools-to-WAT step followed by the pinned Talos decoder and partial validator; unsupported or invalid modules fail explicitly."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1013,16 +1013,16 @@
       "milestone": 9,
       "weight": 8,
       "nearcoreReference": "runtime/near-vm-runner/src/runner.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Execution uses Talos commit 87336df09b41d819c670be99860481573fd00055 and its deterministic small-step machine; only the instruction families listed in wasm/manifest.json are claimed for the compiled-counter surface."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1032,16 +1032,16 @@
       "milestone": 9,
       "weight": 6,
       "nearcoreReference": "runtime/near-vm-runner/src/runner.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Memory, globals, tables, direct and indirect calls, and structural traps are exercised through Talos; the NEAR adapter exposes only the counter's six required host imports at this milestone."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1051,16 +1051,16 @@
       "milestone": 9,
       "weight": 3,
       "nearcoreReference": "runtime/near-vm-runner/src/runner.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Only exported functions with no contract arguments are accepted by the Milestone 9 NEAR adapter; missing exports return an explicit method-resolution error."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {

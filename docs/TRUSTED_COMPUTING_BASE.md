@@ -5,9 +5,11 @@ The list is expected to become more precise as executable semantics are added.
 
 ## Trusted
 
-- The Lean 4 kernel from the pinned `v4.33.0` toolchain.
+- The Lean 4 kernel from the pinned `v4.32.2` toolchain, aligned with Talos.
 - The native code, operating system, and hardware used to execute Lean.
 - Lake and elan as distributed with, or used to install, the pinned toolchain.
+- Talos commit `87336df09b41d819c670be99860481573fd00055`, including its decoder,
+  validator, deterministic small-step machine, and standard-axiom dependencies.
 - Python 3.11 or newer and the dependency-free gate program in `scripts/check.py`.
 - The differential campaign and minimization adapter in `scripts/differential.py`.
 - Node.js 22.22.2 or newer and the exact packages locked in
@@ -30,9 +32,9 @@ checked-in Git object IDs, and hosted CI compares those IDs with the pinned
 nearcore tree.
 
 `Oracle/Differential.lean` deliberately lives outside the audited `NEARLean`
-library. Lean's JSON parser and serializer depend on `Classical.choice` and
-`Quot.sound`; isolating that executable boundary preserves the stricter axiom
-policy for protocol semantics and proofs.
+library. The Talos-backed production adapter is audited inside `NEARLean`, so
+its transitive standard axioms are visible rather than hidden at the executable
+boundary.
 
 The L4 adapter additionally trusts the small `Oracle/contracts/async.wat` fixture
 and its projection of opaque nearcore receipt hashes to creation-order identities.
@@ -44,7 +46,9 @@ the offline comparator test.
 
 Proposition extensionality (`propext`) is approved because Lean's generated
 equality and representation declarations for Milestone 1 structures depend on
-it. `Classical.choice`, `Quot.sound`, and nonstandard axioms remain prohibited.
+it. `Classical.choice` and `Quot.sound` are approved for the pinned Talos
+decoder/executor dependency. Nonstandard and all other unlisted axioms remain
+prohibited.
 The lint gate imports every production module, enumerates every declaration
 originating in `NEARLean.*` modules, and uses Lean's transitive axiom collector on
 each declaration. `audit/theorems.txt` only marks headline theorems for dashboard
@@ -58,6 +62,6 @@ lexical gate supplements, but does not replace, the environment-level audit.
 
 ## Not yet in the trusted base
 
-There is no Lean WASM decoder or interpreter, concrete serialization layer, trie
-implementation, state-root computation, or historical fixture importer yet.
-Those are unsupported features rather than silently trusted components.
+There is no concrete serialization layer, trie implementation, state-root
+computation, or historical fixture importer yet. Those are unsupported features
+rather than silently trusted components.

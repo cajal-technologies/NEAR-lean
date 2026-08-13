@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "nearcoreRelease": "2.13.3",
+  "protocolVersion": 86,
+  "seed": 9,
+  "genesis": [
+    {
+      "id": "wasm-owner",
+      "balance": "100000000000000000000000000"
+    }
+  ],
+  "actions": [
+    {
+      "kind": "createAccount",
+      "creator": "wasm-owner",
+      "accountId": "counter.wasm-owner",
+      "initialBalance": "10000000000000000000000000"
+    },
+    {
+      "kind": "deployContract",
+      "deployer": "counter.wasm-owner",
+      "accountId": "counter.wasm-owner",
+      "contract": "counter"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "wasm-owner",
+      "receiver": "counter.wasm-owner",
+      "method": "increment",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "wasm-owner",
+      "receiver": "counter.wasm-owner",
+      "method": "get",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "wasm-owner",
+      "receiver": "counter.wasm-owner",
+      "method": "trap",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    }
+  ],
+  "observeAccounts": [
+    "wasm-owner",
+    "counter.wasm-owner"
+  ],
+  "receiptMode": true,
+  "wasmMode": true
+}

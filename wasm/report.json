@@ -1,0 +1,138 @@
+{
+  "wasmVersion": "WebAssembly Core 1.0 (MVP)",
+  "talosCommit": "87336df09b41d819c670be99860481573fd00055",
+  "schemaVersion": 1,
+  "mutations": [
+    {
+      "name": "empty-module",
+      "killed": true
+    },
+    {
+      "name": "truncated-module",
+      "killed": true
+    },
+    {
+      "name": "wrong-top-level",
+      "killed": true
+    },
+    {
+      "name": "local-index-off-by-one",
+      "killed": true
+    },
+    {
+      "name": "unknown-export-index",
+      "killed": true
+    },
+    {
+      "name": "unreachable-as-nop",
+      "killed": true
+    },
+    {
+      "name": "divide-by-zero-not-trap",
+      "killed": true
+    },
+    {
+      "name": "memory-boundary-off-by-one",
+      "killed": true
+    },
+    {
+      "name": "missing-export-fallback",
+      "killed": true
+    },
+    {
+      "name": "fuel-cap-ignored",
+      "killed": true
+    },
+    {
+      "name": "counter-storage-write-dropped",
+      "killed": true
+    },
+    {
+      "name": "counter-return-dropped",
+      "killed": true
+    }
+  ],
+  "mutationScore": 100,
+  "instructionCoverage": [
+    {
+      "name": "administrative",
+      "count": 8
+    },
+    {
+      "name": "call",
+      "count": 1
+    },
+    {
+      "name": "call_indirect",
+      "count": 1
+    },
+    {
+      "name": "drop",
+      "count": 4
+    },
+    {
+      "name": "global.get",
+      "count": 1
+    },
+    {
+      "name": "host.0",
+      "count": 2
+    },
+    {
+      "name": "host.1",
+      "count": 2
+    },
+    {
+      "name": "host.2",
+      "count": 2
+    },
+    {
+      "name": "host.3",
+      "count": 2
+    },
+    {
+      "name": "host.4",
+      "count": 2
+    },
+    {
+      "name": "host.5",
+      "count": 1
+    },
+    {
+      "name": "i32.add",
+      "count": 1
+    },
+    {
+      "name": "i32.const",
+      "count": 5
+    },
+    {
+      "name": "i32.store8",
+      "count": 1
+    },
+    {
+      "name": "i32.wrap_i64",
+      "count": 1
+    },
+    {
+      "name": "i64.add",
+      "count": 2
+    },
+    {
+      "name": "i64.const",
+      "count": 27
+    },
+    {
+      "name": "local.get",
+      "count": 4
+    },
+    {
+      "name": "local.set",
+      "count": 2
+    },
+    {
+      "name": "unreachable",
+      "count": 1
+    }
+  ]
+}

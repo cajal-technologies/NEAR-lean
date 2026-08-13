@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "lean": {
-    "commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
-    "toolchain": "leanprover/lean4:v4.33.0"
+    "commit": "f3b06c705e6c85f5314019d5d3baab0fec5b580c",
+    "toolchain": "leanprover/lean4:v4.32.2"
   },
   "nearcore": {
     "commit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",

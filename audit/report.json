@@ -1,5 +1,7 @@
 {
   "allowedAxioms": [
+    "Classical.choice",
+    "Quot.sound",
     "propext"
   ],
   "declarations": [
@@ -5471,6 +5473,732 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.WasmExecution.Error"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.decode"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.decode.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.decode.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.Error.decode.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.decode.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.decode.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.initialization"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.initialization.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.initialization.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.Error.initialization.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.initialization.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.initialization.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.internal"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.internal.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.internal.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.Error.internal.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.internal.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.internal.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.invalid"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.invalid.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.invalid.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.Error.invalid.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.invalid.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.invalid.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.missingExport"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.missingExport.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.missingExport.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.Error.missingExport.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.missingExport.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.missingExport.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.outOfFuel"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.outOfFuel.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.outOfFuel.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Error.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.success"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.success.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.success.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.Outcome.success.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.success.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.success.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.trap"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.trap.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.trap.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.Outcome.trap.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.trap.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Outcome.trap.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.instructionTrace"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.Run.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.outcome"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.Run.recOn"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.decodeAndValidate"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.decodeValidateExecute"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.execute"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.execute.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.execute.match_3"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError.beq"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError.beq._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError.beq._sparseCasesOn_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError.beq._sparseCasesOn_3"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError.beq._sparseCasesOn_4"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError.beq._sparseCasesOn_5"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError.beq._sparseCasesOn_6"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instBEqError.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instReprError"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instReprError.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.instReprError.repr.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instructionClass"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instructionClass._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.instructionClass.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmExecution.stepClass"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmExecution.stepClass.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Bytes"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Registers"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.beginCall"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.logs"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.logs._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.State.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.registers"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.registers._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.returnValue"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.returnValue._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.storage"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.State.storage._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Storage"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.counterModule"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.counterSource"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.environment"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.instInhabitedState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.instInhabitedState.default"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.instReprState"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.instReprState.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.logUtf8"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.readRegister"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.readRegister.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.registerLen"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.registerLen.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.registerLen.match_3"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.runCounter"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.storageRead"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.storageRead._sparseCasesOn_3"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.storageRead._sparseCasesOn_4"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.storageRead._sparseCasesOn_5"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.storageRead.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.storageRead.match_3"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.storageWrite"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.storageWrite.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.valueReturn"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.WorldState"
     },
     {
@@ -7082,6 +7810,26 @@
     {
       "axioms": [],
       "name": "_private.NEARLean.Receipts.0.NEARLean.executeInputs.loop.match_6"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.lookupRegister"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.lookupStorage"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.readMemory"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.setRegister"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.setStorage"
     }
   ],
   "headlineTheorems": [

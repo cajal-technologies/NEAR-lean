@@ -1,0 +1,20 @@
+{
+  "matched": true,
+  "observationLevel": "L4",
+  "traceCount": 1,
+  "actionCount": 5,
+  "firstDifference": null,
+  "actionKinds": {
+    "createAccount": 1,
+    "deployContract": 1,
+    "functionCall": 3
+  },
+  "maxTraceLength": 5,
+  "schemaVersion": 1,
+  "seed": 9,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "nearcoreRelease": "2.13.3",
+  "protocolVersion": 86,
+  "compiledArtifact": "Oracle/contracts/counter.wasm",
+  "executionBackend": "Talos"
+}

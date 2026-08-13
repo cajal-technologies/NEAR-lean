@@ -1,6 +1,8 @@
 {
   "allowed": [
+    "Classical.choice",
+    "Quot.sound",
     "propext"
   ],
-  "rationale": "Milestone 1 permits Lean's standard proposition extensionality axiom for generated structure equality and representation declarations. Classical.choice, Quot.sound, and nonstandard axioms remain prohibited."
+  "rationale": "Milestone 1 permits proposition extensionality for generated structure equality. Milestone 9 permits Lean's standard classical-choice and quotient axioms only because the pinned Talos decoder and executable machine transitively use them; the audit still rejects every nonstandard or unlisted axiom."
 }

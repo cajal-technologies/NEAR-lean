@@ -8,3 +8,5 @@ import NEARLean.Receipts
 import NEARLean.Sandbox
 import NEARLean.Semantics
 import NEARLean.Verification
+import NEARLean.Wasm
+import NEARLean.WasmHost

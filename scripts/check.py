@@ -518,9 +518,13 @@ def differential_report_errors() -> list[str]:
     errors += generated_report_errors(
         ROOT / "differential/economic-report.json", "economic differential", 10000, "L5"
     )
+    errors += generated_report_errors(
+        ROOT / "differential/wasm-report.json", "WASM differential", 1, "L4"
+    )
     receipt = load_json(ROOT / "differential/receipt-report.json")
     blocks = load_json(ROOT / "differential/block-report.json")
     economics = load_json(ROOT / "differential/economic-report.json")
+    wasm_differential = load_json(ROOT / "differential/wasm-report.json")
     if not isinstance(receipt, dict) or receipt.get("receiptOutcomesPerTrace") != 3:
         errors.append("receipt differential report must record three semantic outcomes per trace")
     if not isinstance(blocks, dict) or not is_integer(blocks.get("blockCount")) or blocks[
@@ -537,6 +541,13 @@ def differential_report_errors() -> list[str]:
             errors.append("economic mutation counts must be valid")
         if not is_integer(score) or score < 90:
             errors.append("economic mutation score must be at least 90%")
+    if not isinstance(wasm_differential, dict):
+        errors.append("WASM differential report must be an object")
+    elif (
+        wasm_differential.get("compiledArtifact") != "Oracle/contracts/counter.wasm"
+        or wasm_differential.get("executionBackend") != "Talos"
+    ):
+        errors.append("WASM differential report must use the compiled counter through Talos")
     return errors
 
 
@@ -671,6 +682,66 @@ def validation_report_errors(path: pathlib.Path | None = None) -> list[str]:
     return errors
 
 
+def wasm_report_errors(path: pathlib.Path | None = None) -> list[str]:
+    report = load_json(path or ROOT / "wasm/report.json")
+    manifest = load_json(ROOT / "wasm/manifest.json")
+    lake_manifest = load_json(ROOT / "lake-manifest.json")
+    if not isinstance(report, dict) or not isinstance(manifest, dict):
+        return ["WASM report and manifest must be JSON objects"]
+    errors: list[str] = []
+    talos = next(
+        (
+            package
+            for package in lake_manifest.get("packages", [])
+            if isinstance(package, dict) and package.get("name") == "Interpreter"
+        ),
+        None,
+    ) if isinstance(lake_manifest, dict) else None
+    talos_commit = manifest.get("talosCommit")
+    if (
+        not isinstance(talos, dict)
+        or talos.get("url") != "https://github.com/cajal-technologies/talos.git"
+        or talos.get("rev") != talos_commit
+        or talos.get("subDir") != "interpreter"
+    ):
+        errors.append("Talos dependency must match the pinned WASM manifest")
+    if report.get("talosCommit") != talos_commit:
+        errors.append("WASM report Talos commit is stale")
+    if report.get("wasmVersion") != manifest.get("wasmVersion"):
+        errors.append("WASM report version is stale")
+    digest = manifest.get("binarySha256")
+    if not isinstance(digest, str) or not SHA256.fullmatch(digest):
+        errors.append("WASM counter artifact needs a SHA-256 digest")
+    instructions = report.get("instructionCoverage")
+    covered = {
+        item.get("name")
+        for item in instructions
+        if isinstance(item, dict) and is_integer(item.get("count")) and item["count"] > 0
+    } if isinstance(instructions, list) else set()
+    required_instructions = set(manifest.get("instructionFamilies", []))
+    if not required_instructions or not required_instructions <= covered:
+        errors.append("WASM instruction coverage does not cover the compiled counter manifest")
+    mutations = report.get("mutations")
+    score = report.get("mutationScore")
+    if not isinstance(mutations, list) or len(mutations) < 10 or any(
+        not isinstance(mutation, dict)
+        or not isinstance(mutation.get("name"), str)
+        or not isinstance(mutation.get("killed"), bool)
+        for mutation in mutations
+    ):
+        errors.append("WASM report must contain valid parser/interpreter mutations")
+    else:
+        calculated = 100 * sum(mutation["killed"] for mutation in mutations) // len(mutations)
+        if score != calculated:
+            errors.append("WASM mutation score does not match its results")
+    if not is_integer(score) or score < 90:
+        errors.append("WASM parser/interpreter mutation score must be at least 90%")
+    fixture = load_json(ROOT / "differential/fixtures/wasm-counter.json")
+    if not isinstance(fixture, dict) or fixture.get("wasmMode") is not True:
+        errors.append("compiled counter differential fixture must enable WASM mode")
+    return errors
+
+
 def production_theorems() -> list[str]:
     lines = (ROOT / "audit/theorems.txt").read_text(encoding="utf-8").splitlines()
     return [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
@@ -779,6 +850,7 @@ def scorecard() -> dict[str, object]:
     blocks = load_json(ROOT / "differential/block-report.json")
     economics = load_json(ROOT / "differential/economic-report.json")
     validation = load_json(ROOT / "validation/report.json")
+    wasm = load_json(ROOT / "wasm/report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -855,8 +927,14 @@ def scorecard() -> dict[str, object]:
             "mutationScore": validation["mutationScore"],
             "seed": validation["seed"],
         },
+        "generatedWasm": {
+            "instructionsCovered": len(wasm["instructionCoverage"]),
+            "mutationScore": wasm["mutationScore"],
+            "talosCommit": wasm["talosCommit"],
+            "wasmVersion": wasm["wasmVersion"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 7,
+        "schemaVersion": 8,
     }
 
 
@@ -957,6 +1035,11 @@ def run_negative_tests() -> int:
         corrupted_validation_path = pathlib.Path(temporary) / "validation-report.json"
         corrupted_validation_path.write_text(json.dumps(corrupted_validation), encoding="utf-8")
         corrupted_validation_errors = validation_report_errors(corrupted_validation_path)
+        corrupted_wasm = copy.deepcopy(load_json(ROOT / "wasm/report.json"))
+        corrupted_wasm["mutationScore"] = 80
+        corrupted_wasm_path = pathlib.Path(temporary) / "wasm-report.json"
+        corrupted_wasm_path.write_text(json.dumps(corrupted_wasm), encoding="utf-8")
+        corrupted_wasm_errors = wasm_report_errors(corrupted_wasm_path)
     outcomes = [
         expect_failure("source hygiene", format_errors([negative / "BadFormat.lean"])),
         expect_failure("sorry", policy_errors([negative / "Sorry.lean"])),
@@ -980,6 +1063,7 @@ def run_negative_tests() -> int:
         expect_failure("feature ratchet", ratchet_errors(manifest, previous)),
         expect_failure("differential report ratchet", corrupted_report_errors),
         expect_failure("validation report ratchet", corrupted_validation_errors),
+        expect_failure("WASM report ratchet", corrupted_wasm_errors),
     ]
     warning = subprocess.run(
         ["lake", "env", "lean", "-DwarningAsError=true", "Tests/Negative/Warning.lean"],
@@ -1035,6 +1119,7 @@ def main() -> int:
         audit_errors, report = production_audit()
         errors = policy_errors(lean_files) + benchmark_api_errors()
         errors += validate_manifest() + differential_report_errors() + validation_report_errors()
+        errors += wasm_report_errors()
         errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)

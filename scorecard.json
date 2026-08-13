@@ -1,10 +1,12 @@
 {
   "axiomAudit": {
     "allowedAxioms": [
+      "Classical.choice",
+      "Quot.sound",
       "propext"
     ],
-    "auditedDeclarations": 1656,
-    "declarationsUsingAxioms": 228,
+    "auditedDeclarations": 1817,
+    "declarationsUsingAxioms": 273,
     "headlineTheoremNames": [
       "NEARLean.Account.initial_wellFormed",
       "NEARLean.WorldState.initial_wellFormed",
@@ -47,7 +49,7 @@
     "headlineTheorems": 37
   },
   "baseline": {
-    "leanToolchain": "leanprover/lean4:v4.33.0",
+    "leanToolchain": "leanprover/lean4:v4.32.2",
     "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
     "nearcoreRelease": "2.13.3",
     "protocolVersionRange": {
@@ -57,16 +59,16 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 31,
+      "unsupported": 27,
       "partial": 1,
-      "implemented": 43,
+      "implemented": 47,
       "verified": 0
     },
     "coverage": {
-      "positive": 44,
-      "negative": 44,
-      "differential": 44,
-      "executableSemantics": 44,
+      "positive": 48,
+      "negative": 48,
+      "differential": 48,
+      "executableSemantics": 48,
       "proofObligationsDischarged": 23
     },
     "total": 75,
@@ -108,11 +110,17 @@
   },
   "generatedValidation": {
     "actions": 1000000,
-    "featuresCovered": 44,
+    "featuresCovered": 48,
     "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
     "mutationScore": 100.0,
     "seed": 1
   },
+  "generatedWasm": {
+    "instructionsCovered": 20,
+    "mutationScore": 100,
+    "talosCommit": "87336df09b41d819c670be99860481573fd00055",
+    "wasmVersion": "WebAssembly Core 1.0 (MVP)"
+  },
   "observationLevel": "L5",
-  "schemaVersion": 7
+  "schemaVersion": 8
 }

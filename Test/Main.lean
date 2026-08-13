@@ -43,6 +43,15 @@ private def expectEconomicError
   | .error actual => assertEqual expected actual
   | .ok _ => throw <| IO.userError s!"expected {repr expected}, got success"
 
+private def expectWasmSuccess
+    (result : Except WasmExecution.Error (WasmExecution.Run WasmHost.State)) :
+    IO (WasmHost.State × List String) :=
+  match result with
+  | .ok run => match run.outcome with
+    | .success _ store => pure (store.host, run.instructionTrace)
+    | .trap message => throw <| IO.userError s!"expected WASM success, trapped: {message}"
+  | .error error => throw <| IO.userError s!"expected WASM success, got {repr error}"
+
 private def funded (amount : Balance) : Account :=
   { Account.initial with balance := amount }
 
@@ -332,5 +341,37 @@ def main : IO Unit := do
   let carriedMachine := (ReceiptMachine.init receiptWorld).submit config carriedTransaction
   assertEqual 4 carriedMachine.carriedBalance
 
+  let (wasmState, initTrace) ← expectWasmSuccess <| WasmHost.runCounter {} "init"
+  assertEqual [([1], [])] wasmState.storage
+  let (wasmState, incrementTrace) ← expectWasmSuccess <|
+    WasmHost.runCounter wasmState "increment"
+  assertEqual [0] wasmState.returnValue
+  assertEqual [[1]] wasmState.logs
+  assertEqual [([1], [0])] wasmState.storage
+  let (wasmState, getTrace) ← expectWasmSuccess <| WasmHost.runCounter wasmState "get"
+  assertEqual [0] wasmState.returnValue
+  assertEqual [] wasmState.logs
+  assertEqual true ("i32.store8" ∈ incrementTrace)
+  assertEqual true ("host.0" ∈ incrementTrace)
+  assertEqual true ("host.5" ∈ incrementTrace)
+  let replay ← expectWasmSuccess <| WasmHost.runCounter { storage := [([1], [])] } "increment"
+  assertEqual wasmState.storage replay.1.storage
+  assertEqual incrementTrace replay.2
+  match WasmHost.runCounter wasmState "missing" with
+  | .error (.missingExport "missing") => pure ()
+  | _ => throw <| IO.userError "expected a missing WASM export error"
+  match WasmHost.runCounter wasmState "trap" with
+  | .ok { outcome := .trap "unreachable", instructionTrace := trace } =>
+      assertEqual true ("unreachable" ∈ trace)
+  | _ => throw <| IO.userError "expected an explicit WASM unreachable trap"
+  match WasmExecution.decodeAndValidate "not a module" with
+  | .error (.decode _) => pure ()
+  | _ => throw <| IO.userError "malformed WASM source was not rejected"
+  match WasmExecution.decodeAndValidate "(module (func (export \"bad\") local.get 0))" with
+  | .error (.invalid _) => pure ()
+  | _ => throw <| IO.userError "invalid WASM module was not rejected"
+  assertEqual true (initTrace.length > 0)
+  assertEqual true (getTrace.length > 0)
+
   runTransferScenarios config
-  IO.println "100 transfer scenarios and Milestone 2-7 API tests passed"
+  IO.println "100 transfer scenarios and Milestone 2-9 API tests passed"
