@@ -32,4 +32,6 @@ NEARLean.Benchmarks.Escrow.safe
 NEARLean.Benchmarks.Escrow.unauthorized_release_unchanged
 NEARLean.Benchmarks.FungibleToken.safe
 NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged
+NEARLean.EconomicState.step_conserves_tokens
+NEARLean.EconomicState.step_respects_gas_limit
 NEARLean.SemanticsLayer.abstract_ne_concrete

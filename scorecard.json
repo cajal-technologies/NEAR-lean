@@ -3,8 +3,8 @@
     "allowedAxioms": [
       "propext"
     ],
-    "auditedDeclarations": 1444,
-    "declarationsUsingAxioms": 202,
+    "auditedDeclarations": 1656,
+    "declarationsUsingAxioms": 228,
     "headlineTheoremNames": [
       "NEARLean.Account.initial_wellFormed",
       "NEARLean.WorldState.initial_wellFormed",
@@ -40,9 +40,11 @@
       "NEARLean.Benchmarks.Escrow.unauthorized_release_unchanged",
       "NEARLean.Benchmarks.FungibleToken.safe",
       "NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged",
+      "NEARLean.EconomicState.step_conserves_tokens",
+      "NEARLean.EconomicState.step_respects_gas_limit",
       "NEARLean.SemanticsLayer.abstract_ne_concrete"
     ],
-    "headlineTheorems": 35
+    "headlineTheorems": 37
   },
   "baseline": {
     "leanToolchain": "leanprover/lean4:v4.33.0",
@@ -55,17 +57,17 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 43,
+      "unsupported": 37,
       "partial": 1,
-      "implemented": 31,
+      "implemented": 37,
       "verified": 0
     },
     "coverage": {
-      "positive": 32,
-      "negative": 32,
-      "differential": 15,
-      "executableSemantics": 32,
-      "proofObligationsDischarged": 19
+      "positive": 38,
+      "negative": 38,
+      "differential": 18,
+      "executableSemantics": 38,
+      "proofObligationsDischarged": 23
     },
     "total": 75,
     "verifiedWeightPercent": 0.0
@@ -97,6 +99,13 @@
     "seed": 1,
     "traces": 10000
   },
-  "observationLevel": "L4",
-  "schemaVersion": 5
+  "generatedEconomics": {
+    "actions": 10000,
+    "firstDifference": null,
+    "mutationScore": 100,
+    "seed": 1,
+    "traces": 10000
+  },
+  "observationLevel": "L5",
+  "schemaVersion": 6
 }

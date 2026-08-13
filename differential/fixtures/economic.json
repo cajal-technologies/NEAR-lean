@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "nearcoreRelease": "2.13.3",
+  "protocolVersion": 86,
+  "seed": 7,
+  "genesis": [
+    {
+      "id": "s00000007.econ",
+      "balance": "100000000000000000000000000"
+    },
+    {
+      "id": "r00000007.econ",
+      "balance": "100000000000000000000000000"
+    }
+  ],
+  "actions": [
+    {
+      "kind": "transfer",
+      "sender": "s00000007.econ",
+      "receiver": "r00000007.econ",
+      "amount": "1"
+    }
+  ],
+  "observeAccounts": [
+    "s00000007.econ",
+    "r00000007.econ"
+  ],
+  "economicMode": true,
+  "receiptMode": true
+}

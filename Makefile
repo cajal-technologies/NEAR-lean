@@ -1,6 +1,7 @@
 .PHONY: build test lint audit format format-check scorecard nearcore-references \
 	negative-tests differential-self-test differential-smoke receipt-smoke differential-campaign \
-	receipt-campaign block-smoke block-campaign oracle-install ci ci-online notes
+	receipt-campaign block-smoke block-campaign economic-smoke economic-campaign \
+	oracle-install ci ci-online notes
 
 build:
 	lake build --wfail
@@ -43,6 +44,9 @@ receipt-smoke: oracle-install
 block-smoke: oracle-install
 	python3 scripts/differential.py smoke differential/fixtures/block.json --level L4
 
+economic-smoke: oracle-install
+	python3 scripts/differential.py smoke differential/fixtures/economic.json --level L5
+
 differential-campaign: oracle-install
 	python3 scripts/differential.py campaign --count 1000 --seed 1
 
@@ -51,6 +55,9 @@ receipt-campaign: oracle-install
 
 block-campaign: oracle-install
 	python3 scripts/differential.py block-campaign --count 10000 --seed 1
+
+economic-campaign: oracle-install
+	python3 scripts/differential.py economic-campaign --count 10000 --seed 1
 
 notes:
 	uv run python -m http.server
@@ -62,3 +69,4 @@ ci-online: ci
 	$(MAKE) differential-smoke
 	$(MAKE) receipt-smoke
 	$(MAKE) block-smoke
+	$(MAKE) economic-smoke

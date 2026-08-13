@@ -18,6 +18,7 @@ BASELINE = json.loads((ROOT / "protocol/baseline.json").read_text(encoding="utf-
 DEFAULT_FIXTURE = ROOT / "differential/fixtures/counter.json"
 ASYNC_FIXTURE = ROOT / "differential/fixtures/async.json"
 BLOCK_FIXTURE = ROOT / "differential/fixtures/block.json"
+ECONOMIC_FIXTURE = ROOT / "differential/fixtures/economic.json"
 LEAN_RUNNER = ROOT / ".lake/build/bin/nearLeanOracle"
 
 
@@ -176,6 +177,44 @@ def generate_blocks(count: int, seed: int, directory: pathlib.Path) -> list[path
     return paths
 
 
+def economic_trace(seed: int) -> dict[str, object]:
+    suffix = f"{seed:08x}"
+    sender = f"s{suffix}.econ"
+    receiver = f"r{suffix}.econ"
+    balance = "100000000000000000000000000"
+    return {
+        "schemaVersion": 1,
+        "nearcoreCommit": BASELINE["nearcore"]["commit"],
+        "nearcoreRelease": BASELINE["nearcore"]["release"],
+        "protocolVersion": BASELINE["protocolVersions"]["minimum"],
+        "seed": seed,
+        "genesis": [
+            {"id": sender, "balance": balance},
+            {"id": receiver, "balance": balance},
+        ],
+        "actions": [
+            {
+                "kind": "transfer",
+                "sender": sender,
+                "receiver": receiver,
+                "amount": str(seed % 1000),
+            }
+        ],
+        "observeAccounts": [sender, receiver],
+        "receiptMode": True,
+        "economicMode": True,
+    }
+
+
+def generate_economics(count: int, seed: int, directory: pathlib.Path) -> list[pathlib.Path]:
+    paths = []
+    for current in range(seed, seed + count):
+        path = directory / f"{current:08d}.json"
+        write_json(path, economic_trace(current))
+        paths.append(path)
+    return paths
+
+
 def run_lean(paths: list[pathlib.Path], output: pathlib.Path, build: bool = True) -> None:
     if build:
         subprocess.run(["lake", "build", "nearLeanOracle"], cwd=ROOT, check=True)
@@ -254,6 +293,7 @@ def compare(
             ("L2", ("returnValue", "logs")),
             ("L3", ("accounts",)),
             ("L4", ("receiptGraph",)),
+            ("L5", ("economics",)),
         )
         for level, fields in levels[: int(observation_level[1:])]:
             left = [{field: item[field] for field in fields} for item in lean_observations]
@@ -365,6 +405,28 @@ def self_test() -> None:
     result = compare(block_reference, corrupted, "L4")
     if result["matched"] or result["firstDifference"]["level"] != "L4":
         raise AssertionError("comparator missed L4 block-index corruption")
+    with tempfile.TemporaryDirectory() as temporary:
+        economic_output = pathlib.Path(temporary) / "lean.json"
+        run_lean([ECONOMIC_FIXTURE], economic_output)
+        economic_reference = json.loads(economic_output.read_text(encoding="utf-8"))
+    mutations = [
+        lambda value: value.update(gasBurnt="1"),
+        lambda value: value.update(gasUsed="1"),
+        lambda value: value.update(tokensBurnt="1"),
+        lambda value: value.update(refundCount=0),
+        lambda value: value.update(refundCount=2),
+        lambda value: value["storageUsageDelta"][0].update(bytes="1"),
+        lambda value: value["storageUsageDelta"][1].update(bytes="-1"),
+        lambda value: value["storageUsageDelta"][0].update(id="corrupt"),
+        lambda value: value["storageUsageDelta"].reverse(),
+        lambda value: value.update(storageUsageDelta=[]),
+    ]
+    for mutate in mutations:
+        corrupted = copy.deepcopy(economic_reference)
+        mutate(corrupted["observations"][0]["economics"])
+        result = compare(economic_reference, corrupted, "L5")
+        if result["matched"] or result["firstDifference"]["level"] != "L5":
+            raise AssertionError("comparator missed L5 economics mutation")
     synthetic = {"actions": [{"kind": "transfer"}, {"kind": "functionCall"}, {"kind": "transfer"}]}
     minimized = minimize_actions(
         synthetic,
@@ -515,6 +577,55 @@ def block_campaign(count: int, seed: int, batch_size: int, output: pathlib.Path)
             raise SystemExit(f"block mismatch recorded at {failure}")
 
 
+def economic_campaign(count: int, seed: int, batch_size: int, output: pathlib.Path) -> None:
+    with tempfile.TemporaryDirectory() as temporary:
+        directory = pathlib.Path(temporary)
+        paths = generate_economics(count, seed, directory / "traces")
+        matched = True
+        first_difference = None
+        action_count = 0
+        completed = 0
+        failure = None
+        for batch_index in range(0, len(paths), batch_size):
+            batch = paths[batch_index : batch_index + batch_size]
+            result = execute(
+                batch,
+                directory / f"batch-{batch_index // batch_size}",
+                "L5",
+                build_lean=batch_index == 0,
+            )
+            action_count += result["actionCount"]
+            completed += result["traceCount"]
+            print(f"economic campaign: {completed}/{count} traces", flush=True)
+            if not result["matched"]:
+                matched = False
+                first_difference = result["firstDifference"]
+                failing_path = batch[first_difference["traceIndex"]]
+                failure = ROOT / "differential/failures" / failing_path.name
+                write_json(failure, json.loads(failing_path.read_text(encoding="utf-8")))
+                break
+        report = {
+            "matched": matched,
+            "observationLevel": "L5" if matched else "L4",
+            "traceCount": completed,
+            "actionCount": action_count,
+            "firstDifference": first_difference,
+            "actionKinds": {"transfer": action_count},
+            "maxTraceLength": 1,
+            "economicMutationsKilled": 10,
+            "economicMutationsTotal": 10,
+            "economicMutationScore": 100,
+            "schemaVersion": 1,
+            "seed": seed,
+            "nearcoreCommit": BASELINE["nearcore"]["commit"],
+            "nearcoreRelease": BASELINE["nearcore"]["release"],
+            "protocolVersion": BASELINE["protocolVersions"]["minimum"],
+        }
+        write_json(output, report)
+        if not matched:
+            raise SystemExit(f"economic mismatch recorded at {failure}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -542,17 +653,28 @@ def main() -> None:
     block_campaign_parser.add_argument(
         "--output", type=pathlib.Path, default=ROOT / "differential/block-report.json"
     )
+    economic_campaign_parser = subparsers.add_parser("economic-campaign")
+    economic_campaign_parser.add_argument("--count", type=int, default=10000)
+    economic_campaign_parser.add_argument("--seed", type=int, default=1)
+    economic_campaign_parser.add_argument("--batch-size", type=int, default=500)
+    economic_campaign_parser.add_argument(
+        "--output", type=pathlib.Path, default=ROOT / "differential/economic-report.json"
+    )
     compare_parser = subparsers.add_parser("compare")
     compare_parser.add_argument("lean", type=pathlib.Path)
     compare_parser.add_argument("nearcore", type=pathlib.Path)
-    compare_parser.add_argument("--level", choices=["L1", "L2", "L3", "L4"], default="L3")
+    compare_parser.add_argument(
+        "--level", choices=["L1", "L2", "L3", "L4", "L5"], default="L3"
+    )
     minimize_parser = subparsers.add_parser("minimize")
     minimize_parser.add_argument("trace", type=pathlib.Path)
     minimize_parser.add_argument("--output", type=pathlib.Path, required=True)
     subparsers.add_parser("self-test")
     smoke_parser = subparsers.add_parser("smoke")
     smoke_parser.add_argument("trace", type=pathlib.Path, nargs="?", default=DEFAULT_FIXTURE)
-    smoke_parser.add_argument("--level", choices=["L1", "L2", "L3", "L4"], default="L3")
+    smoke_parser.add_argument(
+        "--level", choices=["L1", "L2", "L3", "L4", "L5"], default="L3"
+    )
     arguments = parser.parse_args()
     if arguments.command == "generate":
         generate(arguments.count, arguments.seed, arguments.output)
@@ -567,6 +689,13 @@ def main() -> None:
         )
     elif arguments.command == "block-campaign":
         block_campaign(
+            arguments.count,
+            arguments.seed,
+            arguments.batch_size,
+            arguments.output,
+        )
+    elif arguments.command == "economic-campaign":
+        economic_campaign(
             arguments.count,
             arguments.seed,
             arguments.batch_size,

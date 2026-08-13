@@ -1503,6 +1503,10 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.BlockScheduler.instDecidableWellFormed"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.BlockScheduler.localReceipts"
     },
     {
@@ -1863,7 +1867,681 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.EconomicAction"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.claimRefund"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.claimRefund.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.claimRefund.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicAction.claimRefund.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.claimRefund.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.claimRefund.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.deliverDeposit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.deliverDeposit.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.deliverDeposit.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicAction.deliverDeposit.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.deliverDeposit.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.deliverDeposit.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.lockCall"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.lockCall.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.lockCall.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicAction.lockCall.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.lockCall.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.lockCall.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.releaseStorage"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.releaseStorage.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.releaseStorage.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicAction.releaseStorage.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.releaseStorage.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.releaseStorage.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.settleGas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.settleGas.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.settleGas.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicAction.settleGas.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.settleGas.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.settleGas.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.stakeStorage"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.stakeStorage.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.stakeStorage.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicAction.stakeStorage.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.stakeStorage.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicAction.stakeStorage.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.gasPrice"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.maxGas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicConfig.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.protocol86Sandbox"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.schedule"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicConfig.storagePricePerByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientBalance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientBalance.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientBalance.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientCarriedDeposit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientCarriedDeposit.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientCarriedDeposit.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientGasEscrow"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientGasEscrow.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientGasEscrow.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientRefund"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientRefund.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientRefund.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientStorageStake"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientStorageStake.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.insufficientStorageStake.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.outOfGas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.outOfGas.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.outOfGas.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.prepaidGasExceeded"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.prepaidGasExceeded.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.prepaidGasExceeded.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicError.toCtorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.burntTokens"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.burntTokens._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.carriedDeposits"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.carriedDeposits._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.gasBurnt"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.gasBurnt._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.gasEscrow"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.gasEscrow._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.gasUsed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.gasUsed._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.instDecidableWellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.liquid"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicState.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.pendingRefunds"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.pendingRefunds._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.prepaidGas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.prepaidGas._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.step"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.step.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.step.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.step.eq_3"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.step.eq_4"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.step.eq_5"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.step.eq_6"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicState.step_conserves_tokens"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EconomicState.step_respects_gas_limit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.storageStake"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.storageStake._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.storageUsage"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.storageUsage._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EconomicState.totalTokens"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.Gas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.GasSchedule.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.protocol86Sandbox"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.GasSchedule.transferTotalGas"
     },
     {
       "axioms": [],
@@ -1876,6 +2554,24 @@
     {
       "axioms": [],
       "name": "NEARLean.Input._sizeOf_inst"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Input.attachedDeposit"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Input.attachedDeposit._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Input.attachedDeposit.match_1"
     },
     {
       "axioms": [],
@@ -2642,6 +3338,16 @@
       "name": "NEARLean.Receipt.body"
     },
     {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Receipt.carriedBalance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Receipt.carriedBalance.match_1"
+    },
+    {
       "axioms": [],
       "name": "NEARLean.Receipt.casesOn"
     },
@@ -3030,6 +3736,12 @@
     {
       "axioms": [],
       "name": "NEARLean.ReceiptMachine.allReceiptIds"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ReceiptMachine.carriedBalance"
     },
     {
       "axioms": [],
@@ -5101,6 +5813,104 @@
       "axioms": [
         "propext"
       ],
+      "name": "NEARLean.instBEqEconomicAction"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqEconomicAction.beq"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqEconomicAction.beq._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqEconomicAction.beq._sparseCasesOn_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqEconomicAction.beq._sparseCasesOn_3"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqEconomicAction.beq._sparseCasesOn_4"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqEconomicAction.beq._sparseCasesOn_5"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqEconomicAction.beq._sparseCasesOn_6"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqEconomicAction.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEconomicConfig"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEconomicConfig.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEconomicConfig.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEconomicError"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEconomicError.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEconomicState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEconomicState.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEconomicState.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqGasSchedule"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqGasSchedule.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqGasSchedule.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
       "name": "NEARLean.instBEqInput"
     },
     {
@@ -5522,10 +6332,6 @@
       "name": "NEARLean.instDecidableWellFormed_7"
     },
     {
-      "axioms": [],
-      "name": "NEARLean.instDecidableWellFormed_8"
-    },
-    {
       "axioms": [
         "propext"
       ],
@@ -5628,6 +6434,54 @@
         "propext"
       ],
       "name": "NEARLean.instReprDataReceiver.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicAction"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicAction.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicAction.repr.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicConfig"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicConfig.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicError"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicError.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicError.repr.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprEconomicState.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprGasSchedule"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprGasSchedule.repr"
     },
     {
       "axioms": [
@@ -6021,6 +6875,52 @@
     },
     {
       "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.EconomicState.commit"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.EconomicState.commit_totalTokens"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.EconomicState.commit_wellFormed"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.Economics.0.NEARLean.EconomicState.commit_wellFormed._simp_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.instReprEconomicAction.repr.match_1.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.instReprEconomicAction.repr.match_1.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.instReprEconomicAction.repr.match_1.eq_3"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.instReprEconomicAction.repr.match_1.eq_4"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.instReprEconomicAction.repr.match_1.eq_5"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.instReprEconomicAction.repr.match_1.eq_6"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Economics.0.NEARLean.instReprEconomicAction.repr.match_1.splitter"
+    },
+    {
+      "axioms": [],
       "name": "_private.NEARLean.Receipts.0.NEARLean.ReceiptMachine.complete"
     },
     {
@@ -6219,6 +7119,8 @@
     "NEARLean.Benchmarks.Escrow.unauthorized_release_unchanged",
     "NEARLean.Benchmarks.FungibleToken.safe",
     "NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged",
+    "NEARLean.EconomicState.step_conserves_tokens",
+    "NEARLean.EconomicState.step_respects_gas_limit",
     "NEARLean.SemanticsLayer.abstract_ne_concrete"
   ],
   "modulePrefixes": [

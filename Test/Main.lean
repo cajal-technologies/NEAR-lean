@@ -38,6 +38,11 @@ private def expectError
   | .error actual => assertEqual expected actual
   | .ok output => throw <| IO.userError s!"expected {repr expected}, got {repr output}"
 
+private def expectEconomicError
+    (expected : EconomicError) : Except EconomicError Unit → IO Unit
+  | .error actual => assertEqual expected actual
+  | .ok _ => throw <| IO.userError s!"expected {repr expected}, got success"
+
 private def funded (amount : Balance) : Account :=
   { Account.initial with balance := amount }
 
@@ -286,5 +291,46 @@ def main : IO Unit := do
   assertEqual Verification.UpgradePolicy.forbidden
     Verification.BlockchainThreatModel.milestoneSix.upgrades
 
+  let economicConfig : EconomicConfig := {
+    EconomicConfig.protocol86Sandbox with
+    gasPrice := 1
+    storagePricePerByte := 2
+    maxGas := 100
+  }
+  let economicInitial : EconomicState := { liquid := 1000 }
+  assertEqual true (economicInitial.WellFormed economicConfig |> decide)
+  expectEconomicError .prepaidGasExceeded
+    (economicInitial.step economicConfig (.lockCall 0 101)).2
+  expectEconomicError .insufficientBalance
+    (economicInitial.step economicConfig (.lockCall 1001 1)).2
+  expectEconomicError .outOfGas
+    (economicInitial.step economicConfig (.settleGas 10 11 10)).2
+  expectEconomicError .insufficientGasEscrow
+    (economicInitial.step economicConfig (.settleGas 10 10 10)).2
+  expectEconomicError .insufficientCarriedDeposit
+    (economicInitial.step economicConfig (.deliverDeposit 1)).2
+  expectEconomicError .insufficientRefund
+    (economicInitial.step economicConfig (.claimRefund 1)).2
+  expectEconomicError .insufficientStorageStake
+    (economicInitial.step economicConfig (.releaseStorage 1)).2
+  let economicState := (economicInitial.step economicConfig (.lockCall 10 100)).1
+  let economicState := (economicState.step economicConfig (.settleGas 100 60 50)).1
+  let economicState := (economicState.step economicConfig (.claimRefund 50)).1
+  let economicState := (economicState.step economicConfig (.deliverDeposit 10)).1
+  let economicState := (economicState.step economicConfig (.stakeStorage 10)).1
+  let economicState := (economicState.step economicConfig (.releaseStorage 10)).1
+  assertEqual economicInitial.totalTokens economicState.totalTokens
+  assertEqual 60 economicState.gasUsed
+  assertEqual 50 economicState.gasBurnt
+  assertEqual true (economicState.WellFormed economicConfig |> decide)
+
+  let carriedTransaction : Transaction := {
+    signerId := [1]
+    receiverId := [2]
+    actions := [.functionCall [1] [2] NativeMethod.increment [] 4 10]
+  }
+  let carriedMachine := (ReceiptMachine.init receiptWorld).submit config carriedTransaction
+  assertEqual 4 carriedMachine.carriedBalance
+
   runTransferScenarios config
-  IO.println "100 transfer scenarios and Milestone 2-6 API tests passed"
+  IO.println "100 transfer scenarios and Milestone 2-7 API tests passed"

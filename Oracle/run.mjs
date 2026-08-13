@@ -71,6 +71,59 @@ function tokensBurnt(outcome) {
   );
 }
 
+function semanticReceiptOutcomes(outcome) {
+  const rootIds = outcome?.transaction_outcome?.outcome?.receipt_ids ?? [];
+  const rootSet = new Set(rootIds);
+  return (outcome?.receipts_outcome ?? []).filter((entry) => {
+    if (rootSet.has(entry.id)) return true;
+    const status = entry.outcome.status;
+    const emptySuccess = status && typeof status === "object" && status.SuccessValue === "";
+    return !emptySuccess || entry.outcome.receipt_ids.length !== 0;
+  });
+}
+
+async function storageUsage(accountIds, provider) {
+  return Promise.all(accountIds.map(async (id) => {
+    try {
+      const state = await provider.viewAccount({
+        accountId: id,
+        blockQuery: { finality: "final" }
+      });
+      return [id, BigInt(state.storage_usage)];
+    } catch (error) {
+      if (errorCategory(error) !== "accountNotFound") throw error;
+      return [id, 0n];
+    }
+  }));
+}
+
+function economicObservation(outcome, beforeStorage, afterStorage) {
+  const outcomes = [outcome?.transaction_outcome, ...(outcome?.receipts_outcome ?? [])];
+  const gas = outcomes.map((entry) => BigInt(entry?.outcome?.gas_burnt ?? 0));
+  const semanticCount = semanticReceiptOutcomes(outcome).length;
+  const rawReceiptCount = outcome?.receipts_outcome?.length ?? 0;
+  return {
+    gasBurnt: gas.reduce((total, current) => total + current, 0n).toString(),
+    gasUsed: gas.reduce((total, current) => total + current, 0n).toString(),
+    tokensBurnt: tokensBurnt(outcome).toString(),
+    refundCount: rawReceiptCount - semanticCount,
+    storageUsageDelta: afterStorage.map(([id, usage]) => {
+      const before = beforeStorage.find(([beforeId]) => beforeId === id)?.[1] ?? 0n;
+      return { id, bytes: (usage - before).toString() };
+    })
+  };
+}
+
+function emptyEconomics() {
+  return {
+    gasBurnt: "0",
+    gasUsed: "0",
+    tokensBurnt: "0",
+    refundCount: 0,
+    storageUsageDelta: []
+  };
+}
+
 function errorText(error) {
   const seen = new WeakSet();
   const serialized = JSON.stringify(error, (_key, value) => {
@@ -114,14 +167,7 @@ function creditFees(feeCredits, signerId, outcome) {
 
 async function receiptGraph(outcome, provider, includeBlocks) {
   const rootIds = outcome?.transaction_outcome?.outcome?.receipt_ids ?? [];
-  const rootSet = new Set(rootIds);
-  const rawOutcomes = outcome?.receipts_outcome ?? [];
-  const included = rawOutcomes.filter((entry) => {
-    if (rootSet.has(entry.id)) return true;
-    const status = entry.outcome.status;
-    const emptySuccess = status && typeof status === "object" && status.SuccessValue === "";
-    return !emptySuccess || entry.outcome.receipt_ids.length !== 0;
-  });
+  const included = semanticReceiptOutcomes(outcome);
   const includedIds = new Set(included.map((entry) => entry.id));
   const ids = new Map();
   let nextId = 0;
@@ -289,8 +335,14 @@ async function runTrace(trace, rpcUrl) {
   const feeCredits = new Map();
   const provider = new JsonRpcProvider({ url: rpcUrl });
   for (const [index, action] of trace.actions.entries()) {
+    const beforeStorage = trace.economicMode === true
+      ? await storageUsage(trace.observeAccounts, provider)
+      : [];
     try {
       const outcome = await executeAction(action, rpcUrl, provider, contracts, feeCredits);
+      const afterStorage = trace.economicMode === true
+        ? await storageUsage(trace.observeAccounts, provider)
+        : [];
       observations.push({
         index,
         success: true,
@@ -298,6 +350,9 @@ async function runTrace(trace, rpcUrl) {
         returnValue: finalBytes(outcome),
         logs: logs(outcome),
         receiptGraph: await receiptGraph(outcome, provider, trace.blockMode === true),
+        economics: trace.economicMode === true
+          ? economicObservation(outcome, beforeStorage, afterStorage)
+          : emptyEconomics(),
         accounts: await snapshot(trace, provider, contracts, feeCredits)
       });
     } catch (error) {
@@ -308,6 +363,7 @@ async function runTrace(trace, rpcUrl) {
         returnValue: [],
         logs: [],
         receiptGraph: { transactionReceiptIds: [], outcomes: [] },
+        economics: emptyEconomics(),
         accounts: await snapshot(trace, provider, contracts, feeCredits)
       });
     }

@@ -1,5 +1,6 @@
 import Lean.Data.Json
 import NEARLean.Blocks
+import NEARLean.Economics
 import NEARLean.Sandbox
 
 /-!
@@ -48,6 +49,7 @@ structure CanonicalTrace where
   observeAccounts : List String
   receiptMode : Option Bool
   blockMode : Option Bool
+  economicMode : Option Bool
   deriving FromJson, Repr
 
 structure CanonicalStorageEntry where
@@ -84,6 +86,27 @@ def CanonicalReceiptGraph.empty : CanonicalReceiptGraph := {
   outcomes := []
 }
 
+structure CanonicalStorageUsageDelta where
+  id : String
+  bytes : String
+  deriving BEq, FromJson, ToJson, Repr
+
+structure CanonicalEconomics where
+  gasBurnt : String
+  gasUsed : String
+  tokensBurnt : String
+  refundCount : Nat
+  storageUsageDelta : List CanonicalStorageUsageDelta
+  deriving BEq, FromJson, ToJson, Repr
+
+def CanonicalEconomics.empty : CanonicalEconomics := {
+  gasBurnt := "0"
+  gasUsed := "0"
+  tokensBurnt := "0"
+  refundCount := 0
+  storageUsageDelta := []
+}
+
 structure CanonicalObservation where
   index : Nat
   success : Bool
@@ -91,6 +114,7 @@ structure CanonicalObservation where
   returnValue : List Nat
   logs : List (List Nat)
   receiptGraph : CanonicalReceiptGraph
+  economics : CanonicalEconomics
   accounts : List CanonicalAccount
   deriving BEq, FromJson, ToJson, Repr
 
@@ -291,6 +315,19 @@ private def runBlockInput
       | .successReceiptId _ => .ok Output.empty
   ({ chain with state := scheduler.machine.world }, result, graph)
 
+private def economics
+    (trace : CanonicalTrace)
+    (action : TraceAction)
+    (succeeded : Bool) : CanonicalEconomics :=
+  if trace.economicMode.getD false ∧ succeeded ∧ action.kind = "transfer" then {
+    gasBurnt := toString EconomicConfig.protocol86Sandbox.schedule.transferTotalGas
+    gasUsed := toString EconomicConfig.protocol86Sandbox.schedule.transferTotalGas
+    tokensBurnt := "0"
+    refundCount := 1
+    storageUsageDelta := trace.observeAccounts.map fun id => { id := id, bytes := "0" }
+  } else
+    CanonicalEconomics.empty
+
 private def initialChain (trace : CanonicalTrace) : Except String NearChain := do
   let accounts ← trace.genesis.mapM fun entry => do
     let balance ← match entry.balance.toNat? with
@@ -330,6 +367,7 @@ private def runActions
             returnValue := []
             logs := []
             receiptGraph := receiptGraph
+            economics := economics trace action false
             accounts := snapshot next.state trace.observeAccounts
           }
         | .ok output => {
@@ -339,6 +377,7 @@ private def runActions
             returnValue := naturals output.returnValue
             logs := output.logs.map naturals
             receiptGraph := receiptGraph
+            economics := economics trace action true
             accounts := snapshot next.state trace.observeAccounts
           }
       runActions trace (index + 1) next rest (observation :: observations)

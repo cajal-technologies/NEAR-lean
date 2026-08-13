@@ -3,6 +3,7 @@ import NEARLean.Benchmarks.Counter
 import NEARLean.Benchmarks.Escrow
 import NEARLean.Benchmarks.FungibleToken
 import NEARLean.Blocks
+import NEARLean.Economics
 import NEARLean.Receipts
 import NEARLean.Sandbox
 import NEARLean.Semantics

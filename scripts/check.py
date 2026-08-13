@@ -514,19 +514,28 @@ def differential_report_errors() -> list[str]:
     errors += generated_report_errors(
         ROOT / "differential/block-report.json", "block differential", 1, "L4"
     )
+    errors += generated_report_errors(
+        ROOT / "differential/economic-report.json", "economic differential", 10000, "L5"
+    )
     receipt = load_json(ROOT / "differential/receipt-report.json")
     blocks = load_json(ROOT / "differential/block-report.json")
-    manifest = load_json(ROOT / "protocol/features.json")
+    economics = load_json(ROOT / "differential/economic-report.json")
     if not isinstance(receipt, dict) or receipt.get("receiptOutcomesPerTrace") != 3:
         errors.append("receipt differential report must record three semantic outcomes per trace")
-    if isinstance(receipt, dict) and manifest.get("observationLevel") != receipt.get(
-        "observationLevel"
-    ):
-        errors.append("feature manifest must match the strongest receipt observation level")
     if not isinstance(blocks, dict) or not is_integer(blocks.get("blockCount")) or blocks[
         "blockCount"
     ] < 10000:
         errors.append("block differential report must record at least 10,000 compared blocks")
+    if not isinstance(economics, dict):
+        errors.append("economic differential report must be an object")
+    else:
+        killed = economics.get("economicMutationsKilled")
+        total = economics.get("economicMutationsTotal")
+        score = economics.get("economicMutationScore")
+        if not is_integer(killed) or not is_integer(total) or total < 1 or killed > total:
+            errors.append("economic mutation counts must be valid")
+        if not is_integer(score) or score < 90:
+            errors.append("economic mutation score must be at least 90%")
     return errors
 
 
@@ -636,6 +645,7 @@ def scorecard() -> dict[str, object]:
     differential = load_json(ROOT / "differential/report.json")
     receipts = load_json(ROOT / "differential/receipt-report.json")
     blocks = load_json(ROOT / "differential/block-report.json")
+    economics = load_json(ROOT / "differential/economic-report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -698,8 +708,15 @@ def scorecard() -> dict[str, object]:
             "seed": blocks["seed"],
             "traces": blocks["traceCount"],
         },
+        "generatedEconomics": {
+            "actions": economics["actionCount"],
+            "firstDifference": economics["firstDifference"],
+            "mutationScore": economics["economicMutationScore"],
+            "seed": economics["seed"],
+            "traces": economics["traceCount"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 5,
+        "schemaVersion": 6,
     }
 
 

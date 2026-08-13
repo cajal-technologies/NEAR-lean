@@ -64,7 +64,8 @@ def BlockScheduler.WellFormed (state : BlockScheduler) : Prop :=
     (state.machine.receivedData.map fun entry => (entry.receiverId, entry.dataId)).Nodup ∧
     state.SchedulingInvariant
 
-instance (state : BlockScheduler) : Decidable state.WellFormed := by
+instance BlockScheduler.instDecidableWellFormed
+    (state : BlockScheduler) : Decidable state.WellFormed := by
   unfold BlockScheduler.WellFormed BlockScheduler.SchedulingInvariant
   infer_instance
 

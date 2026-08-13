@@ -746,16 +746,21 @@
       "milestone": 7,
       "weight": 4,
       "nearcoreReference": "runtime/runtime/src/actions.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Attached funds are tracked in the aggregate economic ledger and derived from queued/postponed receipts; per-account receipt escrow refinement remains separate from the abstract receipt machine."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "attached-funds-token-conservation",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -765,16 +770,21 @@
       "milestone": 7,
       "weight": 5,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/gas_counter.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "L5 exposes total final-chain gas used and burnt; per-receipt prepaid-gas forwarding is represented by the ledger but not yet serialized in the canonical observation."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "gas-bounded-by-prepaid",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -784,16 +794,16 @@
       "milestone": 7,
       "weight": 5,
       "nearcoreReference": "core/parameters/res/runtime_configs/parameters.yaml",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The pinned schedule currently records the exact protocol-86 sandbox transfer-chain total; action-level and WASM host-cost tables expand with the concrete WASM milestone."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -803,16 +813,21 @@
       "milestone": 7,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/actions.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Storage stake uses the pinned per-byte price in an aggregate ledger; L5 reports signed account storage-usage deltas, while trie-node overhead becomes exact with concrete state storage."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "storage-stake-token-conservation",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -822,16 +837,21 @@
       "milestone": 7,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Refund funds are explicit ledger categories and L5 counts refund outcomes; exact refund receipt amounts are inferred through balance conservation rather than exposed by the public RPC outcome."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "refund-token-conservation",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -841,16 +861,16 @@
       "milestone": 7,
       "weight": 5,
       "nearcoreReference": "core/primitives/src/errors.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Economic failures are explicit for the aggregate ledger; nearcore error payload serialization remains outside L5."
       ],
       "proofObligations": [],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1562,7 +1582,7 @@
     "maximum": 86,
     "minimum": 86
   },
-  "observationLevel": "L4",
+  "observationLevel": "L5",
   "schemaVersion": 1,
   "statusValues": [
     "unsupported",
