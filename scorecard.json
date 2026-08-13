@@ -57,16 +57,16 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 37,
+      "unsupported": 31,
       "partial": 1,
-      "implemented": 37,
+      "implemented": 43,
       "verified": 0
     },
     "coverage": {
-      "positive": 38,
-      "negative": 38,
-      "differential": 18,
-      "executableSemantics": 38,
+      "positive": 44,
+      "negative": 44,
+      "differential": 44,
+      "executableSemantics": 44,
       "proofObligationsDischarged": 23
     },
     "total": 75,
@@ -106,6 +106,13 @@
     "seed": 1,
     "traces": 10000
   },
+  "generatedValidation": {
+    "actions": 1000000,
+    "featuresCovered": 44,
+    "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
+    "mutationScore": 100.0,
+    "seed": 1
+  },
   "observationLevel": "L5",
-  "schemaVersion": 6
+  "schemaVersion": 7
 }

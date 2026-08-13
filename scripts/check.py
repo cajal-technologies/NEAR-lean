@@ -40,6 +40,7 @@ STATUS_VALUES = ["unsupported", "partial", "implemented", "verified"]
 STATUS_RANK = {status: rank for rank, status in enumerate(STATUS_VALUES)}
 TEST_KINDS = {"differential", "negative", "positive"}
 SHA1 = re.compile(r"[0-9a-f]{40}")
+SHA256 = re.compile(r"[0-9a-f]{64}")
 AUDIT_MARKER = "AXIOM_AUDIT\t"
 OBSERVATION_RANK = {f"L{level}": level for level in range(8)}
 
@@ -539,6 +540,137 @@ def differential_report_errors() -> list[str]:
     return errors
 
 
+def validation_report_errors(path: pathlib.Path | None = None) -> list[str]:
+    report = load_json(path or ROOT / "validation/report.json")
+    manifest = load_json(ROOT / "protocol/features.json")
+    if not isinstance(report, dict) or not isinstance(manifest, dict):
+        return ["validation report and feature manifest must be JSON objects"]
+    errors: list[str] = []
+    nightly_path = ROOT / ".github/workflows/nightly.yml"
+    nightly = nightly_path.read_text(encoding="utf-8") if nightly_path.exists() else ""
+    if not all(
+        marker in nightly
+        for marker in ("schedule:", "make validation-campaign", "make differential-nightly")
+    ):
+        errors.append("scheduled CI must run both long validation campaigns")
+    if report.get("schemaVersion") != 1:
+        errors.append("validation report schema version must be 1")
+    action_count = report.get("actionCount")
+    if not is_integer(action_count) or action_count < 1_000_000:
+        errors.append("validation report must contain at least 1,000,000 model actions")
+    grammar = report.get("grammarCoverage")
+    if not isinstance(grammar, dict):
+        errors.append("validation report must contain grammar coverage")
+    else:
+        for category in ("states", "receipts", "blocks"):
+            if not is_integer(grammar.get(category)) or grammar[category] < 1:
+                errors.append(f"validation grammar coverage must include {category}")
+        actions = grammar.get("actions")
+        required_actions = {"successfulTransfer", "failedTransfer", "view"}
+        if not isinstance(actions, dict) or set(actions) != required_actions or any(
+            not is_integer(actions[kind]) or actions[kind] < 1 for kind in required_actions
+        ):
+            errors.append("validation grammar coverage must include every action class")
+        elif is_integer(action_count) and sum(actions.values()) != action_count:
+            errors.append("validation action coverage must sum to the model action count")
+    metamorphic = report.get("metamorphicChecks")
+    required_metamorphic = {
+        "blockSplitStability",
+        "determinism",
+        "failedActionRollback",
+        "tokenConservation",
+        "unrelatedAccountIsolation",
+    }
+    if not isinstance(metamorphic, dict) or set(metamorphic) != required_metamorphic or not all(
+        metamorphic.values()
+    ):
+        errors.append("every required metamorphic check must pass")
+    mutations = report.get("mutations")
+    score = report.get("mutationScore")
+    required_mutations = {
+        "gas-off-by-one",
+        "missing-refund",
+        "premature-callback",
+        "signer-predecessor-confusion",
+        "skipped-rollback",
+        "wrong-receipt-order",
+    }
+    if not isinstance(mutations, list) or len(mutations) < 10 or any(
+        not isinstance(mutation, dict)
+        or not isinstance(mutation.get("name"), str)
+        or not isinstance(mutation.get("killed"), bool)
+        for mutation in mutations
+    ):
+        errors.append("validation report must contain a valid semantic mutation set")
+    else:
+        mutation_names = {mutation["name"] for mutation in mutations}
+        if not required_mutations <= mutation_names:
+            errors.append("semantic mutation set is missing a required important mutation")
+        calculated_score = round(
+            100 * sum(1 for mutation in mutations if mutation["killed"]) / len(mutations), 2
+        )
+        if score != calculated_score:
+            errors.append("validation mutation score does not match its mutation results")
+    if not isinstance(score, (int, float)) or isinstance(score, bool) or score < 90:
+        errors.append("overall semantic mutation score must be at least 90%")
+    supported = {
+        feature["id"]
+        for feature in manifest.get("features", [])
+        if isinstance(feature, dict) and feature.get("status") != "unsupported"
+    }
+    feature_coverage = report.get("featureCoverage")
+    if not isinstance(feature_coverage, dict):
+        errors.append("validation report must contain feature coverage")
+    else:
+        features = feature_coverage.get("features")
+        covered = {
+            feature.get("id")
+            for feature in features
+            if isinstance(feature, dict)
+            and all(feature.get(kind) is True for kind in TEST_KINDS)
+        } if isinstance(features, list) else set()
+        if covered != supported:
+            errors.append("every supported feature needs positive, negative, and differential coverage")
+        if feature_coverage.get("complete") != len(supported):
+            errors.append("validation complete-feature count is stale")
+        if feature_coverage.get("supported") != len(supported):
+            errors.append("validation supported-feature count is stale")
+    digest = report.get("digest")
+    replay_digest = report.get("fixedSeedReplayDigest")
+    if not isinstance(digest, str) or not SHA256.fullmatch(digest) or replay_digest != digest:
+        errors.append("fixed-seed replay must reproduce the full campaign bit-for-bit")
+    if report.get("failureFixturePolicy") != "minimized-permanent-fixture":
+        errors.append("differential failures must be retained as minimized permanent fixtures")
+    corpora = report.get("corpora")
+    if not isinstance(corpora, list) or len(corpora) != 2:
+        errors.append("validation report must contain visible and held-out corpora")
+    else:
+        ranges: list[set[int]] = []
+        total = 0
+        for corpus in corpora:
+            if not isinstance(corpus, dict):
+                errors.append("differential corpus descriptors must be objects")
+                continue
+            count = corpus.get("count")
+            corpus_seed = corpus.get("seed")
+            if (
+                corpus.get("campaign") != "receipt-campaign"
+                or corpus.get("observationLevel") != "L4"
+                or not is_integer(count)
+                or count < 1
+                or not is_integer(corpus_seed)
+            ):
+                errors.append("differential corpus descriptor is invalid")
+                continue
+            total += count
+            ranges.append(set(range(corpus_seed, corpus_seed + count)))
+        if total < 10_000:
+            errors.append("nightly differential corpora must total at least 10,000 traces")
+        if len(ranges) == 2 and ranges[0] & ranges[1]:
+            errors.append("visible and held-out differential corpora must be disjoint")
+    return errors
+
+
 def production_theorems() -> list[str]:
     lines = (ROOT / "audit/theorems.txt").read_text(encoding="utf-8").splitlines()
     return [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
@@ -646,6 +778,7 @@ def scorecard() -> dict[str, object]:
     receipts = load_json(ROOT / "differential/receipt-report.json")
     blocks = load_json(ROOT / "differential/block-report.json")
     economics = load_json(ROOT / "differential/economic-report.json")
+    validation = load_json(ROOT / "validation/report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -715,8 +848,15 @@ def scorecard() -> dict[str, object]:
             "seed": economics["seed"],
             "traces": economics["traceCount"],
         },
+        "generatedValidation": {
+            "actions": validation["actionCount"],
+            "featuresCovered": validation["featureCoverage"]["complete"],
+            "fixedSeedReplayDigest": validation["fixedSeedReplayDigest"],
+            "mutationScore": validation["mutationScore"],
+            "seed": validation["seed"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 6,
+        "schemaVersion": 7,
     }
 
 
@@ -811,6 +951,12 @@ def run_negative_tests() -> int:
         corrupted_report_errors = generated_report_errors(
             corrupted_path, "receipt differential", 10000, "L4"
         )
+        corrupted_validation = copy.deepcopy(load_json(ROOT / "validation/report.json"))
+        corrupted_validation["actionCount"] = 999_999
+        corrupted_validation["mutationScore"] = 80
+        corrupted_validation_path = pathlib.Path(temporary) / "validation-report.json"
+        corrupted_validation_path.write_text(json.dumps(corrupted_validation), encoding="utf-8")
+        corrupted_validation_errors = validation_report_errors(corrupted_validation_path)
     outcomes = [
         expect_failure("source hygiene", format_errors([negative / "BadFormat.lean"])),
         expect_failure("sorry", policy_errors([negative / "Sorry.lean"])),
@@ -833,6 +979,7 @@ def run_negative_tests() -> int:
         ),
         expect_failure("feature ratchet", ratchet_errors(manifest, previous)),
         expect_failure("differential report ratchet", corrupted_report_errors),
+        expect_failure("validation report ratchet", corrupted_validation_errors),
     ]
     warning = subprocess.run(
         ["lake", "env", "lean", "-DwarningAsError=true", "Tests/Negative/Warning.lean"],
@@ -887,7 +1034,7 @@ def main() -> int:
         lean_files = [path for path in repository_files() if path.suffix == ".lean"]
         audit_errors, report = production_audit()
         errors = policy_errors(lean_files) + benchmark_api_errors()
-        errors += validate_manifest() + differential_report_errors()
+        errors += validate_manifest() + differential_report_errors() + validation_report_errors()
         errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)

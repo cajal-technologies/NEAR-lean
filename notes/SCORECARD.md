@@ -4,7 +4,7 @@ The authoritative dashboard is the generated `scorecard.json` artifact. It is
 kept deliberately multidimensional rather than collapsed into one completion
 percentage.
 
-At Milestone 4 it reports:
+At Milestone 8 it reports:
 
 - the exact Lean, nearcore, and protocol baseline;
 - feature counts by lifecycle status and verified weighted coverage;
@@ -13,9 +13,10 @@ At Milestone 4 it reports:
 - declarations with approved axiom dependencies;
 - the names and number of headline theorems contained in that complete audit;
 - the deterministic differential seed, trace count, action count, and first
-  difference; and
-- the receipt campaign's seed, 10,000 traces, 30,000 outcomes, and first
-  difference.
+  difference;
+- the receipt, block, and economics campaign results; and
+- the million-action validation seed, mutation score, supported-feature coverage,
+  and bit-for-bit replay digest.
 
 The six abstract-kernel and seven sandbox features record executable positive and
 negative tests. Their proof obligations cover initialization, invariant
@@ -35,7 +36,6 @@ executor accounts, statuses, and return values. The receipt-machine proofs cover
 fresh-ID uniqueness, dependency safety, well-formedness preservation,
 determinism, and lifecycle accounting.
 
-Future milestones will extend the schema with positive, negative, differential,
-proof-obligation, mutation, replay, performance, and trusted-adapter metrics. New
-metrics must be derived from durable manifests or test artifacts rather than
-manually asserted numbers.
+The scheduled validation suite runs one million model actions and two disjoint
+5,000-trace nearcore corpora. New metrics must be derived from durable manifests
+or test artifacts rather than manually asserted numbers.

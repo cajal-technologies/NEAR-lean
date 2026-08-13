@@ -3,13 +3,12 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 4**: the proof-friendly kernel now models
-transactions, action and data receipts, promise results, dependency-gated
-callbacks, cross-contract calls, and bounded receipt queues. A generated campaign
-compares 10,000 cross-contract traces and 30,000 semantic receipt outcomes against
-the pinned nearcore 2.13.3 sandbox at L4, including receipt identity and order.
-Exact gas economics, concrete receipt hashes, and state roots remain future
-compatibility levels.
+The project is at **Milestone 8**. The proof-friendly kernel covers transactions,
+receipts, block scheduling, verification APIs, and aggregate economics. Generated
+campaigns compare the model with the pinned nearcore 2.13.3 sandbox through L5.
+A scheduled validation suite executes one million model actions and 10,000
+disjoint visible and held-out nearcore traces, with deterministic replay,
+metamorphic checks, shrinking, coverage ratchets, and semantic mutations.
 
 ## Quick start
 
@@ -30,6 +29,8 @@ Node.js 22.22.2 or newer is required for the real nearcore oracle. Run its pinne
 smoke comparison with `make differential-smoke`; regenerate the 1,000-trace report
 with `make differential-campaign`. `make receipt-smoke` runs the cross-contract L4
 fixture, while `make receipt-campaign` regenerates its 10,000-trace exit report.
+`make validation-campaign` regenerates the million-action model report, and
+`make differential-nightly` runs the two 5,000-trace L4 corpora.
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the
@@ -71,3 +72,4 @@ CI verifies that snapshot against the pinned upstream commit.
 - [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) documents the gates and update workflow.
 - [`notes/milestones.html`](notes/milestones.html) is the development roadmap.
 - [`notes/evaluation.html`](notes/evaluation.html) defines the correctness signals and metrics.
+- [`notes/VALIDATION.md`](notes/VALIDATION.md) documents the long-running validation design.

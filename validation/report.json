@@ -1,0 +1,379 @@
+{
+  "actionCount": 1000000,
+  "blockCount": 10000,
+  "digest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
+  "finalBalances": [
+    628667,
+    464375,
+    27973,
+    2106975,
+    2881071,
+    1032505,
+    588192,
+    144764,
+    1355940,
+    411801,
+    1242298,
+    557653,
+    1755081,
+    1906476,
+    455394,
+    440835
+  ],
+  "grammarCoverage": {
+    "actions": {
+      "successfulTransfer": 485639,
+      "failedTransfer": 451862,
+      "view": 62499
+    },
+    "blocks": 10000,
+    "receipts": 485639,
+    "states": 1000001
+  },
+  "metamorphicChecks": {
+    "determinism": true,
+    "failedActionRollback": true,
+    "tokenConservation": true,
+    "unrelatedAccountIsolation": true,
+    "blockSplitStability": true
+  },
+  "seed": 1,
+  "corpora": [
+    {
+      "campaign": "receipt-campaign",
+      "count": 5000,
+      "observationLevel": "L4",
+      "seed": 1
+    },
+    {
+      "campaign": "receipt-campaign",
+      "count": 5000,
+      "observationLevel": "L4",
+      "seed": 100001
+    }
+  ],
+  "featureCoverage": {
+    "complete": 44,
+    "features": [
+      {
+        "id": "account-identifiers",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "balances-and-gas-types",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "block-context",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "world-state",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "state-transition",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "state-invariants",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "create-account",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "transfer",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "deploy-contract",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "function-call",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "native-contracts",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "atomic-rollback",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "sandbox-api",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "canonical-traces",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "nearcore-oracle",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "result-comparison",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "trace-generation",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "trace-minimization",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "transaction-to-receipt",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "action-receipts",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "data-receipts",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "promises-callbacks",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "cross-contract-calls",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "receipt-queues",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "block-production",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "receipt-scheduling",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "protocol-ordering",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "block-execution-bound",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "trace-reachability",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "adversary-model",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "contract-properties",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "verification-benchmarks",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "attached-deposits",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "gas-accounting",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "gas-schedules",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "storage-accounting",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "refunds",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "economic-failures",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "grammar-generators",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "coverage-reporting",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "automatic-shrinking",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "metamorphic-testing",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "semantic-mutations",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "differential-corpora",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      }
+    ],
+    "supported": 44
+  },
+  "failureFixturePolicy": "minimized-permanent-fixture",
+  "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
+  "mutationScore": 100.0,
+  "mutations": [
+    {
+      "killed": true,
+      "name": "block-bound-off-by-one"
+    },
+    {
+      "killed": true,
+      "name": "dropped-burnt-tokens"
+    },
+    {
+      "killed": true,
+      "name": "duplicate-receipt-id"
+    },
+    {
+      "killed": true,
+      "name": "failed-storage-commit"
+    },
+    {
+      "killed": true,
+      "name": "gas-off-by-one"
+    },
+    {
+      "killed": true,
+      "name": "missing-refund"
+    },
+    {
+      "killed": true,
+      "name": "mutating-view"
+    },
+    {
+      "killed": true,
+      "name": "premature-callback"
+    },
+    {
+      "killed": true,
+      "name": "signer-predecessor-confusion"
+    },
+    {
+      "killed": true,
+      "name": "skipped-rollback"
+    },
+    {
+      "killed": true,
+      "name": "transfer-conservation-loss"
+    },
+    {
+      "killed": true,
+      "name": "wrong-receipt-order"
+    }
+  ],
+  "schemaVersion": 1
+}

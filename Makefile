@@ -1,7 +1,7 @@
 .PHONY: build test lint audit format format-check scorecard nearcore-references \
 	negative-tests differential-self-test differential-smoke receipt-smoke differential-campaign \
 	receipt-campaign block-smoke block-campaign economic-smoke economic-campaign \
-	oracle-install ci ci-online notes
+	oracle-install validation-campaign differential-nightly ci ci-online notes
 
 build:
 	lake build --wfail
@@ -59,10 +59,20 @@ block-campaign: oracle-install
 economic-campaign: oracle-install
 	python3 scripts/differential.py economic-campaign --count 10000 --seed 1
 
+validation-campaign:
+	python3 scripts/validation.py --actions 1000000 --seed 1 --output validation/report.json
+
+differential-nightly: oracle-install
+	python3 scripts/differential.py receipt-campaign --count 5000 --seed 1 \
+		--output validation/nightly-visible.json
+	python3 scripts/differential.py receipt-campaign --count 5000 --seed 100001 \
+		--output validation/nightly-held-out.json
+
 notes:
 	uv run python -m http.server
 
 ci: format-check lint test scorecard nearcore-references negative-tests differential-self-test
+	python3 scripts/validation.py --actions 1000000 --seed 1 --output validation/report.json --check
 
 ci-online: ci
 	python3 scripts/check.py nearcore-references --online
