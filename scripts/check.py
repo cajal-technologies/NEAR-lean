@@ -18,16 +18,18 @@ from collections import Counter
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-IGNORED_PARTS = {".git", ".lake", "build", "Negative", "__pycache__"}
+IGNORED_PARTS = {".git", ".lake", "build", "Negative", "__pycache__", "node_modules"}
 FORMATTED_SUFFIXES = {
     ".css",
     ".html",
     ".json",
     ".lean",
     ".md",
+    ".mjs",
     ".py",
     ".sh",
     ".toml",
+    ".wat",
     ".yaml",
     ".yml",
 }
@@ -39,6 +41,7 @@ STATUS_RANK = {status: rank for rank, status in enumerate(STATUS_VALUES)}
 TEST_KINDS = {"differential", "negative", "positive"}
 SHA1 = re.compile(r"[0-9a-f]{40}")
 AUDIT_MARKER = "AXIOM_AUDIT\t"
+OBSERVATION_RANK = {f"L{level}": level for level in range(8)}
 
 
 def load_json(path: pathlib.Path) -> object:
@@ -436,6 +439,48 @@ def validate_manifest() -> list[str]:
     return errors
 
 
+def differential_report_errors() -> list[str]:
+    report = load_json(ROOT / "differential/report.json")
+    baseline = load_json(ROOT / "protocol/baseline.json")
+    manifest = load_json(ROOT / "protocol/features.json")
+    if not isinstance(report, dict):
+        return ["differential report must be a JSON object"]
+    errors: list[str] = []
+    expected = {
+        "nearcoreCommit": baseline["nearcore"]["commit"],
+        "nearcoreRelease": baseline["nearcore"]["release"],
+        "protocolVersion": baseline["protocolVersions"]["minimum"],
+    }
+    for field, value in expected.items():
+        if report.get(field) != value:
+            errors.append(f"differential report `{field}` does not match the pinned baseline")
+    if report.get("matched") is not True or report.get("firstDifference") is not None:
+        errors.append("differential report must record a clean comparison")
+    trace_count = report.get("traceCount")
+    action_count = report.get("actionCount")
+    max_trace_length = report.get("maxTraceLength")
+    action_kinds = report.get("actionKinds")
+    if not is_integer(trace_count) or trace_count < 1000:
+        errors.append("differential report must contain at least 1,000 traces")
+    if not is_integer(action_count) or not is_integer(trace_count) or action_count < trace_count:
+        errors.append("differential report action count may not be below its trace count")
+    if not is_integer(max_trace_length) or max_trace_length < 1:
+        errors.append("differential report must record a positive maximum trace length")
+    if not isinstance(action_kinds, dict) or any(
+        not isinstance(kind, str) or not is_integer(count) or count < 1
+        for kind, count in action_kinds.items()
+    ):
+        errors.append("differential report must record a valid action-kind distribution")
+    elif is_integer(action_count) and sum(action_kinds.values()) != action_count:
+        errors.append("differential report action-kind counts must sum to its action count")
+    level = report.get("observationLevel")
+    if level not in OBSERVATION_RANK or OBSERVATION_RANK[level] < OBSERVATION_RANK["L3"]:
+        errors.append("differential report must reach at least L3")
+    if manifest.get("observationLevel") != level:
+        errors.append("feature manifest observation level must match the differential report")
+    return errors
+
+
 def production_theorems() -> list[str]:
     lines = (ROOT / "audit/theorems.txt").read_text(encoding="utf-8").splitlines()
     return [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
@@ -539,6 +584,7 @@ def scorecard() -> dict[str, object]:
     manifest = load_json(ROOT / "protocol/features.json")
     baseline = load_json(ROOT / "protocol/baseline.json")
     audit = load_json(ROOT / "audit/report.json")
+    differential = load_json(ROOT / "differential/report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -579,8 +625,16 @@ def scorecard() -> dict[str, object]:
             "total": len(features),
             "verifiedWeightPercent": round(100 * completed_weight / total_weight, 2),
         },
+        "generatedDifferential": {
+            "actionKinds": differential["actionKinds"],
+            "actions": differential["actionCount"],
+            "firstDifference": differential["firstDifference"],
+            "maxTraceLength": differential["maxTraceLength"],
+            "seed": differential["seed"],
+            "traces": differential["traceCount"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 2,
+        "schemaVersion": 3,
     }
 
 
@@ -740,7 +794,8 @@ def main() -> int:
     if args.command == "lint":
         lean_files = [path for path in repository_files() if path.suffix == ".lean"]
         audit_errors, report = production_audit()
-        errors = policy_errors(lean_files) + validate_manifest() + audit_errors
+        errors = policy_errors(lean_files) + validate_manifest() + differential_report_errors()
+        errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)
     if args.command == "negative-tests":

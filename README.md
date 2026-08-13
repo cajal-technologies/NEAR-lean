@@ -3,16 +3,17 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 2**: the proof-friendly abstract kernel executes
-account creation, transfers, native-contract deployment, and synchronous function
-calls through an in-memory `NearChain` API. Counter and simple escrow examples,
-atomic rollback, pure views, and 100 parameterized scenarios are included. This is
-an abstract sandbox, not nearcore-compatible receipt or WASM execution.
+The project is at **Milestone 3**: the proof-friendly abstract kernel is connected
+to a pinned nearcore 2.13.3 sandbox oracle through canonical, reproducible traces.
+The generated campaign compares 1,000 basic-action traces and 1,200 observations
+at L3, including success or error category, return bytes, logs, balances, and raw
+contract storage. Receipt identity, exact gas economics, and state roots remain
+future compatibility levels.
 
 ## Quick start
 
 Install [elan](https://github.com/leanprover/elan), Python 3.11 or newer, and
-`make`, then run:
+`make`, then run the offline gates:
 
 ```sh
 make ci
@@ -23,6 +24,10 @@ checks source hygiene, builds with warnings as errors, runs tests, audits every
 project declaration transitively for axioms, validates feature evidence and
 ratchets, checks pinned nearcore-reference provenance, verifies generated
 artifacts, and proves that each negative fixture is rejected.
+
+Node.js 22.22.2 or newer is required for the real nearcore oracle. Run its pinned
+smoke comparison with `make differential-smoke`; regenerate the 1,000-trace report
+with `make differential-campaign`.
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the

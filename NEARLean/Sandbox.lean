@@ -32,8 +32,10 @@ def NearChain.apply (chain : NearChain) (input : Input) : NearChain × Except Ru
   ({ chain with state := transitioned.1 }, transitioned.2)
 
 def NearChain.createAccount
-    (chain : NearChain) (accountId : AccountId) : NearChain × Except RuntimeError Output :=
-  chain.apply (.createAccount accountId)
+    (chain : NearChain)
+    (creator accountId : AccountId)
+    (initialBalance : Balance) : NearChain × Except RuntimeError Output :=
+  chain.apply (.createAccount creator accountId initialBalance)
 
 def NearChain.transfer
     (chain : NearChain)

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "nearcoreRelease": "2.13.3",
+  "protocolVersion": 86,
+  "seed": 0,
+  "genesis": [
+    {
+      "id": "owner",
+      "balance": "100000000000000000000000000"
+    }
+  ],
+  "actions": [
+    {
+      "kind": "createAccount",
+      "creator": "owner",
+      "accountId": "counter.owner",
+      "initialBalance": "10000000000000000000000000"
+    },
+    {
+      "kind": "deployContract",
+      "deployer": "counter.owner",
+      "accountId": "counter.owner",
+      "contract": "counter"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "owner",
+      "receiver": "counter.owner",
+      "method": "increment",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "owner",
+      "receiver": "counter.owner",
+      "method": "get",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    }
+  ],
+  "observeAccounts": [
+    "owner",
+    "counter.owner"
+  ]
+}

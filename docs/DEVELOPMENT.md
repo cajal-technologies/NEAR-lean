@@ -11,7 +11,8 @@ make ci
 Python 3.11 or newer is required. No network access is required after elan has
 installed the toolchain named by `lean-toolchain`; the project currently has no
 third-party Lake dependencies. Hosted CI additionally verifies nearcore path
-provenance against GitHub.
+provenance against GitHub. Online oracle checks require Node.js 22.22.2 or newer;
+`npm ci --prefix Oracle --ignore-scripts` installs the exact lockfile.
 
 The command runs these gates:
 
@@ -31,10 +32,14 @@ The command runs these gates:
 7. `make negative-tests` exercises source hygiene, comments and strings, `sorry`,
    warnings, direct/private/transitive axioms, manifest evidence, reference
    provenance, and history ratchets.
+8. `make differential-self-test` corrupts outcome, error, balance, and storage
+   observations and checks action minimization without requiring nearcore.
 
 CI runs `make ci-online`, which adds a one-request verification of every stored
-nearcore Git object against the pinned upstream tree, and uploads `scorecard.json`
-as a machine-readable artifact even when another gate fails.
+nearcore Git object against the pinned upstream tree and one real L3 sandbox smoke
+trace. `make differential-campaign` regenerates the ratcheted 1,000-trace report.
+CI uploads `scorecard.json` as a machine-readable artifact even when another gate
+fails.
 
 ## Adding Lean declarations
 

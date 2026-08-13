@@ -255,7 +255,7 @@ end NativeStorage
 
 /-- Basic sandbox actions supported at Milestone 2. -/
 inductive Input where
-  | createAccount (accountId : AccountId)
+  | createAccount (creator accountId : AccountId) (initialBalance : Balance)
   | transfer (sender receiver : AccountId) (amount : Balance)
   | deployContract (deployer accountId : AccountId) (contractId : ContractId)
   | functionCall
@@ -385,12 +385,15 @@ def execute
     (state : WorldState)
     (input : Input) : Except RuntimeError (WorldState × Output) := do
   match input with
-  | .createAccount accountId =>
+  | .createAccount creator accountId initialBalance =>
+      let _ ← Option.orError (.accountNotFound creator) (state.account? creator)
       if ¬accountId.WellFormed config then
         throw (.invalidAccountId accountId)
       if state.account? accountId |>.isSome then
         throw (.accountAlreadyExists accountId)
-      return (state.setAccount accountId Account.initial, Output.empty)
+      let created := state.setAccount accountId Account.initial
+      let funded ← created.transferBalance config creator accountId initialBalance
+      return (funded, Output.empty)
   | .transfer sender receiver amount =>
       let state ← state.transferBalance config sender receiver amount
       return (state, Output.empty)

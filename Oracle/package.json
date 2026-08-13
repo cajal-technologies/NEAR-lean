@@ -1,0 +1,16 @@
+{
+  "name": "near-lean-oracle",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "dependencies": {
+    "near-api-js": "7.3.1",
+    "near-sandbox": "0.3.3",
+    "wabt": "1.0.39"
+  },
+  "overrides": {
+    "tar": "7.5.22"
+  }
+}

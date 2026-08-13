@@ -60,11 +60,15 @@ def main : IO Unit := do
   assertEqual false (Storage.WellFormed config [([1], [2]), ([1], [3])] |> decide)
   expectInitError .invalidInitialState (NearChain.init config [([], Account.initial)])
 
-  let (created, createResult) := empty.createAccount [1]
+  let creator ← expectInit <| NearChain.init config [([1], funded 10)]
+  let (created, createResult) := creator.createAccount [1] [2] 4
   let _ ← expectOk createResult
-  assertEqual (some 0) (created.balance? [1])
-  expectError (.accountAlreadyExists [1]) created (created.createAccount [1])
-  expectError (.invalidAccountId []) created (created.createAccount [])
+  assertEqual (some 6) (created.balance? [1])
+  assertEqual (some 4) (created.balance? [2])
+  expectError (.accountAlreadyExists [2]) created (created.createAccount [1] [2] 0)
+  expectError (.invalidAccountId []) created (created.createAccount [1] [] 0)
+  expectError (.insufficientBalance [1]) creator (creator.createAccount [1] [2] 11)
+  expectError (.accountNotFound [3]) creator (creator.createAccount [3] [2] 0)
 
   let chain ← expectInit <| NearChain.init config [([1], funded 10), ([2], Account.initial)]
   let (transferred, transferResult) := chain.transfer [1] [2] 4

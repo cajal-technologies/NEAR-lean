@@ -9,6 +9,11 @@ package «near-lean» where
 @[default_target]
 lean_lib NEARLean
 
+lean_lib Oracle
+
 @[test_driver]
 lean_exe nearLeanTests where
   root := `Test.Main
+
+lean_exe nearLeanOracle where
+  root := `Oracle.LeanRunner

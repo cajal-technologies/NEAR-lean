@@ -306,16 +306,16 @@
       "milestone": 3,
       "weight": 3,
       "nearcoreReference": "core/primitives/src/views.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Schema version 1 covers the Milestone 2 abstract action surface and records decimal amounts as strings; receipt, block, and concrete byte encodings are added by later milestones."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -325,16 +325,16 @@
       "milestone": 3,
       "weight": 5,
       "nearcoreReference": "test-utils/testlib/src/runtime_utils.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The pinned sandbox adapter executes account creation, transfers, counter deployment, counter calls, and selected failures; escrow and exact economic observations remain outside the Milestone 3 corpus."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -344,16 +344,16 @@
       "milestone": 3,
       "weight": 5,
       "nearcoreReference": "core/primitives/src/views.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "partial",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The structured comparator implements L1 through L3. Receipt identity, gas, roots, and full-state levels L4 through L7 remain unsupported."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -363,16 +363,16 @@
       "milestone": 3,
       "weight": 3,
       "nearcoreReference": "test-utils/testlib/src/runtime_utils.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The deterministic grammar targets basic actions, counter calls, and insufficient-balance failures; receipt and block generators belong to later milestones."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -382,16 +382,16 @@
       "milestone": 3,
       "weight": 3,
       "nearcoreReference": "integration-tests/src/tests/features",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Minimization removes actions while preserving a differential failure; grammar-aware shrinking of individual action fields is deferred to Milestone 8."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1483,7 +1483,7 @@
     "maximum": 86,
     "minimum": 86
   },
-  "observationLevel": "L0",
+  "observationLevel": "L3",
   "schemaVersion": 1,
   "statusValues": [
     "unsupported",

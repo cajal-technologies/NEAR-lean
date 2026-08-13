@@ -33,21 +33,34 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 62,
-      "partial": 0,
-      "implemented": 13,
+      "unsupported": 57,
+      "partial": 1,
+      "implemented": 17,
       "verified": 0
     },
     "coverage": {
-      "positive": 13,
-      "negative": 13,
-      "differential": 0,
-      "executableSemantics": 13,
+      "positive": 18,
+      "negative": 18,
+      "differential": 5,
+      "executableSemantics": 18,
       "proofObligationsDischarged": 8
     },
     "total": 75,
     "verifiedWeightPercent": 0.0
   },
-  "observationLevel": "L0",
-  "schemaVersion": 2
+  "generatedDifferential": {
+    "actionKinds": {
+      "createAccount": 400,
+      "deployContract": 100,
+      "functionCall": 200,
+      "transfer": 500
+    },
+    "actions": 1200,
+    "firstDifference": null,
+    "maxTraceLength": 3,
+    "seed": 1,
+    "traces": 1000
+  },
+  "observationLevel": "L3",
+  "schemaVersion": 3
 }
