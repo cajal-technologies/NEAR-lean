@@ -1,6 +1,1158 @@
 {
-  "allowedAxioms": [],
+  "allowedAxioms": [
+    "propext"
+  ],
   "declarations": [
+    {
+      "axioms": [],
+      "name": "NEARLean.Account"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.WellFormed.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.balance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.contract"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.initial"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.initial_wellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.locked"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Account.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Account.storage"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.AccountId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.AccountId.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Balance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Balance.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.gasLimit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.gasPrice"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.height"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockContext.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockContext.timestamp"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractId.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Gas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.createAccount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.createAccount.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.createAccount.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Input.createAccount.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.createAccount.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.createAccount.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.deployContract"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.deployContract.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.deployContract.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Input.deployContract.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.deployContract.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.deployContract.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.functionCall"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.functionCall.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.functionCall.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Input.functionCall.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.functionCall.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.functionCall.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.transfer"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.transfer.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.transfer.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Input.transfer.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.transfer.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Input.transfer.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.counter"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.counter.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.counter.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.counterId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.escrow"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.escrow.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.escrow.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.escrowId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.ofId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.toCtorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.balance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.deposit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.get"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.increment"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.release"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeStorage.counter"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeStorage.escrowOwner"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.account?"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.apply"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.NearChain.apply_error_rolls_back"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.apply_preserves_wellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.balance?"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.call"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.config"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.createAccount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.deploy"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.init"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.initEmpty"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.init_wellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.NearChain.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.state"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.storage?"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.transfer"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.view"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NearChain.view_pure"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Option.orError"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Option.orError.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.balance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.balance._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.empty"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.gasBurnt"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.gasBurnt._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.logs"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.logs._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Output.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.returnValue"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Output.returnValue._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.maxAccountBalance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.maxAccountIdLength"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.maxContractIdLength"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.maxGas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.maxStorageKeyLength"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.maxStorageValueLength"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeConfig.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeConfig.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountAlreadyExists"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountAlreadyExists.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountAlreadyExists.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.accountAlreadyExists.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountAlreadyExists.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountAlreadyExists.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountNotFound"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountNotFound.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountNotFound.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.accountNotFound.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountNotFound.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.accountNotFound.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.balanceOverflow"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.balanceOverflow.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.balanceOverflow.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.balanceOverflow.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.balanceOverflow.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.balanceOverflow.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractAlreadyDeployed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractAlreadyDeployed.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractAlreadyDeployed.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.contractAlreadyDeployed.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractAlreadyDeployed.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractAlreadyDeployed.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractNotDeployed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractNotDeployed.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractNotDeployed.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.contractNotDeployed.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractNotDeployed.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.contractNotDeployed.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.depositRequired"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.depositRequired.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.depositRequired.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.insufficientBalance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.insufficientBalance.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.insufficientBalance.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.insufficientBalance.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.insufficientBalance.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.insufficientBalance.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidAccountId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidAccountId.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidAccountId.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.invalidAccountId.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidAccountId.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidAccountId.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidArguments"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidArguments.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidArguments.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidGas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidGas.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidGas.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidInitialState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidInitialState.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invalidInitialState.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invariantViolation"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invariantViolation.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.invariantViolation.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.match_on_same_ctor._@.NEARLean.AbstractKernel.2084757156._hygCtx._hyg.51"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.match_on_same_ctor.het._@.NEARLean.AbstractKernel.2084757156._hygCtx._hyg.51"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.methodNotFound"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.methodNotFound.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.methodNotFound.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.methodNotFound.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.methodNotFound.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.methodNotFound.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.unauthorized"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.unauthorized.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.unauthorized.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.unsupportedContract"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.unsupportedContract.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.unsupportedContract.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RuntimeError.unsupportedContract.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.unsupportedContract.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RuntimeError.unsupportedContract.sizeOf_spec"
+    },
     {
       "axioms": [],
       "name": "NEARLean.SemanticsLayer"
@@ -91,11 +1243,365 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.Storage"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.lookup"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.lookup._f"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.lookup._sunfold"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.lookup._unsafe_rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.lookup.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.set"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.set._f"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.set._sunfold"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Storage.set._unsafe_rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.StorageKey"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.StorageValue"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Transition"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Transition.deterministic"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.account?"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WorldState.account?_setAccount_of_ne"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.accounts"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.block"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.initial"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.initial_wellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.lookupAccount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.lookupAccount._f"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.lookupAccount._sunfold"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.lookupAccount._unsafe_rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.lookupAccount.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.lookupAccount.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.lookupAccount.eq_def"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.lookupAccount.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WorldState.lookupAccount_setAccountList_of_ne"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WorldState.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccountList"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccountList._f"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccountList._sunfold"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccountList._unsafe_rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccountList.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccountList.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccountList.eq_def"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.setAccountList.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.transferBalance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WorldState.transferBalance.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.basicTransferExample"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.counterExample"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.counterExample.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.escrowExample"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.execute"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.executeNative"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.initializedContractAccount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqAccount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqAccount.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqAccount.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqBlockContext"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqBlockContext.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqBlockContext.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqNativeContract"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqNativeContract.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqNearChain"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqNearChain.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqNearChain.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqOutput"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqOutput.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqOutput.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqRuntimeConfig"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqRuntimeConfig.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqRuntimeConfig.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqRuntimeError"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqRuntimeError.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqRuntimeError.beq.match_1"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.instBEqSemanticsLayer"
     },
     {
       "axioms": [],
       "name": "NEARLean.instBEqSemanticsLayer.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqWorldState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqWorldState.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqWorldState.beq.match_1"
     },
     {
       "axioms": [],
@@ -111,6 +1617,142 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_2"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_3"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_4"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_4._proof_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_4._proof_2"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_4._proof_3"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_5"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_6"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprAccount"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprAccount.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprBlockContext"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprBlockContext.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprInput"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprInput.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprInput.repr.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprNativeContract"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprNativeContract.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprNativeContract.repr.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprNearChain"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprNearChain.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprOutput"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprOutput.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprRuntimeConfig"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprRuntimeConfig.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprRuntimeError"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprRuntimeError.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprRuntimeError.repr.match_1"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.instReprSemanticsLayer"
     },
     {
@@ -120,9 +1762,123 @@
     {
       "axioms": [],
       "name": "NEARLean.instReprSemanticsLayer.repr.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprWorldState"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprWorldState.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.step"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.step.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.step_deterministic"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.step_error_rolls_back"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.step_preserves_wellFormed"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.transferBalance_unrelated_account"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.transfer_updates_unrelated_account"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.viewNative"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.viewNative.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.lookupAccount.match_1.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.lookupAccount.match_1.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.lookupAccount.match_1.splitter"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.setAccountList.match_1.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.setAccountList.match_1.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.setAccountList.match_1.splitter"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.transferBalance.match_1.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.transferBalance.match_1.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.WorldState.transferBalance.match_1.splitter"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.step.match_1.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.step.match_1.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.AbstractKernel.0.NEARLean.step.match_1.splitter"
     }
   ],
   "headlineTheorems": [
+    "NEARLean.Account.initial_wellFormed",
+    "NEARLean.WorldState.initial_wellFormed",
+    "NEARLean.step_deterministic",
+    "NEARLean.Transition.deterministic",
+    "NEARLean.step_error_rolls_back",
+    "NEARLean.step_preserves_wellFormed",
+    "NEARLean.transfer_updates_unrelated_account",
+    "NEARLean.transferBalance_unrelated_account",
+    "NEARLean.NearChain.init_wellFormed",
+    "NEARLean.NearChain.view_pure",
+    "NEARLean.NearChain.apply_error_rolls_back",
+    "NEARLean.NearChain.apply_preserves_wellFormed",
     "NEARLean.SemanticsLayer.abstract_ne_concrete"
   ],
   "modulePrefixes": [

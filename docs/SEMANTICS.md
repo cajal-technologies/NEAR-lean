@@ -10,6 +10,29 @@ numbers, and explicit invariants. Serialization, trie layout, byte encodings,
 protocol migrations, and VM implementation details do not belong in its public
 verification API.
 
+`NEARLean.AbstractKernel` is the Milestone 1 implementation of this layer. It
+defines finite association-list state, executable invariant checks, and the total
+transition interface:
+
+```lean
+step :
+  RuntimeConfig →
+  WorldState →
+  Input →
+  WorldState × Except RuntimeError Output
+```
+
+At Milestone 2 the same interface executes four abstract actions. It commits a
+candidate state only after checking `WorldState.WellFormed`; execution and
+validation failures return the unchanged pre-state. `Transition` remains defined
+by equality with `step`, so there is no separately maintained relational
+semantics.
+
+`NEARLean.Sandbox` exposes `NearChain.init`, `deploy`, `call`, `view`, transfers,
+account creation, and state queries. The temporary native backend contains a
+counter and simple escrow. It is synchronous and does not model receipts, promises,
+WASM, host functions, or near-workspaces RPC.
+
 ## Concrete compatibility semantics
 
 The concrete layer is indexed by protocol version and models externally

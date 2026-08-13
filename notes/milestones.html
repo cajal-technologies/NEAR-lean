@@ -175,7 +175,10 @@ Protocol.</p>
   RuntimeConfig →
   WorldState →
   Input →
-  Except RuntimeError (WorldState × Output)</code></pre>
+  WorldState × Except RuntimeError Output</code></pre>
+        <p>This preserves an explicit post-state on failures. In the
+        early abstract semantics it may be the unchanged input state;
+        later milestones can model NEAR’s relevant failure effects.</p>
         <ul>
         <li>Explicit account, balance, storage, and identifier
         invariants.</li>

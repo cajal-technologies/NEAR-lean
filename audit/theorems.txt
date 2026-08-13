@@ -1,1 +1,13 @@
+NEARLean.Account.initial_wellFormed
+NEARLean.WorldState.initial_wellFormed
+NEARLean.step_deterministic
+NEARLean.Transition.deterministic
+NEARLean.step_error_rolls_back
+NEARLean.step_preserves_wellFormed
+NEARLean.transfer_updates_unrelated_account
+NEARLean.transferBalance_unrelated_account
+NEARLean.NearChain.init_wellFormed
+NEARLean.NearChain.view_pure
+NEARLean.NearChain.apply_error_rolls_back
+NEARLean.NearChain.apply_preserves_wellFormed
 NEARLean.SemanticsLayer.abstract_ne_concrete

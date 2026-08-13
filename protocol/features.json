@@ -7,16 +7,16 @@
       "milestone": 1,
       "weight": 3,
       "nearcoreReference": "core/primitives-core/src/account.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Abstract identifiers enforce only nonemptiness and configurable length bounds; NEAR account-ID grammar is not implemented."
       ],
       "proofObligations": [],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -26,16 +26,16 @@
       "milestone": 1,
       "weight": 2,
       "nearcoreReference": "core/primitives-core/src/types.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Balances and gas use unbounded naturals with abstract configured bounds; concrete widths, charging, and economics are not implemented."
       ],
       "proofObligations": [],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -45,16 +45,16 @@
       "milestone": 1,
       "weight": 2,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/context.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The abstract context contains only height, timestamp, gas price, and gas limit; it is not a near-vm context."
       ],
       "proofObligations": [],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -64,16 +64,21 @@
       "milestone": 1,
       "weight": 4,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "World state uses finite association lists and omits tries, access keys, code bytes, staking, and serialization."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "initial-account-well-formed",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -83,16 +88,25 @@
       "milestone": 1,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The transition kernel now executes Milestone 2 abstract actions but remains intentionally separate from nearcore-compatible receipt execution."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "step-determinism",
+          "discharged": true
+        },
+        {
+          "id": "failed-step-rollback",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -102,16 +116,25 @@
       "milestone": 1,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/verifier.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Invariants describe the abstract association-list model and have no concrete nearcore refinement theorem."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "initial-world-well-formed",
+          "discharged": true
+        },
+        {
+          "id": "step-well-formedness-preservation",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -121,16 +144,21 @@
       "milestone": 2,
       "weight": 3,
       "nearcoreReference": "runtime/runtime/src/actions.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Account creation initializes only the abstract account record; access keys, storage staking, and implicit-account rules are omitted."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "create-account-preserves-well-formedness",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -140,16 +168,21 @@
       "milestone": 2,
       "weight": 3,
       "nearcoreReference": "runtime/runtime/src/actions.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Transfer moves liquid abstract balance only; fees, receipts, refunds, locked balance, and protocol economics are omitted."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "unrelated-account-noninterference",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -159,16 +192,16 @@
       "milestone": 2,
       "weight": 3,
       "nearcoreReference": "runtime/runtime/src/actions.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Deployment selects one of two native Lean programs by abstract identifier; WASM bytes, validation, and upgrades are omitted."
       ],
       "proofObligations": [],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -178,16 +211,21 @@
       "milestone": 2,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/actions.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Calls execute synchronously against the native backend with a flat gas marker; receipts, promises, host functions, and WASM are omitted."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "runtime-determinism",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -197,16 +235,16 @@
       "milestone": 2,
       "weight": 3,
       "nearcoreReference": "runtime/near-vm-runner/src/runner.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The temporary backend contains only counter and simple escrow programs and is not a WASM runtime."
       ],
       "proofObligations": [],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -216,16 +254,21 @@
       "milestone": 2,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/actions.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Failures restore the full abstract pre-state; later compatibility semantics may model protocol-visible failure effects."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "failed-call-rollback",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -235,16 +278,25 @@
       "milestone": 2,
       "weight": 3,
       "nearcoreReference": "test-utils/testlib/src/runtime_utils.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "NearChain is an in-memory Lean API and does not implement near-workspaces RPC, sandbox processes, blocks, or receipts."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "view-purity",
+          "discharged": true
+        },
+        {
+          "id": "valid-genesis-initialization",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {

@@ -3,9 +3,11 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 0**: the reproducible project, protocol baseline,
-feature scorecard, and quality gates are in place. Protocol behavior is not yet
-implemented.
+The project is at **Milestone 2**: the proof-friendly abstract kernel executes
+account creation, transfers, native-contract deployment, and synchronous function
+calls through an in-memory `NearChain` API. Counter and simple escrow examples,
+atomic rollback, pure views, and 100 parameterized scenarios are included. This is
+an abstract sandbox, not nearcore-compatible receipt or WASM execution.
 
 ## Quick start
 
@@ -60,5 +62,5 @@ CI verifies that snapshot against the pinned upstream commit.
 - [`docs/TRUSTED_COMPUTING_BASE.md`](docs/TRUSTED_COMPUTING_BASE.md) records what is trusted.
 - [`docs/KNOWN_DEVIATIONS.md`](docs/KNOWN_DEVIATIONS.md) records compatibility gaps.
 - [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) documents the gates and update workflow.
-- [`notes/MILESTONES.md`](notes/MILESTONES.md) is the development roadmap.
-- [`notes/EVALUATION.md`](notes/EVALUATION.md) defines the correctness signals and metrics.
+- [`notes/milestones.html`](notes/milestones.html) is the development roadmap.
+- [`notes/evaluation.html`](notes/evaluation.html) defines the correctness signals and metrics.

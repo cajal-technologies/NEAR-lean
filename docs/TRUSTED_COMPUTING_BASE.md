@@ -25,13 +25,15 @@ nearcore tree.
 
 ## Axiom policy
 
-No axioms are currently approved. The lint gate imports every production module,
-enumerates every declaration originating in `NEARLean.*` modules, and uses Lean's
-transitive axiom collector on each declaration. `audit/theorems.txt` only marks
-headline theorems for dashboard reporting; it does not determine audit coverage.
-The full result is checked in as `audit/report.json`. The allowed set is
-machine-readable in `audit/allowed_axioms.json`. Adding an axiom requires a
-reviewed rationale in that file and in this document.
+Proposition extensionality (`propext`) is approved because Lean's generated
+equality and representation declarations for Milestone 1 structures depend on
+it. `Classical.choice`, `Quot.sound`, and nonstandard axioms remain prohibited.
+The lint gate imports every production module, enumerates every declaration
+originating in `NEARLean.*` modules, and uses Lean's transitive axiom collector on
+each declaration. `audit/theorems.txt` only marks headline theorems for dashboard
+reporting; it does not determine audit coverage. The full result is checked in as
+`audit/report.json`. The allowed set and rationale are machine-readable in
+`audit/allowed_axioms.json`.
 
 Source policy also rejects `sorry`, `admit`, `axiom`, `opaque`, and `unsafe` in
 production Lean code after removing nested comments and string literals. This
