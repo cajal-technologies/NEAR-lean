@@ -437,6 +437,14 @@ Protocol.</p>
         execution MVP</h2>
         <p><strong>Goal:</strong> Execute real compiled contracts
         instead of native Lean substitutes.</p>
+        <p><strong>Implementation direction:</strong> The concrete
+        compatibility layer is intended to use <a
+        href="https://github.com/cajal-technologies/talos">Talos</a> as
+        its deterministic WebAssembly interpreter/runtime foundation.
+        Talos integration and supported WebAssembly feature coverage
+        remain future milestone work. This concrete execution foundation
+        is distinct from the proof-friendly abstract semantics developed
+        in earlier milestones.</p>
         <p><strong>Deliverables:</strong></p>
         <ul>
         <li>Pinned WASM version and supported instruction manifest.</li>
