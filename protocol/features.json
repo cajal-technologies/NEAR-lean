@@ -6,7 +6,7 @@
       "group": "abstract-kernel",
       "milestone": 1,
       "weight": 3,
-      "nearcoreReference": "core/primitives-core/src/types/account.rs",
+      "nearcoreReference": "core/primitives-core/src/account.rs",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -234,7 +234,7 @@
       "group": "sandbox-api",
       "milestone": 2,
       "weight": 3,
-      "nearcoreReference": "test-utils/runtime-tester/src/lib.rs",
+      "nearcoreReference": "test-utils/testlib/src/runtime_utils.rs",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -272,7 +272,7 @@
       "group": "differential",
       "milestone": 3,
       "weight": 5,
-      "nearcoreReference": "test-utils/runtime-tester/src/lib.rs",
+      "nearcoreReference": "test-utils/testlib/src/runtime_utils.rs",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -310,7 +310,7 @@
       "group": "differential",
       "milestone": 3,
       "weight": 3,
-      "nearcoreReference": "test-utils/runtime-tester/src/lib.rs",
+      "nearcoreReference": "test-utils/testlib/src/runtime_utils.rs",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -329,7 +329,7 @@
       "group": "differential",
       "milestone": 3,
       "weight": 3,
-      "nearcoreReference": "integration-tests/src/tests/client/features",
+      "nearcoreReference": "integration-tests/src/tests/features",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -595,7 +595,7 @@
       "group": "verification-api",
       "milestone": 6,
       "weight": 4,
-      "nearcoreReference": "integration-tests/src/tests/client/features",
+      "nearcoreReference": "integration-tests/src/tests/features",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -652,7 +652,7 @@
       "group": "economics",
       "milestone": 7,
       "weight": 5,
-      "nearcoreReference": "runtime/near-vm-runner/src/logic/gas_costs.rs",
+      "nearcoreReference": "core/parameters/res/runtime_configs/parameters.yaml",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -709,7 +709,7 @@
       "group": "economics",
       "milestone": 7,
       "weight": 5,
-      "nearcoreReference": "runtime/runtime/src/errors.rs",
+      "nearcoreReference": "core/primitives/src/errors.rs",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -728,7 +728,7 @@
       "group": "validation",
       "milestone": 8,
       "weight": 3,
-      "nearcoreReference": "test-utils/runtime-tester/src/lib.rs",
+      "nearcoreReference": "test-utils/testlib/src/runtime_utils.rs",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -1070,7 +1070,7 @@
       "group": "concrete-semantics",
       "milestone": 11,
       "weight": 5,
-      "nearcoreReference": "core/primitives/src/hash.rs",
+      "nearcoreReference": "core/primitives-core/src/hash.rs",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -1279,7 +1279,7 @@
       "group": "history",
       "milestone": 13,
       "weight": 6,
-      "nearcoreReference": "runtime/runtime/src/migrations.rs",
+      "nearcoreReference": "nearcore/src/migrations.rs",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -1298,7 +1298,7 @@
       "group": "history",
       "milestone": 13,
       "weight": 7,
-      "nearcoreReference": "core/primitives/src/shard_layout.rs",
+      "nearcoreReference": "core/primitives/src/shard_layout",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -1355,7 +1355,7 @@
       "group": "history",
       "milestone": 13,
       "weight": 4,
-      "nearcoreReference": "integration-tests/src/tests/client/features",
+      "nearcoreReference": "integration-tests/src/tests/features",
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
@@ -1431,6 +1431,7 @@
     "maximum": 86,
     "minimum": 86
   },
+  "observationLevel": "L0",
   "schemaVersion": 1,
   "statusValues": [
     "unsupported",

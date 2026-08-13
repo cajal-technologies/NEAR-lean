@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fourteen objective milestones from a
+reproducible Lean kernel to exact historical replay of the NEAR
+Protocol.">
+  <title>Project Milestones · NEAR Lean</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true">Nλ</span>
+      <span>NEAR Lean</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="evaluation.html">Evaluation</a>
+      <a href="milestones.html" aria-current="page">Milestones</a>
+    </nav>
+  </header>
+
+  <main class="document-main" id="main">
+    <header class="document-hero">
+      <p class="eyebrow">The delivery roadmap</p>
+      <h1>Project Milestones</h1>
+      <p class="document-summary">Fourteen objective milestones from a
+reproducible Lean kernel to exact historical replay of the NEAR
+Protocol.</p>
+    </header>
+
+    <div class="document-layout">
+            <aside class="toc-wrap">
+        <p class="toc-label">On this page</p>
+        <nav id="TOC" aria-label="Table of contents">
+          <ul>
+          <li><a href="#rules-applying-to-every-milestone"
+          id="toc-rules-applying-to-every-milestone">Rules applying to
+          every milestone</a></li>
+          <li><a href="#milestone-0--reproducible-project-and-scorecard"
+          id="toc-milestone-0--reproducible-project-and-scorecard">Milestone
+          0 — Reproducible project and scorecard</a></li>
+          <li><a href="#milestone-1--abstract-state-transition-kernel"
+          id="toc-milestone-1--abstract-state-transition-kernel">Milestone
+          1 — Abstract state-transition kernel</a></li>
+          <li><a
+          href="#milestone-2--basic-sandbox-and-workspaces-style-api"
+          id="toc-milestone-2--basic-sandbox-and-workspaces-style-api">Milestone
+          2 — Basic sandbox and Workspaces-style API</a></li>
+          <li><a
+          href="#milestone-3--nearcore-oracle-and-differential-infrastructure"
+          id="toc-milestone-3--nearcore-oracle-and-differential-infrastructure">Milestone
+          3 — nearcore oracle and differential infrastructure</a></li>
+          <li><a href="#milestone-4--transactions-receipts-and-promises"
+          id="toc-milestone-4--transactions-receipts-and-promises">Milestone
+          4 — Transactions, receipts, and promises</a></li>
+          <li><a href="#milestone-5--single-shard-block-scheduler"
+          id="toc-milestone-5--single-shard-block-scheduler">Milestone 5
+          — Single-shard block scheduler</a></li>
+          <li><a href="#milestone-6--contract-specification-framework"
+          id="toc-milestone-6--contract-specification-framework">Milestone
+          6 — Contract specification framework</a></li>
+          <li><a href="#milestone-7--deposits-gas-storage-and-refunds"
+          id="toc-milestone-7--deposits-gas-storage-and-refunds">Milestone
+          7 — Deposits, gas, storage, and refunds</a></li>
+          <li><a
+          href="#milestone-8--fuzzing-coverage-and-mutation-infrastructure"
+          id="toc-milestone-8--fuzzing-coverage-and-mutation-infrastructure">Milestone
+          8 — Fuzzing, coverage, and mutation infrastructure</a></li>
+          <li><a href="#milestone-9--wasm-execution-mvp"
+          id="toc-milestone-9--wasm-execution-mvp">Milestone 9 — WASM
+          execution MVP</a></li>
+          <li><a
+          href="#milestone-10--contract-relevant-near-host-environment"
+          id="toc-milestone-10--contract-relevant-near-host-environment">Milestone
+          10 — Contract-relevant NEAR host environment</a></li>
+          <li><a
+          href="#milestone-11--concrete-encoding-and-abstract-refinement"
+          id="toc-milestone-11--concrete-encoding-and-abstract-refinement">Milestone
+          11 — Concrete encoding and abstract refinement</a></li>
+          <li><a href="#milestone-12--current-era-chunk-replay"
+          id="toc-milestone-12--current-era-chunk-replay">Milestone 12 —
+          Current-era chunk replay</a></li>
+          <li><a
+          href="#milestone-13--protocol-versions-upgrades-and-multiple-shards"
+          id="toc-milestone-13--protocol-versions-upgrades-and-multiple-shards">Milestone
+          13 — Protocol versions, upgrades, and multiple shards</a></li>
+          <li><a
+          href="#milestone-14--historical-replay-and-stabilization-campaign"
+          id="toc-milestone-14--historical-replay-and-stabilization-campaign">Milestone
+          14 — Historical replay and stabilization campaign</a></li>
+          <li><a href="#recommended-release-checkpoints"
+          id="toc-recommended-release-checkpoints">Recommended release
+          checkpoints</a></li>
+          </ul>
+        </nav>
+      </aside>
+            <article class="prose">
+        <p>The project is organized into 14 milestones, with useful
+        releases after milestones 3, 6, 10, and 12. Each milestone ends
+        with an objective exit gate, not a subjective “looks done.”</p>
+        <p>The numeric targets below are initial ratchets: after
+        establishing baseline performance, they may be raised but should
+        not silently be lowered.</p>
+        <h2 id="rules-applying-to-every-milestone">Rules applying to
+        every milestone</h2>
+        <p>A feature only counts as complete when, where applicable, it
+        has:</p>
+        <ol type="1">
+        <li>A pinned nearcore source reference and protocol-version
+        range.</li>
+        <li>Executable semantics.</li>
+        <li>Positive and negative tests.</li>
+        <li>Differential tests against nearcore.</li>
+        <li>Relevant invariant-preservation proofs.</li>
+        <li>Updated documentation and feature matrix.</li>
+        <li>No unexplained warnings, <code>sorry</code>,
+        <code>unsafe</code>, or unapproved axioms.</li>
+        </ol>
+        <p>CI should publish a machine-readable scorecard after every
+        merge.</p>
+        <hr />
+        <h2
+        id="milestone-0--reproducible-project-and-scorecard">Milestone 0
+        — Reproducible project and scorecard</h2>
+        <p><strong>Goal:</strong> Make the empty repository safe for
+        autonomous development.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Lean project skeleton and pinned Lean toolchain.</li>
+        <li>Pinned nearcore commit and initial protocol version.</li>
+        <li>One-command build, test, lint, and format workflows.</li>
+        <li>CI gates for warnings, formatting, <code>sorry</code>, and
+        prohibited axioms.</li>
+        <li>Machine-readable protocol feature matrix.</li>
+        <li>Trusted-computing-base and known-deviations documents.</li>
+        <li>Initial metric dashboard.</li>
+        <li>Clear distinction between abstract semantics and concrete
+        compatibility semantics.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>Fresh checkout passes CI with one documented command.</li>
+        <li>CI deliberately fails on an inserted <code>sorry</code>,
+        warning, formatting error, and prohibited axiom.</li>
+        <li>Every planned feature has a manifest entry, even if marked
+        unsupported.</li>
+        <li>Builds and tests are reproducible from pinned
+        dependencies.</li>
+        </ul>
+        <p>Lean can report transitive axiom dependencies through
+        <code>#print axioms</code>, including uses of
+        <code>sorryAx</code>, so axiom auditing should be automated from
+        the beginning. <a
+        href="https://lean-lang.org/doc/reference/latest/Axioms/">Lean
+        axiom auditing</a>.</p>
+        <hr />
+        <h2 id="milestone-1--abstract-state-transition-kernel">Milestone
+        1 — Abstract state-transition kernel</h2>
+        <p><strong>Goal:</strong> Define the proof-friendly mathematical
+        core without WASM, tries, signatures, or networking.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li><code>AccountId</code>, <code>Balance</code>,
+        <code>Gas</code>, <code>BlockContext</code>, storage keys and
+        values.</li>
+        <li>Accounts, contract identifiers, world state, errors, and
+        outcomes.</li>
+        <li><code>WorldState.WellFormed</code>.</li>
+        <li>Pure transition interface:</li>
+        </ul>
+        <pre class="lean"><code>step :
+  RuntimeConfig →
+  WorldState →
+  Input →
+  Except RuntimeError (WorldState × Output)</code></pre>
+        <ul>
+        <li>Explicit account, balance, storage, and identifier
+        invariants.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>Determinism theorem for <code>step</code>.</li>
+        <li>All initial constructors produce well-formed states.</li>
+        <li>No partial functions or <code>unsafe</code> definitions in
+        the semantic kernel.</li>
+        <li>A small executable trace can be evaluated with
+        <code>#eval</code>.</li>
+        <li>Axiom audit passes for all headline theorems.</li>
+        </ul>
+        <hr />
+        <h2
+        id="milestone-2--basic-sandbox-and-workspaces-style-api">Milestone
+        2 — Basic sandbox and Workspaces-style API</h2>
+        <p><strong>Goal:</strong> Obtain the first usable vertical
+        slice.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li><code>CreateAccount</code>, <code>Transfer</code>,
+        <code>DeployContract</code>, and <code>FunctionCall</code>.</li>
+        <li>Native Lean contracts as the temporary execution
+        backend.</li>
+        <li>Contract storage, logs, return values, and failures.</li>
+        <li>Atomic rollback for failed calls.</li>
+        <li><code>NearChain.init</code>, <code>deploy</code>,
+        <code>call</code>, <code>view</code>, and state queries.</li>
+        <li>Counter and simple escrow examples.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li><p>A counter can be deployed, incremented, and viewed
+        through the public API.</p></li>
+        <li><p>An escrow can receive and release funds.</p></li>
+        <li><p>Proved:</p>
+        <ul>
+        <li>View purity.</li>
+        <li>Failed-call rollback.</li>
+        <li>Runtime determinism.</li>
+        <li>Unrelated-account noninterference for basic actions.</li>
+        </ul></li>
+        <li><p>At least 100 scenario tests, including failures and
+        boundary values.</p></li>
+        </ul>
+        <hr />
+        <h2
+        id="milestone-3--nearcore-oracle-and-differential-infrastructure">Milestone
+        3 — nearcore oracle and differential infrastructure</h2>
+        <p><strong>Goal:</strong> Establish an independent behavioral
+        correctness signal before implementing more semantics.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Canonical JSON or binary trace format.</li>
+        <li>Pinned nearcore runner that consumes the same genesis and
+        inputs.</li>
+        <li>Result canonicalizer and structured comparison report.</li>
+        <li>Deterministic random trace generator.</li>
+        <li>Automatic failing-trace minimizer.</li>
+        <li>Permanent regression corpus.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li><p>1,000 generated basic-action traces pass through
+        comparison level L3:</p>
+        <ul>
+        <li>Same success or error category.</li>
+        <li>Same return values and logs.</li>
+        <li>Same balances and contract storage.</li>
+        </ul></li>
+        <li><p>Every failure produces a reproducible seed and minimized
+        fixture.</p></li>
+        <li><p>The comparator detects deliberately corrupted balance,
+        storage, outcome, and error values.</p></li>
+        <li><p>nearcore version and protocol configuration appear in
+        every fixture.</p></li>
+        </ul>
+        <p>This is the first major stop/go checkpoint: if the basic
+        abstract model cannot align cleanly with nearcore, its
+        boundaries should be revised before receipts and WASM are
+        added.</p>
+        <p><strong>Release:</strong> <code>v0.1</code> — basic sandbox
+        semantics aligned with nearcore.</p>
+        <hr />
+        <h2
+        id="milestone-4--transactions-receipts-and-promises">Milestone 4
+        — Transactions, receipts, and promises</h2>
+        <p><strong>Goal:</strong> Model NEAR’s asynchronous execution
+        structure.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Transaction-to-receipt conversion.</li>
+        <li>Action receipts and data receipts.</li>
+        <li>Input-data dependencies.</li>
+        <li>Promise results and callbacks.</li>
+        <li>Receipt identifiers and output-data receivers.</li>
+        <li>Cross-contract calls.</li>
+        <li>Receipt queues and bounded execution.</li>
+        </ul>
+        <p>Receipts are the central mechanism for cross-contract
+        execution, and callbacks must wait until their input data
+        receipts are satisfied. <a
+        href="https://nomicon.io/RuntimeSpec/Receipts">NEAR receipt
+        semantics</a>.</p>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li><p>Cross-contract call and callback examples execute
+        correctly.</p></li>
+        <li><p>10,000 generated receipt traces pass through L4,
+        including receipt identity and order.</p></li>
+        <li><p>Proved:</p>
+        <ul>
+        <li>Receipt-ID uniqueness.</li>
+        <li>A callback cannot execute before its dependencies
+        arrive.</li>
+        <li>Processing preserves state well-formedness.</li>
+        <li>Fixed inputs and scheduling are deterministic.</li>
+        <li>Every created receipt is either queued, executed, or
+        explicitly discarded by a modeled rule.</li>
+        </ul></li>
+        </ul>
+        <hr />
+        <h2 id="milestone-5--single-shard-block-scheduler">Milestone 5 —
+        Single-shard block scheduler</h2>
+        <p><strong>Goal:</strong> Turn the runtime into a small but
+        genuine chain simulator.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Block production and block context advancement.</li>
+        <li>Local, incoming, delayed, and postponed receipts.</li>
+        <li>Protocol processing order.</li>
+        <li>Per-block execution bound.</li>
+        <li><code>produceBlock</code> and <code>runUntil</code>.</li>
+        <li>Execution outcome lookup.</li>
+        </ul>
+        <p>NEAR applies transactions and different receipt classes in a
+        defined order, delaying work when a block’s gas capacity is
+        exhausted. <a
+        href="https://nomicon.io/RuntimeSpec/ApplyingChunk">Chunk
+        application order</a>.</p>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>1,000-block generated chains replay deterministically.</li>
+        <li>Processing-order tests agree with nearcore.</li>
+        <li>L4 differential comparison passes for at least 10,000
+        blocks.</li>
+        <li><code>runUntil</code> always terminates because it requires
+        explicit fuel or a block bound.</li>
+        <li>Delayed and postponed receipt invariants are proved.</li>
+        </ul>
+        <hr />
+        <h2 id="milestone-6--contract-specification-framework">Milestone
+        6 — Contract specification framework</h2>
+        <p><strong>Goal:</strong> Make the project useful for proving
+        contract correctness before exact nearcore compatibility is
+        complete.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li><p>Reachability over arbitrary valid traces.</p></li>
+        <li><p>Explicit adversary and environment model.</p></li>
+        <li><p>Reusable definitions for:</p>
+        <ul>
+        <li>State invariants.</li>
+        <li>Call preconditions and postconditions.</li>
+        <li>Authorization.</li>
+        <li>Conservation.</li>
+        <li>Noninterference.</li>
+        <li>Conditional liveness.</li>
+        </ul></li>
+        </ul>
+        <p>A typical statement should look conceptually like:</p>
+        <pre class="lean"><code>theorem escrow_safe :
+  ∀ trace,
+    ValidTrace config initialState trace →
+    EscrowInvariant trace.last</code></pre>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>Counter, escrow, and abstract fungible-token
+        benchmarks.</li>
+        <li>At least one arbitrary-trace invariant for each
+        benchmark.</li>
+        <li>Proofs quantify over arbitrary valid traces rather than
+        bounded enumeration.</li>
+        <li>Contract proofs use the public verification API and do not
+        import runtime implementation internals.</li>
+        <li>Threat model explicitly documents which inputs the adversary
+        controls.</li>
+        <li>A new benchmark contract can be specified without modifying
+        the core runtime.</li>
+        </ul>
+        <p><strong>Release:</strong> <code>v0.2</code> — native-contract
+        verification sandbox.</p>
+        <p>This is the second stop/go checkpoint: have someone
+        unfamiliar with the internals specify one small contract. If
+        that requires understanding receipt implementation details, the
+        verification API needs redesign.</p>
+        <hr />
+        <h2 id="milestone-7--deposits-gas-storage-and-refunds">Milestone
+        7 — Deposits, gas, storage, and refunds</h2>
+        <p><strong>Goal:</strong> Implement exact economic semantics for
+        the pinned protocol version.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Attached deposits.</li>
+        <li>Prepaid, burnt, and used gas.</li>
+        <li>Gas schedules and action fees.</li>
+        <li>Storage usage and storage staking.</li>
+        <li>Gas and deposit refunds.</li>
+        <li>Out-of-gas and insufficient-balance behavior.</li>
+        <li>Balance carried by queued and postponed receipts.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>Differential comparison reaches L5.</li>
+        <li>10,000 targeted economic traces agree with nearcore.</li>
+        <li>Token conservation is proved across every implemented
+        transition.</li>
+        <li>Gas never exceeds the relevant configured limits.</li>
+        <li>Failure-path tests cover every economic error category.</li>
+        <li>At least 90% of an initial economics mutation set is
+        detected.</li>
+        </ul>
+        <hr />
+        <h2
+        id="milestone-8--fuzzing-coverage-and-mutation-infrastructure">Milestone
+        8 — Fuzzing, coverage, and mutation infrastructure</h2>
+        <p><strong>Goal:</strong> Measure whether the validation system
+        catches plausible implementation errors.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Grammar-aware generators for states, actions, receipts, and
+        blocks.</li>
+        <li>Feature-aware coverage reporting.</li>
+        <li>Automatic shrinking.</li>
+        <li>Metamorphic tests.</li>
+        <li>Semantic mutation framework.</li>
+        <li>Visible and held-out differential corpora.</li>
+        <li>Scheduled long-running CI jobs.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>One million model-only actions per nightly campaign.</li>
+        <li>At least 10,000 nearcore differential traces per nightly
+        campaign.</li>
+        <li>Every supported manifest feature has positive, negative, and
+        differential coverage.</li>
+        <li>At least 90% overall semantic mutation score.</li>
+        <li>Every discovered bug becomes a minimized permanent
+        fixture.</li>
+        <li>Fixed random seeds reproduce bit-for-bit.</li>
+        </ul>
+        <p>Important mutations should include wrong receipt order,
+        skipped rollback, incorrect signer/predecessor use, missing
+        refunds, premature callbacks, and gas off-by-one errors.</p>
+        <hr />
+        <h2 id="milestone-9--wasm-execution-mvp">Milestone 9 — WASM
+        execution MVP</h2>
+        <p><strong>Goal:</strong> Execute real compiled contracts
+        instead of native Lean substitutes.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Pinned WASM version and supported instruction manifest.</li>
+        <li>Module decoding and validation.</li>
+        <li>Deterministic interpreter or other explicitly documented
+        execution strategy.</li>
+        <li>Memory, globals, tables, calls, traps, and exported method
+        resolution.</li>
+        <li>Minimal host functions needed by a compiled counter.</li>
+        <li>Separation between WASM semantics and NEAR host
+        semantics.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>The same compiled counter WASM runs in Lean and
+        nearcore.</li>
+        <li>No native Lean implementation is substituted during the
+        test.</li>
+        <li>Success, return value, storage, logs, and traps match
+        through L4.</li>
+        <li>Instruction coverage is reported.</li>
+        <li>Unsupported modules fail explicitly, never silently.</li>
+        <li>WASM parser and interpreter mutation suites meet a 90%
+        target.</li>
+        </ul>
+        <hr />
+        <h2
+        id="milestone-10--contract-relevant-near-host-environment">Milestone
+        10 — Contract-relevant NEAR host environment</h2>
+        <p><strong>Goal:</strong> Support realistic compiled NEAR
+        contracts.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Registers and memory interfaces.</li>
+        <li>Context functions.</li>
+        <li>Storage functions.</li>
+        <li>Logging and return values.</li>
+        <li>Promise creation and callbacks.</li>
+        <li>Crypto functions used by contracts.</li>
+        <li>Exact host errors and gas charging.</li>
+        <li>Compiled counter, escrow, fungible-token, NFT, and
+        callback-heavy contracts.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li><p>All benchmark contracts execute from their actual WASM
+        artifacts.</p></li>
+        <li><p>Differential comparison reaches L5 for the benchmark
+        corpus.</p></li>
+        <li><p>At least 10,000 generated compiled-contract calls
+        pass.</p></li>
+        <li><p>Every host function used by the benchmark corpus has:</p>
+        <ul>
+        <li>Boundary tests.</li>
+        <li>Error tests.</li>
+        <li>Gas tests.</li>
+        <li>Differential tests.</li>
+        </ul></li>
+        <li><p>Native and WASM executions refine to the same abstract
+        contract observations where both are defined.</p></li>
+        </ul>
+        <p><strong>Release:</strong> <code>v0.3</code> — real-WASM
+        verification sandbox.</p>
+        <hr />
+        <h2
+        id="milestone-11--concrete-encoding-and-abstract-refinement">Milestone
+        11 — Concrete encoding and abstract refinement</h2>
+        <p><strong>Goal:</strong> Connect proof-friendly semantics to
+        nearcore-compatible bytes and state representation.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Exact serialization.</li>
+        <li>Hash and identifier derivation.</li>
+        <li>Concrete receipt and outcome encodings.</li>
+        <li>Trie keys and state roots.</li>
+        <li>Concrete runtime transition.</li>
+        <li>Abstraction function from concrete to abstract state.</li>
+        <li>Refinement theorems.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>Differential comparison reaches L7 for synthetic
+        chunks.</li>
+        <li>At least 1,000 generated chunks produce identical state
+        roots.</li>
+        <li>Proved, for supported inputs:</li>
+        </ul>
+        <pre class="lean"><code>observe (concreteStep s input) =
+  abstractStep (abstract s) input</code></pre>
+        <ul>
+        <li>All remaining unproved adapters and cryptographic
+        assumptions are listed in the trusted-base report.</li>
+        <li>Concrete compatibility details do not leak into ordinary
+        contract proofs.</li>
+        </ul>
+        <hr />
+        <h2 id="milestone-12--current-era-chunk-replay">Milestone 12 —
+        Current-era chunk replay</h2>
+        <p><strong>Goal:</strong> Replay real NEAR data for one pinned
+        protocol era.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Importers for real pre-state, blocks, chunks, transactions,
+        and receipts.</li>
+        <li>Historical fixture cache with provenance and hashes.</li>
+        <li>Stratified historical corpus.</li>
+        <li>First-difference diagnostics.</li>
+        <li>Replay checkpointing and resumability.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>10,000 stratified real chunks replay with identical outcomes
+        and roots.</li>
+        <li>One contiguous 10,000-block interval replays
+        successfully.</li>
+        <li>Corpus includes every supported action and major error
+        class.</li>
+        <li>Replaying the same interval on a fresh machine gives
+        identical results.</li>
+        <li>Failures identify the first differing transaction, receipt,
+        account, or trie key.</li>
+        </ul>
+        <p><strong>Release:</strong> <code>v0.4</code> — exact
+        current-era runtime replayer.</p>
+        <hr />
+        <h2
+        id="milestone-13--protocol-versions-upgrades-and-multiple-shards">Milestone
+        13 — Protocol versions, upgrades, and multiple shards</h2>
+        <p><strong>Goal:</strong> Move from a pinned runtime to a
+        historical chain model.</p>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+        <li>Protocol-version-indexed configuration.</li>
+        <li>Feature activation gates.</li>
+        <li>Runtime migrations.</li>
+        <li>Shard layout and receipt routing.</li>
+        <li>Cross-shard receipt delays.</li>
+        <li>Validator and epoch inputs needed for state
+        transitions.</li>
+        <li>Upgrade-boundary fixtures.</li>
+        </ul>
+        <p><strong>Exit gate:</strong></p>
+        <ul>
+        <li>At least two real protocol upgrade boundaries replay
+        exactly.</li>
+        <li>Synthetic multi-shard scenarios agree with nearcore.</li>
+        <li>One real interval containing cross-shard traffic replays
+        exactly.</li>
+        <li>Each protocol-gated feature has tests immediately before and
+        after activation.</li>
+        <li>Contracts can be verified against either one fixed version
+        or an explicit range of versions.</li>
+        </ul>
+        <hr />
+        <h2
+        id="milestone-14--historical-replay-and-stabilization-campaign">Milestone
+        14 — Historical replay and stabilization campaign</h2>
+        <p><strong>Goal:</strong> Expand exact compatibility toward full
+        NEAR history.</p>
+        <p>This is an ongoing compatibility campaign rather than one
+        implementation feature.</p>
+        <p><strong>Measurements:</strong></p>
+        <ul>
+        <li>Earliest and latest exactly replayed heights.</li>
+        <li>Largest contiguous replay interval.</li>
+        <li>Percentage of stratified sampled blocks passing.</li>
+        <li>Number of protocol eras supported.</li>
+        <li>Number of upgrade boundaries crossed.</li>
+        <li>Number of unexplained divergences.</li>
+        <li>Replay throughput and peak memory.</li>
+        <li>Semantic mutation score.</li>
+        <li>Trusted assumptions remaining.</li>
+        </ul>
+        <p><strong>Final exit target:</strong></p>
+        <ul>
+        <li>Genesis-to-checkpoint replay produces the same roots and
+        outcomes.</li>
+        <li>All historical protocol transitions in that interval are
+        supported.</li>
+        <li>Every divergence is either fixed or documented as an
+        intentional scope exclusion.</li>
+        <li>Replay is reproducible from archived inputs and pinned
+        toolchains.</li>
+        </ul>
+        <p><strong>Release:</strong> <code>v1.0</code> when the exact
+        supported historical range and verification guarantees are
+        documented and reproducible.</p>
+        <h2 id="recommended-release-checkpoints">Recommended release
+        checkpoints</h2>
+        <table>
+        <thead>
+        <tr>
+        <th>Release</th>
+        <th style="text-align: right;">Milestone</th>
+        <th>What it proves</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><code>v0.1</code></td>
+        <td style="text-align: right;">3</td>
+        <td>Basic sandbox semantics align with nearcore</td>
+        </tr>
+        <tr>
+        <td><code>v0.2</code></td>
+        <td style="text-align: right;">6</td>
+        <td>Useful arbitrary-trace contract proofs are possible</td>
+        </tr>
+        <tr>
+        <td><code>v0.3</code></td>
+        <td style="text-align: right;">10</td>
+        <td>Real compiled WASM contracts can be verified</td>
+        </tr>
+        <tr>
+        <td><code>v0.4</code></td>
+        <td style="text-align: right;">12</td>
+        <td>Current-era real chunks replay exactly</td>
+        </tr>
+        <tr>
+        <td><code>v1.0</code></td>
+        <td style="text-align: right;">14</td>
+        <td>A documented historical range is exactly supported</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>This sequence deliberately brings differential testing online
+        early, contract verification before WASM completeness, and
+        historical replay only after exact encoding and refinement are
+        established. That gives agents a strong correctness signal
+        throughout development rather than only at the very end.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a href="../index.html">← Back to notes</a>
+    <span>NEAR Protocol semantics in Lean 4</span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A hard-to-game framework for
+measuring compatibility, proof strength, test quality, and
+contract-verification usability.">
+  <title>Evaluation Framework · NEAR Lean</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true">Nλ</span>
+      <span>NEAR Lean</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="evaluation.html" aria-current="page">Evaluation</a>
+      <a href="milestones.html">Milestones</a>
+    </nav>
+  </header>
+
+  <main class="document-main" id="main">
+    <header class="document-hero">
+      <p class="eyebrow">How progress is measured</p>
+      <h1>Evaluation Framework</h1>
+      <p class="document-summary">A hard-to-game framework for measuring
+compatibility, proof strength, test quality, and contract-verification
+usability.</p>
+    </header>
+
+    <div class="document-layout">
+            <aside class="toc-wrap">
+        <p class="toc-label">On this page</p>
+        <nav id="TOC" aria-label="Table of contents">
+          <ul>
+          <li><a href="#1-define-exactly-what-same-behavior-means"
+          id="toc-1-define-exactly-what-same-behavior-means">1. Define
+          exactly what “same behavior” means</a></li>
+          <li><a href="#2-protocol-feature-coverage-matrix"
+          id="toc-2-protocol-feature-coverage-matrix">2. Protocol
+          feature coverage matrix</a></li>
+          <li><a href="#3-historical-replay-but-as-a-ladder"
+          id="toc-3-historical-replay-but-as-a-ladder">3. Historical
+          replay, but as a ladder</a></li>
+          <li><a href="#4-generated-differential-testing"
+          id="toc-4-generated-differential-testing">4. Generated
+          differential testing</a></li>
+          <li><a href="#5-mutation-score" id="toc-5-mutation-score">5.
+          Mutation score</a></li>
+          <li><a href="#6-metamorphic-properties"
+          id="toc-6-metamorphic-properties">6. Metamorphic
+          properties</a></li>
+          <li><a href="#7-formal-verification-metrics"
+          id="toc-7-formal-verification-metrics">7. Formal verification
+          metrics</a></li>
+          <li><a
+          href="#8-separate-the-proof-model-from-the-compatibility-engine"
+          id="toc-8-separate-the-proof-model-from-the-compatibility-engine">8.
+          Separate the proof model from the compatibility
+          engine</a></li>
+          <li><a href="#9-contract-verification-benchmark-suite"
+          id="toc-9-contract-verification-benchmark-suite">9.
+          Contract-verification benchmark suite</a></li>
+          <li><a href="#10-trusted-computing-base-and-proof-hygiene"
+          id="toc-10-trusted-computing-base-and-proof-hygiene">10.
+          Trusted computing base and proof hygiene</a></li>
+          <li><a href="#11-agent-development-metrics"
+          id="toc-11-agent-development-metrics">11. Agent-development
+          metrics</a></li>
+          <li><a href="#recommended-top-level-dashboard"
+          id="toc-recommended-top-level-dashboard">Recommended top-level
+          dashboard</a></li>
+          </ul>
+        </nav>
+      </aside>
+            <article class="prose">
+        <p>Because autonomous agents will develop much of this project,
+        progress must be measured with independent, hard-to-game
+        correctness signals at every stage.</p>
+        <p>The framework tracks four major categories:</p>
+        <ol type="1">
+        <li>Protocol coverage.</li>
+        <li>Strength and trustworthiness of the proofs.</li>
+        <li>Resistance of the test suite to plausible bugs.</li>
+        <li>Usability for writing contract specifications.</li>
+        </ol>
+        <p>The central principle should be: <strong>do not use one
+        aggregate “percent complete.”</strong> Autonomous agents will
+        naturally optimize whatever number you expose. A small dashboard
+        of independent metrics is much harder to game.</p>
+        <h2 id="1-define-exactly-what-same-behavior-means">1. Define
+        exactly what “same behavior” means</h2>
+        <p>Differential tests should compare progressively stronger
+        observations:</p>
+        <table>
+        <thead>
+        <tr>
+        <th>Level</th>
+        <th>Compared with nearcore</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>L1</td>
+        <td>Success/failure and error category</td>
+        </tr>
+        <tr>
+        <td>L2</td>
+        <td>Return value and logs</td>
+        </tr>
+        <tr>
+        <td>L3</td>
+        <td>Account balances and contract storage</td>
+        </tr>
+        <tr>
+        <td>L4</td>
+        <td>Generated receipts, dependencies, and execution order</td>
+        </tr>
+        <tr>
+        <td>L5</td>
+        <td>Gas burnt, gas used, refunds, and storage usage</td>
+        </tr>
+        <tr>
+        <td>L6</td>
+        <td>Serialized outcomes and state changes</td>
+        </tr>
+        <tr>
+        <td>L7</td>
+        <td>Exact trie/state root</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>L3 is already useful for contract verification. L7 requires
+        exact serialization, hashing, trie layout, migrations, sharding,
+        and protocol-version behavior.</p>
+        <p>This makes “differential test passed” unambiguous. A test
+        might currently pass through L4 but not yet L5.</p>
+        <p>NEAR’s runtime turns transactions into receipts, processes
+        those receipts in a defined order, and performs balance
+        consistency checks, so receipt behavior and accounting must be
+        first-class comparison targets—not just final storage. <a
+        href="https://nomicon.io/RuntimeSpec/Components/RuntimeCrate.html">Runtime
+        processing</a>, <a
+        href="https://nomicon.io/RuntimeSpec/ApplyingChunk">chunk
+        application order</a>.</p>
+        <h2 id="2-protocol-feature-coverage-matrix">2. Protocol feature
+        coverage matrix</h2>
+        <p>Maintain a machine-readable manifest with one row for every
+        semantic feature:</p>
+        <pre class="text"><code>feature
+protocol-version range
+nearcore source/reference
+implemented
+executable tests
+differential tests
+proof obligations
+known deviations</code></pre>
+        <p>Feature groups should include:</p>
+        <ul>
+        <li>Action types.</li>
+        <li>Receipt and promise behavior.</li>
+        <li>Host functions.</li>
+        <li>WASM instructions and validation rules.</li>
+        <li>Errors and rollback cases.</li>
+        <li>Gas charging rules.</li>
+        <li>Storage accounting.</li>
+        <li>Account-ID rules.</li>
+        <li>Protocol-version gates.</li>
+        <li>Sharding and receipt routing.</li>
+        <li>Runtime migrations.</li>
+        </ul>
+        <p>Useful metrics:</p>
+        <ul>
+        <li>Percentage of features implemented.</li>
+        <li>Percentage with differential coverage.</li>
+        <li>Percentage with preservation theorems.</li>
+        <li>Number of undocumented deviations.</li>
+        <li>Number of supported protocol versions.</li>
+        </ul>
+        <p>Weight features by importance rather than counting them
+        equally. Implementing ten trivial host functions should not look
+        better than implementing promise callbacks correctly.</p>
+        <p>A feature should only be called “complete” when it has:</p>
+        <ol type="1">
+        <li>A pinned nearcore reference.</li>
+        <li>An executable implementation.</li>
+        <li>Positive and negative tests.</li>
+        <li>Differential tests.</li>
+        <li>Relevant invariant proofs.</li>
+        <li>No undocumented divergence.</li>
+        </ol>
+        <p>Pinning protocol versions is essential because nearcore
+        releases introduce observable runtime changes, including gas
+        limits, receipt ordering, refunds, and account behavior. <a
+        href="https://github.com/near/nearcore/releases">nearcore
+        releases</a>.</p>
+        <h2 id="3-historical-replay-but-as-a-ladder">3. Historical
+        replay, but as a ladder</h2>
+        <p>Full-history replay is an excellent eventual gold standard,
+        but a poor early metric. Most early blocks will not exercise the
+        difficult corners, and exact roots require support for every
+        historical protocol version and migration.</p>
+        <p>Use these milestones:</p>
+        <ul>
+        <li>Replay a synthetic single-shard chain for 1,000 blocks.</li>
+        <li>Replay selected real blocks from one protocol era.</li>
+        <li>Replay blocks containing specific action types and contract
+        behaviors.</li>
+        <li>Replay across a protocol upgrade boundary.</li>
+        <li>Replay a contiguous 10,000-block mainnet interval.</li>
+        <li>Replay one complete protocol era.</li>
+        <li>Replay genesis to a selected checkpoint.</li>
+        <li>Eventually replay genesis to head.</li>
+        </ul>
+        <p>Track three separate values:</p>
+        <pre class="text"><code>highest contiguous replay interval
+stratified sampled-block pass rate
+number of protocol upgrade boundaries crossed</code></pre>
+        <p>The sampled corpus should deliberately include:</p>
+        <ul>
+        <li>Failed transactions.</li>
+        <li>Out-of-gas calls.</li>
+        <li>Cross-contract callbacks.</li>
+        <li>Account creation/deletion.</li>
+        <li>Contract deployment and upgrade.</li>
+        <li>Refunds.</li>
+        <li>Delayed and postponed receipts.</li>
+        <li>High-storage calls.</li>
+        <li>Shard-boundary traffic.</li>
+        </ul>
+        <p>“99% of random blocks pass” is much less informative than
+        “every semantic category has at least 1,000 passing
+        examples.”</p>
+        <h2 id="4-generated-differential-testing">4. Generated
+        differential testing</h2>
+        <p>Build a deterministic trace generator:</p>
+        <pre class="lean"><code>Generator → GenesisState → List BlockInput</code></pre>
+        <p>Execute each trace through Lean and pinned nearcore, then
+        compare at the strongest currently supported level.</p>
+        <p>Metrics:</p>
+        <ul>
+        <li>Number of generated traces.</li>
+        <li>Total actions and receipts executed.</li>
+        <li>Maximum trace length.</li>
+        <li>Distribution across semantic features.</li>
+        <li>Differential pass rate by feature.</li>
+        <li>Smallest remaining counterexample.</li>
+        <li>Fuzz executions per second.</li>
+        </ul>
+        <p>Every failure should be automatically minimized into a
+        permanent regression fixture. Record:</p>
+        <ul>
+        <li>Random seed.</li>
+        <li>Protocol version.</li>
+        <li>nearcore commit.</li>
+        <li>Genesis state.</li>
+        <li>Inputs.</li>
+        <li>First differing observation.</li>
+        </ul>
+        <p>For autonomous development, keep both:</p>
+        <ul>
+        <li>A visible corpus for fast iteration.</li>
+        <li>A held-out corpus or periodically regenerated seeds for
+        detecting overfitting.</li>
+        </ul>
+        <h2 id="5-mutation-score">5. Mutation score</h2>
+        <p>This may be the best additional metric for an AI-built
+        system.</p>
+        <p>Deliberately introduce plausible semantic bugs:</p>
+        <ul>
+        <li>Confuse <code>signer_id</code> and
+        <code>predecessor_id</code>.</li>
+        <li>Execute receipts in the wrong order.</li>
+        <li>Commit storage after a failed call.</li>
+        <li>Omit a deposit refund.</li>
+        <li>Charge gas one step too early or too late.</li>
+        <li>Execute a callback before all promise results arrive.</li>
+        <li>Reuse a receipt identifier.</li>
+        <li>Expose mutated state through a view call.</li>
+        </ul>
+        <p>Then measure how many mutations are caught by:</p>
+        <ul>
+        <li>Lean proofs.</li>
+        <li>Unit/property tests.</li>
+        <li>Differential tests.</li>
+        <li>Historical replay.</li>
+        </ul>
+        <p>Target something like a <strong>95%+ semantic mutation
+        score</strong> for completed features. This measures whether the
+        verification apparatus can detect incorrect implementations
+        rather than merely whether the current implementation
+        passes.</p>
+        <h2 id="6-metamorphic-properties">6. Metamorphic properties</h2>
+        <p>Differential tests depend on nearcore as an oracle.
+        Metamorphic tests give an independent signal.</p>
+        <p>Examples:</p>
+        <ul>
+        <li>Replaying the same input is deterministic.</li>
+        <li>A view call leaves state unchanged.</li>
+        <li>A failed call leaves contract storage unchanged.</li>
+        <li>Adding an unrelated account does not affect execution.</li>
+        <li>Independent transfers commute.</li>
+        <li>Splitting execution at a block boundary preserves the
+        expected receipt queue.</li>
+        <li>Total tokens before and after execution equal balances,
+        attached funds, refunds, and burnt tokens.</li>
+        <li>Permuting receipts only changes behavior where the protocol
+        ordering makes them dependent.</li>
+        </ul>
+        <p>These are especially valuable because they can expose a bug
+        shared by fixture-generation code and comparison code.</p>
+        <h2 id="7-formal-verification-metrics">7. Formal verification
+        metrics</h2>
+        <p>Avoid “number of theorems” and “lines of proof.” Both are
+        easy to inflate.</p>
+        <p>Track meaningful proof obligations instead:</p>
+        <ul>
+        <li>State well-formedness preserved by every transition.</li>
+        <li>Token conservation.</li>
+        <li>Receipt-ID uniqueness.</li>
+        <li>Receipt dependency safety.</li>
+        <li>Failed-call rollback.</li>
+        <li>View purity.</li>
+        <li>Runtime determinism.</li>
+        <li>Gas never exceeds prepaid gas.</li>
+        <li>Storage accounting consistency.</li>
+        <li>Account authorization rules.</li>
+        <li>Refinement between abstract and concrete execution.</li>
+        </ul>
+        <p>A good dashboard entry is:</p>
+        <pre class="text"><code>Invariant: token conservation
+Actions covered: 4/8
+Receipt transitions covered: 6/9
+Protocol versions: 1
+Assumptions: hash collision resistance</code></pre>
+        <p>This is much more informative than “42 theorems proven.”</p>
+        <h2
+        id="8-separate-the-proof-model-from-the-compatibility-engine">8.
+        Separate the proof model from the compatibility engine</h2>
+        <p>I strongly recommend two layers:</p>
+        <pre class="text"><code>Abstract semantics
+    simple state and transition definitions
+    convenient for contract proofs
+
+Concrete compatibility semantics
+    bytes, serialization, trie keys, gas tables, protocol versions
+
+Refinement theorem
+    observe concrete execution = abstract execution</code></pre>
+        <p>Otherwise, every contract proof will become entangled with
+        Borsh serialization, trie representation, and protocol migration
+        details.</p>
+        <p>Progress can then be measured by:</p>
+        <ul>
+        <li>Percentage of concrete transitions connected to the abstract
+        model.</li>
+        <li>Observation levels covered by refinement.</li>
+        <li>Remaining trusted adapters.</li>
+        <li>Concrete features implemented without a refinement
+        theorem.</li>
+        </ul>
+        <h2 id="9-contract-verification-benchmark-suite">9.
+        Contract-verification benchmark suite</h2>
+        <p>“Correct under arbitrary blockchain evolution” needs to mean
+        arbitrary <strong>valid</strong> evolution under an explicit
+        threat model.</p>
+        <p>For example:</p>
+        <pre class="lean"><code>∀ trace,
+  ValidTrace config initialState trace →
+  AdversaryControls callers args ordering gas deposits timestamps →
+  ContractInvariant (trace.last)</code></pre>
+        <p>The adversary may control:</p>
+        <ul>
+        <li>Caller identity.</li>
+        <li>Arguments.</li>
+        <li>Transaction ordering.</li>
+        <li>Attached deposit and gas.</li>
+        <li>Cross-contract responses.</li>
+        <li>Callback success or failure.</li>
+        <li>Block height and timestamp within protocol constraints.</li>
+        </ul>
+        <p>But it cannot violate runtime semantics. Contract upgrades
+        must either be excluded, restricted by code hash, or included in
+        the property.</p>
+        <p>Create increasingly difficult benchmark contracts:</p>
+        <ol type="1">
+        <li>Counter: isolation and arithmetic invariant.</li>
+        <li>Escrow: conservation and authorization.</li>
+        <li>Fungible token: supply conservation and access control.</li>
+        <li>NFT: uniqueness and ownership.</li>
+        <li>Auction: time-dependent behavior.</li>
+        <li>Cross-contract swap: callbacks and partial failures.</li>
+        <li>DAO: authorization and adversarial proposal ordering.</li>
+        <li>Upgradeable contract: code-hash and migration
+        invariants.</li>
+        </ol>
+        <p>Track:</p>
+        <ul>
+        <li>Benchmarks expressible.</li>
+        <li>Properties completely proved.</li>
+        <li>Maximum adversarial trace structure handled.</li>
+        <li>Specification size relative to contract API.</li>
+        <li>Proof elaboration time.</li>
+        <li>Proof breakage caused by runtime changes.</li>
+        <li>Whether counterexamples contain understandable execution
+        traces.</li>
+        </ul>
+        <p>A key usability target could be:</p>
+        <blockquote>
+        <p>A new user can state and prove the counter and escrow
+        invariants without editing runtime internals.</p>
+        </blockquote>
+        <h2 id="10-trusted-computing-base-and-proof-hygiene">10. Trusted
+        computing base and proof hygiene</h2>
+        <p>Your syntactic gates are good, but expand them to:</p>
+        <ul>
+        <li>Zero <code>sorry</code>.</li>
+        <li>Zero unexpected axioms.</li>
+        <li>Zero <code>unsafe</code> in proof-relevant modules.</li>
+        <li>Zero warnings.</li>
+        <li>Formatter and linter clean.</li>
+        <li>Pinned Lean, Lake, dependencies, nearcore commit, and
+        protocol configuration.</li>
+        <li>Reproducible generated fixtures.</li>
+        <li>All public theorems audited with
+        <code>#print axioms</code>.</li>
+        </ul>
+        <p>Lean’s <code>#print axioms</code> reports the transitive
+        axioms used by a declaration, including <code>sorryAx</code>, so
+        this can become a CI-enforced artifact rather than a manual
+        check. <a
+        href="https://lean-lang.org/doc/reference/latest/Axioms/">Lean
+        axiom auditing</a>.</p>
+        <p>Also maintain an explicit trusted-base document:</p>
+        <pre class="text"><code>Lean kernel
+standard axioms permitted
+hash implementation/assumption
+WASM decoder
+fixture importer
+nearcore oracle adapter
+generated-code boundary</code></pre>
+        <p>Track trusted non-Lean code and unproved assumptions as
+        quantities that should decrease.</p>
+        <h2 id="11-agent-development-metrics">11. Agent-development
+        metrics</h2>
+        <p>Since agents will do most of the implementation, measure the
+        development process itself:</p>
+        <ul>
+        <li>Percentage of agent PRs passing CI on first submission.</li>
+        <li>Median time from assigned feature to minimized differential
+        test.</li>
+        <li>Regression rate after merging.</li>
+        <li>Percentage of failures producing reproducible seeds.</li>
+        <li>Median Lean feedback time for a local edit.</li>
+        <li>Full CI duration.</li>
+        <li>Number of files/modules an agent must understand to add one
+        action.</li>
+        <li>Documentation coverage for public semantic definitions.</li>
+        </ul>
+        <p>Fast feedback matters enormously. I would target:</p>
+        <ul>
+        <li>Unit/property suite under 30 seconds.</li>
+        <li>Selected differential suite under 5 minutes.</li>
+        <li>Full fuzz/replay suite scheduled separately.</li>
+        <li>Incremental Lean proof feedback below one second for normal
+        edits.</li>
+        </ul>
+        <h2 id="recommended-top-level-dashboard">Recommended top-level
+        dashboard</h2>
+        <p>I would begin with these ten numbers:</p>
+        <pre class="text"><code>Protocol feature coverage
+Differential feature coverage
+Strongest observation level matched
+Generated trace actions executed
+Semantic mutation score
+Historical protocol eras replayed
+Core invariant transition coverage
+Contract benchmark properties proved
+Unproved assumptions / trusted adapters
+Sorries, warnings, and unexpected axioms</code></pre>
+        <p>The north-star goal is not simply “Lean matches nearcore.” It
+        is:</p>
+        <blockquote>
+        <p>For every supported protocol feature, we know where its
+        semantics came from, can execute it, can compare it against
+        nearcore, can detect plausible incorrect implementations, and
+        can use it in contract-level proofs under an explicit adversary
+        model.</p>
+        </blockquote>
+        <p>That gives both humans and autonomous agents a concrete,
+        hard-to-game definition of progress.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a href="../index.html">← Back to notes</a>
+    <span>NEAR Protocol semantics in Lean 4</span>
+  </footer>
+</body>
+</html>

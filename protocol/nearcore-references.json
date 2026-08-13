@@ -1,0 +1,161 @@
+{
+  "commit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "references": [
+    {
+      "object": "4d9c40261b2a166376f19bea9b39fbec0a2d6e39",
+      "path": "chain/chain/src",
+      "type": "tree"
+    },
+    {
+      "object": "2ba3fb4e3509d0fd80f8663520068afb1fb30134",
+      "path": "chain/chain/src/chain.rs",
+      "type": "blob"
+    },
+    {
+      "object": "fec5319d2c9776f6ed0f7c12cee07845b4f7ba17",
+      "path": "chain/epoch-manager/src",
+      "type": "tree"
+    },
+    {
+      "object": "495c188b29c082004b0f079edef6bd239dcbcc73",
+      "path": "chain/jsonrpc-primitives/src/types",
+      "type": "tree"
+    },
+    {
+      "object": "f4a7247b5b1aec2fbc73d7bf64a6c2fd015a9595",
+      "path": "chain/jsonrpc/src",
+      "type": "tree"
+    },
+    {
+      "object": "1246f83caea1f1f67ef6c1f3c80a9e75f78fc61c",
+      "path": "core/parameters/res/runtime_configs/parameters.yaml",
+      "type": "blob"
+    },
+    {
+      "object": "a3fb16be9ea64c3ad4bb76a5a50047aa9bcfe2af",
+      "path": "core/primitives-core/src/account.rs",
+      "type": "blob"
+    },
+    {
+      "object": "4f5c7704f13e98199de1e160b3f0925b428eca85",
+      "path": "core/primitives-core/src/hash.rs",
+      "type": "blob"
+    },
+    {
+      "object": "c7270ed8c7cd097f707e43ac3513026a9400f120",
+      "path": "core/primitives-core/src/types.rs",
+      "type": "blob"
+    },
+    {
+      "object": "d09be5b9a59ec84616c8146c2e83e6aa301717df",
+      "path": "core/primitives/src",
+      "type": "tree"
+    },
+    {
+      "object": "6767ada7c813c4adc1a6dfa39a36000c07a7e58e",
+      "path": "core/primitives/src/errors.rs",
+      "type": "blob"
+    },
+    {
+      "object": "2de9f6094d1ac5317d6d64f02fbf5789c881148a",
+      "path": "core/primitives/src/receipt.rs",
+      "type": "blob"
+    },
+    {
+      "object": "5d732fef7685ebbb025c8c752631146211130262",
+      "path": "core/primitives/src/shard_layout",
+      "type": "tree"
+    },
+    {
+      "object": "5a8b018fab65d2fa1e59803da47806864727d611",
+      "path": "core/primitives/src/types.rs",
+      "type": "blob"
+    },
+    {
+      "object": "f051d6b0bca87a9dfe6d981adf17ce579a4bc993",
+      "path": "core/primitives/src/version.rs",
+      "type": "blob"
+    },
+    {
+      "object": "a66080fa5753aff77bf44e414642535c3111345d",
+      "path": "core/primitives/src/views.rs",
+      "type": "blob"
+    },
+    {
+      "object": "5cd1fe1bb6cded045579697693a45abb16d2f529",
+      "path": "core/store/src/trie",
+      "type": "tree"
+    },
+    {
+      "object": "7e202e671451189d1f51a6f08aa8fbcb66e6e17d",
+      "path": "integration-tests/src/tests",
+      "type": "tree"
+    },
+    {
+      "object": "748c3617e96aaf5622b9c0cebb0633e2a81b999b",
+      "path": "integration-tests/src/tests/features",
+      "type": "tree"
+    },
+    {
+      "object": "9a423dac857d95e276b724ca8249cb23cb5691ff",
+      "path": "nearcore/src/migrations.rs",
+      "type": "blob"
+    },
+    {
+      "object": "1175dcd9f3e01dfd86aadfa212ac981b2cce2435",
+      "path": "runtime/near-vm-runner/src/logic/context.rs",
+      "type": "blob"
+    },
+    {
+      "object": "8e0956ce53a1c427d4d8e886723231751330808e",
+      "path": "runtime/near-vm-runner/src/logic/errors.rs",
+      "type": "blob"
+    },
+    {
+      "object": "33d64db80a75192ba8f44318fefeb7b9e8c4ed1a",
+      "path": "runtime/near-vm-runner/src/logic/gas_counter.rs",
+      "type": "blob"
+    },
+    {
+      "object": "1a828f7a45bca230947ade48169e90818c9b17a8",
+      "path": "runtime/near-vm-runner/src/logic/logic.rs",
+      "type": "blob"
+    },
+    {
+      "object": "ae4fcfb65f721261844ac6e49f20ac640e753b0f",
+      "path": "runtime/near-vm-runner/src/prepare.rs",
+      "type": "blob"
+    },
+    {
+      "object": "98497b587cbce5ee039e9062959fc8adc859f7a1",
+      "path": "runtime/near-vm-runner/src/runner.rs",
+      "type": "blob"
+    },
+    {
+      "object": "5fdf544abbaa44a3a30f07a2430984462f3d1a87",
+      "path": "runtime/runtime/src/actions.rs",
+      "type": "blob"
+    },
+    {
+      "object": "e00a0f5b3cd503c0cb59bcb446222772d042591b",
+      "path": "runtime/runtime/src/config.rs",
+      "type": "blob"
+    },
+    {
+      "object": "e31c60e63e0deff2926645f8e50de63c94e6255e",
+      "path": "runtime/runtime/src/lib.rs",
+      "type": "blob"
+    },
+    {
+      "object": "67919e42bab9669600d1ce28f715e39274fd3919",
+      "path": "runtime/runtime/src/verifier.rs",
+      "type": "blob"
+    },
+    {
+      "object": "5f94baa0d88d4c63b0017181f5a6fa96d3425068",
+      "path": "test-utils/testlib/src/runtime_utils.rs",
+      "type": "blob"
+    }
+  ],
+  "schemaVersion": 1
+}
