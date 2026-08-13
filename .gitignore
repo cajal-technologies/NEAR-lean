@@ -2,3 +2,4 @@
 .lake/
 build/
 *.swp
+__pycache__/
