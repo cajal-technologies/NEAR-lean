@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "protocolVersion": 86,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "observationLevel": "L7",
+  "syntheticChunks": 1000,
+  "identicalStateRoots": 1000,
+  "serializationVectors": 4,
+  "negativeVectors": 2,
+  "refinementTheorems": [
+    "NEARLean.Concrete.concreteStep_refines_abstract"
+  ],
+  "corpus": {
+    "path": "concrete/synthetic-chunks.json",
+    "sha256": "3365c228ce9364fe9e5146129369b3931833dfd3fde3b1c2838ec5e67bf14ba6",
+    "seed": 11
+  },
+  "nearcoreOracle": {
+    "path": "Oracle/nearcore/m11_oracle.rs",
+    "sha256": "bed706d5b3cb9a9f11845d5e1307da903c52fd56974909f1c4dd26bbaff9592f",
+    "execution": "compiled as a near-store example in the pinned nearcore workspace"
+  },
+  "coverage": {
+    "exactBorsh": [
+      "AccountV1",
+      "DataReceipt",
+      "ExecutionOutcome::SuccessValue with ExecutionMetadata::V1",
+      "raw state-change batches"
+    ],
+    "identifiers": [
+      "transaction receipt IDs"
+    ],
+    "trieRecords": [
+      "account",
+      "contract code",
+      "contract data"
+    ],
+    "transitions": [
+      "transfer",
+      "counter increment"
+    ]
+  },
+  "trustedAdapters": [
+    "The checked-in corpus was emitted by the pinned near-store helper; CI checks its hash and independently replays it but does not rebuild nearcore.",
+    "SHA-256 is an executable Lean implementation checked by known-answer and nearcore vectors, not a cryptographic security proof.",
+    "The concrete transition deliberately reuses the proved abstract action transition and adds exact record/root projection; independent full runtime action execution begins with historical replay."
+  ]
+}

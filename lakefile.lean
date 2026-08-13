@@ -27,3 +27,6 @@ lean_exe wasmValidation where
 
 lean_exe m10Validation where
   root := `Oracle.M10Validation
+
+lean_exe m11Validation where
+  root := `Oracle.M11Validation

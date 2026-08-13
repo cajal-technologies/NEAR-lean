@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import os
 import pathlib
@@ -742,6 +743,51 @@ def wasm_report_errors(path: pathlib.Path | None = None) -> list[str]:
     return errors
 
 
+def concrete_report_errors(path: pathlib.Path | None = None) -> list[str]:
+    report = load_json(path or ROOT / "concrete/report.json")
+    baseline = load_json(ROOT / "protocol/baseline.json")
+    if not isinstance(report, dict) or not isinstance(baseline, dict):
+        return ["concrete report and baseline must be JSON objects"]
+    errors: list[str] = []
+    if report.get("schemaVersion") != 1:
+        errors.append("concrete report schema is unsupported")
+    if report.get("protocolVersion") != 86:
+        errors.append("concrete report protocol version must be 86")
+    if report.get("nearcoreCommit") != baseline.get("nearcore", {}).get("commit"):
+        errors.append("concrete report nearcore commit is stale")
+    if report.get("observationLevel") != "L7":
+        errors.append("concrete report must reach observation level L7")
+    if report.get("syntheticChunks") != 1000 or report.get("identicalStateRoots") != 1000:
+        errors.append("concrete report must validate 1,000 identical state roots")
+    if not is_integer(report.get("serializationVectors")) or report["serializationVectors"] < 4:
+        errors.append("concrete report needs at least four nearcore serialization vectors")
+    if not is_integer(report.get("negativeVectors")) or report["negativeVectors"] < 2:
+        errors.append("concrete report needs malformed-input vectors")
+    theorem = "NEARLean.Concrete.concreteStep_refines_abstract"
+    if theorem not in report.get("refinementTheorems", []):
+        errors.append("concrete report is missing the abstract-refinement theorem")
+    for field in ("corpus", "nearcoreOracle"):
+        descriptor = report.get(field)
+        if not isinstance(descriptor, dict):
+            errors.append(f"concrete {field} descriptor must be an object")
+            continue
+        relative = descriptor.get("path")
+        expected = descriptor.get("sha256")
+        target = ROOT / relative if isinstance(relative, str) else None
+        if not isinstance(expected, str) or not SHA256.fullmatch(expected):
+            errors.append(f"concrete {field} needs a SHA-256 digest")
+        elif target is None or not target.is_file():
+            errors.append(f"concrete {field} source is missing")
+        elif hashlib.sha256(target.read_bytes()).hexdigest() != expected:
+            errors.append(f"concrete {field} digest is stale")
+    adapters = report.get("trustedAdapters")
+    if not isinstance(adapters, list) or len(adapters) < 3 or any(
+        not isinstance(adapter, str) or not adapter.strip() for adapter in adapters
+    ):
+        errors.append("concrete report must enumerate trusted adapters")
+    return errors
+
+
 def production_theorems() -> list[str]:
     lines = (ROOT / "audit/theorems.txt").read_text(encoding="utf-8").splitlines()
     return [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
@@ -851,6 +897,7 @@ def scorecard() -> dict[str, object]:
     economics = load_json(ROOT / "differential/economic-report.json")
     validation = load_json(ROOT / "validation/report.json")
     wasm = load_json(ROOT / "wasm/report.json")
+    concrete = load_json(ROOT / "concrete/report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -933,8 +980,16 @@ def scorecard() -> dict[str, object]:
             "talosCommit": wasm["talosCommit"],
             "wasmVersion": wasm["wasmVersion"],
         },
+        "generatedConcrete": {
+            "identicalStateRoots": concrete["identicalStateRoots"],
+            "nearcoreCommit": concrete["nearcoreCommit"],
+            "negativeVectors": concrete["negativeVectors"],
+            "observationLevel": concrete["observationLevel"],
+            "serializationVectors": concrete["serializationVectors"],
+            "syntheticChunks": concrete["syntheticChunks"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 8,
+        "schemaVersion": 9,
     }
 
 
@@ -1040,6 +1095,11 @@ def run_negative_tests() -> int:
         corrupted_wasm_path = pathlib.Path(temporary) / "wasm-report.json"
         corrupted_wasm_path.write_text(json.dumps(corrupted_wasm), encoding="utf-8")
         corrupted_wasm_errors = wasm_report_errors(corrupted_wasm_path)
+        corrupted_concrete = copy.deepcopy(load_json(ROOT / "concrete/report.json"))
+        corrupted_concrete["identicalStateRoots"] = 999
+        corrupted_concrete_path = pathlib.Path(temporary) / "concrete-report.json"
+        corrupted_concrete_path.write_text(json.dumps(corrupted_concrete), encoding="utf-8")
+        corrupted_concrete_errors = concrete_report_errors(corrupted_concrete_path)
     outcomes = [
         expect_failure("source hygiene", format_errors([negative / "BadFormat.lean"])),
         expect_failure("sorry", policy_errors([negative / "Sorry.lean"])),
@@ -1064,6 +1124,7 @@ def run_negative_tests() -> int:
         expect_failure("differential report ratchet", corrupted_report_errors),
         expect_failure("validation report ratchet", corrupted_validation_errors),
         expect_failure("WASM report ratchet", corrupted_wasm_errors),
+        expect_failure("concrete report ratchet", corrupted_concrete_errors),
     ]
     warning = subprocess.run(
         ["lake", "env", "lean", "-DwarningAsError=true", "Tests/Negative/Warning.lean"],
@@ -1120,6 +1181,7 @@ def main() -> int:
         errors = policy_errors(lean_files) + benchmark_api_errors()
         errors += validate_manifest() + differential_report_errors() + validation_report_errors()
         errors += wasm_report_errors()
+        errors += concrete_report_errors()
         errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)

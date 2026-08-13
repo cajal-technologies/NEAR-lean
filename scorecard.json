@@ -5,8 +5,8 @@
       "Quot.sound",
       "propext"
     ],
-    "auditedDeclarations": 1908,
-    "declarationsUsingAxioms": 295,
+    "auditedDeclarations": 2210,
+    "declarationsUsingAxioms": 367,
     "headlineTheoremNames": [
       "NEARLean.Account.initial_wellFormed",
       "NEARLean.WorldState.initial_wellFormed",
@@ -44,9 +44,10 @@
       "NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged",
       "NEARLean.EconomicState.step_conserves_tokens",
       "NEARLean.EconomicState.step_respects_gas_limit",
-      "NEARLean.SemanticsLayer.abstract_ne_concrete"
+      "NEARLean.SemanticsLayer.abstract_ne_concrete",
+      "NEARLean.Concrete.concreteStep_refines_abstract"
     ],
-    "headlineTheorems": 37
+    "headlineTheorems": 38
   },
   "baseline": {
     "leanToolchain": "leanprover/lean4:v4.32.2",
@@ -59,17 +60,17 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 20,
+      "unsupported": 14,
       "partial": 1,
-      "implemented": 54,
+      "implemented": 60,
       "verified": 0
     },
     "coverage": {
-      "positive": 55,
-      "negative": 55,
-      "differential": 55,
-      "executableSemantics": 55,
-      "proofObligationsDischarged": 23
+      "positive": 61,
+      "negative": 61,
+      "differential": 61,
+      "executableSemantics": 61,
+      "proofObligationsDischarged": 24
     },
     "total": 75,
     "verifiedWeightPercent": 0.0
@@ -110,7 +111,7 @@
   },
   "generatedValidation": {
     "actions": 1000000,
-    "featuresCovered": 55,
+    "featuresCovered": 61,
     "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
     "mutationScore": 100.0,
     "seed": 1
@@ -121,6 +122,14 @@
     "talosCommit": "87336df09b41d819c670be99860481573fd00055",
     "wasmVersion": "WebAssembly Core 1.0 (MVP)"
   },
-  "observationLevel": "L5",
-  "schemaVersion": 8
+  "generatedConcrete": {
+    "identicalStateRoots": 1000,
+    "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+    "negativeVectors": 2,
+    "observationLevel": "L7",
+    "serializationVectors": 4,
+    "syntheticChunks": 1000
+  },
+  "observationLevel": "L7",
+  "schemaVersion": 9
 }

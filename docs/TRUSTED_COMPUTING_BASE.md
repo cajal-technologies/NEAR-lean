@@ -13,6 +13,9 @@ The list is expected to become more precise as executable semantics are added.
   semantics, and standard-axiom dependencies.
 - Python 3.11 or newer and the dependency-free gate program in `scripts/check.py`.
 - The differential campaign and minimization adapter in `scripts/differential.py`.
+- The Milestone 11 corpus generator, the checked-in near-store roots, and the
+  pinned helper in `Oracle/nearcore/m11_oracle.rs`. CI independently recomputes
+  them in Lean but does not rebuild nearcore.
 - Node.js 22.22.2 or newer and the exact packages locked in
   `Oracle/package-lock.json`: `near-sandbox`, `near-api-js`, and `wabt`. The
   sandbox archive reader is overridden to patched `tar` 7.5.22.
@@ -50,6 +53,13 @@ fields; exact protocol-86 host external costs and compiled promise callbacks are
 gated separately. `NEARLean.WasmHost` owns that metering and callback routing on
 top of the trusted Talos host semantics.
 
+The concrete layer computes SHA-256 in Lean and checks it against nearcore and
+standard vectors. Functional compatibility is tested, but collision resistance
+and other cryptographic security properties remain assumptions. The M11 concrete
+transition reuses the abstract transition by construction; the refinement theorem
+checks that boundary exactly, while independent full-runtime action execution is
+not yet claimed.
+
 ## Axiom policy
 
 Proposition extensionality (`propext`) is approved because Lean's generated
@@ -70,7 +80,6 @@ lexical gate supplements, but does not replace, the environment-level audit.
 
 ## Not yet in the trusted base
 
-There is no concrete serialization layer, trie implementation, state-root
-computation, historical fixture importer, or arbitrary cross-contract WASM module
-router yet. Those are unsupported features rather than silently trusted
-components.
+There is no historical fixture importer, protocol-migration engine, complete
+failure/action-receipt codec, or arbitrary cross-contract WASM module router yet.
+Those are unsupported features rather than silently trusted components.

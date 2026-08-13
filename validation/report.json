@@ -53,7 +53,7 @@
     }
   ],
   "featureCoverage": {
-    "complete": 55,
+    "complete": 61,
     "features": [
       {
         "id": "account-identifiers",
@@ -384,9 +384,45 @@
         "differential": true,
         "negative": true,
         "positive": true
+      },
+      {
+        "id": "exact-serialization",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "hash-identifiers",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "concrete-encodings",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "trie-state-roots",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "concrete-transition",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "abstract-refinement",
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     ],
-    "supported": 55
+    "supported": 61
   },
   "failureFixturePolicy": "minimized-permanent-fixture",
   "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",

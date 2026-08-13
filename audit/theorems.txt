@@ -35,3 +35,4 @@ NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged
 NEARLean.EconomicState.step_conserves_tokens
 NEARLean.EconomicState.step_respects_gas_limit
 NEARLean.SemanticsLayer.abstract_ne_concrete
+NEARLean.Concrete.concreteStep_refines_abstract

@@ -83,15 +83,15 @@ The current cross-contract program covers `promise_create`, `promise_then`, and
 
 ## Refinement boundary
 
-An explicit abstraction function will connect concrete states and observations to
-the abstract layer. Milestone 11 requires refinement results of the form:
+`NEARLean.Concrete.State` now provides the explicit abstraction function and the
+Milestone 11 refinement result:
 
 ```text
 observe (concreteStep state input) =
   abstractStep (abstract state) input
 ```
 
-Until such a result exists for a feature, concrete compatibility must not be
-inferred from an abstract proof. Conversely, contract proofs should not import
-concrete runtime internals. `NEARLean.SemanticsLayer` gives this boundary a stable
-name from the first milestone.
+The concrete wrapper reuses the abstract transition and independently projects
+exact Borsh records and near-store-compatible roots. Contract proofs still do not
+import concrete runtime internals. See `docs/CONCRETE_SEMANTICS.md` for its scoped
+L7 corpus and remaining adapters.

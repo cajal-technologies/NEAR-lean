@@ -2,7 +2,7 @@
 
 The pinned compatibility target is nearcore 2.13.3 at protocol version 86.
 
-At Milestone 10, the repository implements a proof-friendly abstract sandbox. It
+At Milestone 11, the repository implements a proof-friendly abstract sandbox. It
 executes account creation, liquid-balance transfers, native-contract deployment,
 and synchronous function calls. Failed calls restore the full abstract pre-state,
 and views are pure. The native backend contains counter, simple escrow, and a
@@ -40,20 +40,30 @@ charge trie-node accesses. The M10 L5 comparison deliberately leaves transaction
 economics and receipt graphs empty; those surfaces retain their independent M7
 and M6 campaigns and are not evidence from the compiled-contract corpus.
 
+The concrete layer now matches pinned near-store state roots for 1,000 synthetic
+chunks and exact nearcore vectors for AccountV1, data receipts, successful V1
+outcomes, and transaction receipt IDs. Its state records cover accounts, local
+contract code, and contract data. The synthetic transition reuses the abstract
+action transition before exact record/root projection; it is not evidence that a
+second independent action processor matches nearcore. Access keys, action
+receipts, serialized failures, newer outcome metadata, delayed/buffered records,
+migrations, and real shard state remain outside this scoped L7 corpus.
+
 The project does not yet:
 
-- validate signatures, nonces, access keys, exact receipt hashes, or transaction fees;
+- validate signatures, nonces, access keys, or transaction fees;
 - execute shards, promise-and, promise yield/resume, or arbitrary unsupported WASM modules;
 - implement complete transaction gas economics, storage staking, refunds,
-  serialization, tries, or state roots;
-- compare escrow release, refund receipts, exact gas, or state roots;
+  every protocol serialization variant, or migration-aware historical roots;
+- compare escrow release, refund receipts, exact transaction gas, or state roots
+  outside the scoped synthetic corpus;
 - claim equivalence outside the recorded L3/L4 corpora and the scoped M10 L5
   compiled-contract projection;
 - replay historical chain data; or
 - prove compatibility of any abstract invariant with nearcore.
 
 `protocol/features.json` is the exhaustive machine-readable deviation list.
-Milestones 1 through 10 record implementation, test, proof, and mutation evidence;
+Milestones 1 through 11 record implementation, test, proof, and mutation evidence;
 later features remain `unsupported`.
 
 The project makes no compatibility claim for protocol versions other than 86.

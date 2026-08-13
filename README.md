@@ -3,15 +3,16 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 9**. The proof-friendly kernel covers transactions,
+The project is at **Milestone 11**. The proof-friendly kernel covers transactions,
 receipts, block scheduling, verification APIs, and aggregate economics. Generated
 campaigns compare the model with the pinned nearcore 2.13.3 sandbox through L5.
 A scheduled validation suite executes one million model actions and 10,000
 disjoint visible and held-out nearcore traces, with deterministic replay,
 metamorphic checks, shrinking, coverage ratchets, and semantic mutations.
-The concrete layer also runs the checked-in compiled counter through pinned
-Talos WebAssembly semantics and matches nearcore through L4 without a native
-counter substitution.
+The concrete layer runs five compiled contracts through pinned Talos semantics
+and matches the scoped host corpus through L5. It also implements exact Borsh,
+identifier, trie-key, and state-root projection, with 1,000 synthetic chunks
+matching pinned near-store through L7.
 
 ## Quick start
 
@@ -41,6 +42,11 @@ fixture, while `make receipt-campaign` regenerates its 10,000-trace exit report.
 10,000 generated compiled calls. `make m10-smoke` compares the benchmark corpus
 with the pinned nearcore oracle. See [docs/HOST_ENVIRONMENT.md](docs/HOST_ENVIRONMENT.md)
 for the protocol-86 gas scope and intentional projection limits.
+
+`make m11-validation` checks exact nearcore serialization vectors, the concrete
+refinement theorem, state-change encodings, and all 1,000 synthetic L7 roots. See
+[docs/CONCRETE_SEMANTICS.md](docs/CONCRETE_SEMANTICS.md) for scope and trusted
+adapters.
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the

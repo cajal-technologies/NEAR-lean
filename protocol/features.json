@@ -1203,16 +1203,16 @@
       "milestone": 11,
       "weight": 6,
       "nearcoreReference": "core/primitives/src",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Exact Borsh coverage is scoped to primitives, protocol-86 AccountV1, DataReceipt, successful V1 outcomes, and raw state-change batches; remaining action-receipt, failure, metadata, and migration variants are explicit Milestone 12 work."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1222,16 +1222,16 @@
       "milestone": 11,
       "weight": 5,
       "nearcoreReference": "core/primitives-core/src/hash.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "SHA-256 and transaction- and receipt-derived receipt IDs are executable; cryptographic collision resistance is a trusted external assumption rather than a Lean theorem."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1241,16 +1241,16 @@
       "milestone": 11,
       "weight": 6,
       "nearcoreReference": "core/primitives/src/receipt.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Concrete receipt coverage is DataReceipt and generated receipt identifiers; ActionReceipt and failure outcome variants are deferred to historical replay."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1260,16 +1260,16 @@
       "milestone": 11,
       "weight": 8,
       "nearcoreReference": "core/store/src/trie",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The exact protocol-86 Patricia trie covers unique account, contract-code, and contract-data records; access keys, delayed receipts, buffered receipts, migrations, and shard layout are deferred."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1279,16 +1279,16 @@
       "milestone": 11,
       "weight": 8,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The concrete transition deliberately reuses the abstract action transition and adds exact records, diffs, encodings, and roots; it is not yet an independent nearcore runtime action processor."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1298,16 +1298,21 @@
       "milestone": 11,
       "weight": 8,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The refinement theorem covers every current Input by construction after abstraction; byte encodings and trie roots are checked executably against nearcore and intentionally erased by the abstract observation."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "concrete-step-refines-abstract",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1582,7 +1587,7 @@
     "maximum": 86,
     "minimum": 86
   },
-  "observationLevel": "L5",
+  "observationLevel": "L7",
   "schemaVersion": 1,
   "statusValues": [
     "unsupported",

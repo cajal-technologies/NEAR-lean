@@ -346,7 +346,10 @@ async function runTrace(trace, rpcUrl) {
         economics: trace.economicMode === true
           ? economicObservation(outcome, beforeStorage, afterStorage)
           : emptyEconomics(),
-        accounts: await snapshot(trace, provider, contracts, feeCredits)
+        accounts: await snapshot(trace, provider, contracts, feeCredits),
+        serializedOutcome: [],
+        stateChanges: [],
+        stateRoot: []
       });
     } catch (error) {
       observations.push({
@@ -357,7 +360,10 @@ async function runTrace(trace, rpcUrl) {
         logs: [],
         receiptGraph: { transactionReceiptIds: [], outcomes: [] },
         economics: emptyEconomics(),
-        accounts: await snapshot(trace, provider, contracts, feeCredits)
+        accounts: await snapshot(trace, provider, contracts, feeCredits),
+        serializedOutcome: [],
+        stateChanges: [],
+        stateRoot: []
       });
     }
   }

@@ -296,6 +296,8 @@ def compare(
             ("L3", ("accounts",)),
             ("L4", ("receiptGraph",)),
             ("L5", ("economics",)),
+            ("L6", ("serializedOutcome", "stateChanges")),
+            ("L7", ("stateRoot",)),
         )
         for level, fields in levels[: int(observation_level[1:])]:
             left = [{field: item[field] for field in fields} for item in lean_observations]
@@ -429,6 +431,16 @@ def self_test() -> None:
         result = compare(economic_reference, corrupted, "L5")
         if result["matched"] or result["firstDifference"]["level"] != "L5":
             raise AssertionError("comparator missed L5 economics mutation")
+    corrupted = copy.deepcopy(economic_reference)
+    corrupted["observations"][0]["serializedOutcome"].append(1)
+    result = compare(economic_reference, corrupted, "L6")
+    if result["matched"] or result["firstDifference"]["level"] != "L6":
+        raise AssertionError("comparator missed L6 serialization mutation")
+    corrupted = copy.deepcopy(economic_reference)
+    corrupted["observations"][0]["stateRoot"].append(1)
+    result = compare(economic_reference, corrupted, "L7")
+    if result["matched"] or result["firstDifference"]["level"] != "L7":
+        raise AssertionError("comparator missed L7 state-root mutation")
     synthetic = {"actions": [{"kind": "transfer"}, {"kind": "functionCall"}, {"kind": "transfer"}]}
     minimized = minimize_actions(
         synthetic,

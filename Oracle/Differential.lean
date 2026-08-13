@@ -101,6 +101,11 @@ structure CanonicalEconomics where
   storageUsageDelta : List CanonicalStorageUsageDelta
   deriving BEq, FromJson, ToJson, Repr
 
+structure CanonicalStateChange where
+  key : List Nat
+  value : Option (List Nat)
+  deriving BEq, FromJson, ToJson, Repr
+
 def CanonicalEconomics.empty : CanonicalEconomics := {
   gasBurnt := "0"
   gasUsed := "0"
@@ -118,6 +123,9 @@ structure CanonicalObservation where
   receiptGraph : CanonicalReceiptGraph
   economics : CanonicalEconomics
   accounts : List CanonicalAccount
+  serializedOutcome : List Nat := []
+  stateChanges : List CanonicalStateChange := []
+  stateRoot : List Nat := []
   deriving BEq, FromJson, ToJson, Repr
 
 structure CanonicalRun where
