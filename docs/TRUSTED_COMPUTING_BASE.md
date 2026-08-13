@@ -9,7 +9,8 @@ The list is expected to become more precise as executable semantics are added.
 - The native code, operating system, and hardware used to execute Lean.
 - Lake and elan as distributed with, or used to install, the pinned toolchain.
 - Talos commit `87336df09b41d819c670be99860481573fd00055`, including its decoder,
-  validator, deterministic small-step machine, and standard-axiom dependencies.
+  validator, deterministic small-step machine, `CodeLib.Near.Env` host-function
+  semantics, and standard-axiom dependencies.
 - Python 3.11 or newer and the dependency-free gate program in `scripts/check.py`.
 - The differential campaign and minimization adapter in `scripts/differential.py`.
 - Node.js 22.22.2 or newer and the exact packages locked in
@@ -42,6 +43,13 @@ The projection excludes economic refund receipts and retains semantic action
 receipt outcomes. Its order sensitivity is exercised by deliberate corruption in
 the offline comparator test.
 
+The Milestone 10 L5 benchmark adapter trusts the five checked-in WAT sources, the
+reproducible WAT-to-WASM compiler, and its host-observation projection. The L5
+records intentionally contain empty transaction-economics and receipt-graph
+fields; exact protocol-86 host external costs and compiled promise callbacks are
+gated separately. `NEARLean.WasmHost` owns that metering and callback routing on
+top of the trusted Talos host semantics.
+
 ## Axiom policy
 
 Proposition extensionality (`propext`) is approved because Lean's generated
@@ -63,5 +71,6 @@ lexical gate supplements, but does not replace, the environment-level audit.
 ## Not yet in the trusted base
 
 There is no concrete serialization layer, trie implementation, state-root
-computation, or historical fixture importer yet. Those are unsupported features
-rather than silently trusted components.
+computation, historical fixture importer, or arbitrary cross-contract WASM module
+router yet. Those are unsupported features rather than silently trusted
+components.

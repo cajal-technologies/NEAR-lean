@@ -1070,16 +1070,16 @@
       "milestone": 10,
       "weight": 5,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The protocol-86 limits are pinned in NEARLean.WasmHost; deprecated iterator functions remain available through Talos CodeLib but are outside the benchmark corpus."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1089,16 +1089,16 @@
       "milestone": 10,
       "weight": 4,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The benchmark adapter supplies account, signer, predecessor, input, balance, deposit, block, storage-usage, and gas context; validator stakes and random seed use explicit injectable Talos hooks."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1108,16 +1108,16 @@
       "milestone": 10,
       "weight": 5,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The executable projection uses a finite ordered key support over Talos's functional storage model; trie-node access charging belongs to the later concrete-state milestone."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1127,16 +1127,16 @@
       "milestone": 10,
       "weight": 3,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "UTF-8 log bytes are preserved exactly; UTF-16 decoding is exposed by Talos but unused by the benchmark corpus."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1146,16 +1146,16 @@
       "milestone": 10,
       "weight": 6,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The compiled callback resolver executes function-call promise DAGs through the selected module; arbitrary cross-contract module routing remains in the abstract receipt scheduler until concrete-state integration."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1165,16 +1165,16 @@
       "milestone": 10,
       "weight": 5,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "SHA-256, the cryptographic function used by the M10 corpus, has an executable known-answer-tested implementation; other Talos crypto functions remain explicit injected hooks until a benchmark requires them."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1184,16 +1184,16 @@
       "milestone": 10,
       "weight": 6,
       "nearcoreReference": "runtime/near-vm-runner/src/logic/errors.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Host external costs and promise reservations use the pinned protocol-86 table; transaction-envelope fees and trie-node access costs remain in the M7 economics and future concrete-state layers, not this host adapter."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {

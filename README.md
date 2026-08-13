@@ -37,6 +37,11 @@ fixture, while `make receipt-campaign` regenerates its 10,000-trace exit report.
 `make wasm-campaign` regenerates the compiled-counter L4 report, while
 `make wasm-validation` verifies Talos instruction and mutation evidence.
 
+`make m10-validation` executes the five-contract host-environment gate and its
+10,000 generated compiled calls. `make m10-smoke` compares the benchmark corpus
+with the pinned nearcore oracle. See [docs/HOST_ENVIRONMENT.md](docs/HOST_ENVIRONMENT.md)
+for the protocol-86 gas scope and intentional projection limits.
+
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the
 documented source-hygiene check; the project does not currently claim canonical

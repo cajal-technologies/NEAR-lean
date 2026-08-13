@@ -693,7 +693,7 @@ def wasm_report_errors(path: pathlib.Path | None = None) -> list[str]:
         (
             package
             for package in lake_manifest.get("packages", [])
-            if isinstance(package, dict) and package.get("name") == "Interpreter"
+            if isinstance(package, dict) and package.get("name") == "CodeLib"
         ),
         None,
     ) if isinstance(lake_manifest, dict) else None
@@ -702,7 +702,7 @@ def wasm_report_errors(path: pathlib.Path | None = None) -> list[str]:
         not isinstance(talos, dict)
         or talos.get("url") != "https://github.com/cajal-technologies/talos.git"
         or talos.get("rev") != talos_commit
-        or talos.get("subDir") != "interpreter"
+        or talos.get("subDir") != "codelib"
     ):
         errors.append("Talos dependency must match the pinned WASM manifest")
     if report.get("talosCommit") != talos_commit:

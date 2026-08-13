@@ -218,11 +218,13 @@ def Option.orError (error : ε) : Option α → Except ε α
   | none => .error error
   | some value => .ok value
 
-/-- The two native contract programs available in the temporary backend. -/
+/-- Contract identifiers known to the abstract and compiled-contract adapters. -/
 inductive NativeContract where
   | counter
   | escrow
   | asyncContract
+  | fungibleToken
+  | nft
   deriving BEq, Repr
 
 def NativeContract.counterId : ContractId := [1]
@@ -231,6 +233,10 @@ def NativeContract.escrowId : ContractId := [2]
 
 def NativeContract.asyncId : ContractId := [3]
 
+def NativeContract.fungibleTokenId : ContractId := [4]
+
+def NativeContract.nftId : ContractId := [5]
+
 def NativeContract.ofId (id : ContractId) : Option NativeContract :=
   if id = counterId then
     some .counter
@@ -238,6 +244,10 @@ def NativeContract.ofId (id : ContractId) : Option NativeContract :=
     some .escrow
   else if id = asyncId then
     some .asyncContract
+  else if id = fungibleTokenId then
+    some .fungibleToken
+  else if id = nftId then
+    some .nft
   else
     none
 
@@ -251,6 +261,11 @@ def balance : StorageKey := [5]
 def callThen : StorageKey := [6]
 def echo : StorageKey := [7]
 def callback : StorageKey := [8]
+def mint : StorageKey := [9]
+def ftBalanceOf : StorageKey := [10]
+def ftTransfer : StorageKey := [11]
+def nftMint : StorageKey := [12]
+def nftToken : StorageKey := [13]
 
 end NativeMethod
 
@@ -391,6 +406,8 @@ def executeNative
   | .asyncContract =>
       if methodName = NativeMethod.echo then
         return (state, { returnValue := [7], gasBurnt := 1 })
+      throw (.methodNotFound methodName)
+  | .fungibleToken | .nft =>
       throw (.methodNotFound methodName)
 
 /-- Execute one action into a candidate state before invariant validation. -/

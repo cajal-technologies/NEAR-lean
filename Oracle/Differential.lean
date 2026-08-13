@@ -146,6 +146,8 @@ private def contractId : String → Except String ContractId
   | "counter" => .ok NativeContract.counterId
   | "escrow" => .ok NativeContract.escrowId
   | "async" => .ok NativeContract.asyncId
+  | "fungible_token" => .ok NativeContract.fungibleTokenId
+  | "nft" => .ok NativeContract.nftId
   | name => .error s!"unsupported canonical contract `{name}`"
 
 private def methodId : String → Except String StorageKey
@@ -157,6 +159,11 @@ private def methodId : String → Except String StorageKey
   | "call_then" => .ok NativeMethod.callThen
   | "echo" => .ok NativeMethod.echo
   | "callback" => .ok NativeMethod.callback
+  | "mint" => .ok NativeMethod.mint
+  | "ft_balance_of" => .ok NativeMethod.ftBalanceOf
+  | "ft_transfer" => .ok NativeMethod.ftTransfer
+  | "nft_mint" => .ok NativeMethod.nftMint
+  | "nft_token" => .ok NativeMethod.nftToken
   | name => .error s!"unsupported canonical method `{name}`"
 
 def TraceAction.toInput (action : TraceAction) : Except String Input := do
@@ -235,6 +242,8 @@ private def canonicalContract : Option ContractId → Option String
       if id = NativeContract.counterId then some "counter"
       else if id = NativeContract.escrowId then some "escrow"
       else if id = NativeContract.asyncId then some "async"
+      else if id = NativeContract.fungibleTokenId then some "fungible_token"
+      else if id = NativeContract.nftId then some "nft"
       else some "unknown"
   | none => none
 
@@ -405,61 +414,132 @@ private def directReceiptGraph
 private def updateWasmStorage
     (chain : NearChain)
     (accountId : String)
-    (storage : WasmHost.Storage) : Except String NearChain := do
+    (host : WasmHost.State) : Except String NearChain := do
   let id := bytes accountId
   let account ← match chain.state.account? id with
     | some account => pure account
     | none => throw s!"WASM account `{accountId}` does not exist"
-  return { chain with state := chain.state.setAccount id { account with storage := storage } }
+  return { chain with state := chain.state.setAccount id {
+    account with storage := host.storageEntries } }
+
+private def wasmContractName (chain : NearChain) (accountId : String) : Except String String := do
+  let account ← match chain.state.account? (bytes accountId) with
+    | some account => pure account
+    | none => throw s!"WASM account `{accountId}` does not exist"
+  match canonicalContract account.contract with
+  | some contract => pure contract
+  | none => throw s!"WASM account `{accountId}` has no compiled contract"
+
+private def wasmContext
+    (chain : NearChain)
+    (action : TraceAction)
+    (receiver caller : String) : Except String WasmHost.Context := do
+  let attachedDeposit ← parseAmount "attachedDeposit" action.attachedDeposit
+  let prepaidGas ← parseAmount "prepaidGas" action.prepaidGas
+  let account ← match chain.state.account? (bytes receiver) with
+    | some account => pure account
+    | none => throw s!"WASM account `{receiver}` does not exist"
+  return {
+    currentAccountId := bytes receiver
+    predecessorAccountId := bytes caller
+    signerAccountId := bytes caller
+    input := bytes (action.arguments.getD "")
+    blockIndex := UInt64.ofNat chain.state.block.height
+    blockTimestamp := UInt64.ofNat chain.state.block.timestamp
+    storageUsage := UInt64.ofNat (account.storage.foldl
+      (fun total entry => total + entry.1.length + entry.2.length) 0)
+    accountBalance := account.balance
+    accountLockedBalance := account.locked
+    attachedDeposit := attachedDeposit
+    prepaidGas := UInt64.ofNat prepaidGas
+  }
+
+private def executeWasmCall
+    (chain : NearChain)
+    (action : TraceAction)
+    (receiver caller method : String) : Except String
+      (NearChain × Bool × Option String × Output × WasmHost.State) := do
+  let attachedDeposit ← parseAmount "attachedDeposit" action.attachedDeposit
+  let depositedState ← chain.state.transferBalance chain.config
+    (bytes caller) (bytes receiver) attachedDeposit
+    |>.mapError (fun error => s!"WASM deposit transfer failed: {error.category}")
+  let executionChain := { chain with state := depositedState }
+  let account ← match executionChain.state.account? (bytes receiver) with
+    | some account => pure account
+    | none => throw s!"WASM account `{receiver}` does not exist"
+  let contract ← wasmContractName executionChain receiver
+  let context ← wasmContext executionChain action receiver caller
+  let initial := WasmHost.State.ofStorage account.storage
+  match WasmHost.runContract contract initial context method with
+  | .error (.missingExport _) =>
+      pure (chain, false, some "methodNotFound", Output.empty, initial)
+  | .error executionError =>
+      throw s!"WASM execution failed: {repr executionError}"
+  | .ok run => match run.outcome with
+    | .trap _ => pure (chain, false, some "contractFailure", Output.empty, initial)
+    | .success _ store =>
+        let (host, returnValue) ← WasmHost.resolveReturnedPromise contract context store.host
+          |>.mapError (fun error => s!"WASM promise execution failed: {repr error}")
+        let next ← updateWasmStorage executionChain receiver host
+        let output := { Output.empty with
+          returnValue := returnValue
+          logs := host.logs }
+        pure (next, true, none, output, host)
 
 private def runWasmActions
     (trace : CanonicalTrace)
     (index : Nat)
     (chain : NearChain)
-    (host : WasmHost.State)
     (actions : List TraceAction)
     (observations : List CanonicalObservation) : Except String (List CanonicalObservation) := do
   match actions with
   | [] => return observations.reverse
   | action :: rest =>
-      let (next, nextHost, success, errorCategory, output, executor) ←
+      let (next, success, errorCategory, output, executor, host) ←
         match action.kind with
         | "functionCall" =>
             let receiver ← requireField "receiver" action.receiver
+            let caller ← requireField "caller" action.caller
             let method ← requireField "method" action.method
-            if action.attachedDeposit.getD "0" != "0" then
-              throw "Milestone 9 WASM calls do not yet support attached deposits"
-            match WasmHost.runCounter host method with
-            | .error (.missingExport _) =>
-                pure (chain, host, false, some "methodNotFound", Output.empty, receiver)
-            | .error executionError =>
-                throw s!"WASM execution failed: {repr executionError}"
-            | .ok run => match run.outcome with
-              | .trap _ =>
-                  pure (chain, host, false, some "contractFailure", Output.empty, receiver)
-              | .success _ store =>
-                  let next ← updateWasmStorage chain receiver store.host.storage
-                  let output := { Output.empty with
-                    returnValue := store.host.returnValue
-                    logs := store.host.logs }
-                  pure (next, store.host, true, none, output, receiver)
+            let (next, success, errorCategory, output, host) ←
+              executeWasmCall chain action receiver caller method
+            pure (next, success, errorCategory, output, receiver, host)
         | "deployContract" =>
             let accountId ← requireField "accountId" action.accountId
+            let deployer ← requireField "deployer" action.deployer
             let input ← action.toInput
             let (deployed, result) := chain.apply input
             match result with
             | .error runtimeError =>
-                pure (chain, host, false, some runtimeError.category, Output.empty, accountId)
+                pure (chain, false, some runtimeError.category, Output.empty, accountId,
+                  WasmHost.State.ofStorage [])
             | .ok output =>
-                match WasmHost.runCounter host "init" with
+                let account ← match deployed.state.account? (bytes accountId) with
+                  | some account => pure account
+                  | none => throw s!"deployed WASM account `{accountId}` does not exist"
+                let cleanState := deployed.state.setAccount
+                  (bytes accountId) { account with storage := [] }
+                let deployed := { deployed with state := cleanState }
+                let account := { account with storage := [] }
+                let contract ← requireField "contract" action.contract
+                let initial := WasmHost.State.ofStorage account.storage
+                let context : WasmHost.Context := {
+                  currentAccountId := bytes accountId
+                  predecessorAccountId := bytes deployer
+                  signerAccountId := bytes deployer
+                  prepaidGas := UInt64.ofNat 100000000000000
+                }
+                match WasmHost.runContract contract initial context "init" with
+                | .error (.missingExport _) =>
+                    pure (deployed, true, none, output, accountId, initial)
                 | .error executionError =>
                     throw s!"WASM initialization failed: {repr executionError}"
                 | .ok run => match run.outcome with
                   | .trap _ =>
-                      pure (chain, host, false, some "contractFailure", Output.empty, accountId)
+                      pure (chain, false, some "contractFailure", Output.empty, accountId, initial)
                   | .success _ store =>
-                      let deployed ← updateWasmStorage deployed accountId store.host.storage
-                      pure (deployed, store.host, true, none, output, accountId)
+                      let deployed ← updateWasmStorage deployed accountId store.host
+                      pure (deployed, true, none, output, accountId, store.host)
         | _ =>
             let input ← action.toInput
             let (next, result) := chain.apply input
@@ -468,9 +548,10 @@ private def runWasmActions
               | none => throw s!"action `{action.kind}` has no executor"
             match result with
             | .error runtimeError =>
-                pure (chain, host, false, some runtimeError.category, Output.empty, executor)
+                pure (chain, false, some runtimeError.category, Output.empty, executor,
+                  WasmHost.State.ofStorage [])
             | .ok output =>
-                pure (next, host, true, none, output, executor)
+                pure (next, true, none, output, executor, WasmHost.State.ofStorage [])
       let returnValue := naturals output.returnValue
       let receiptGraph := if trace.receiptMode.getD false ∧ success then
         directReceiptGraph executor success returnValue errorCategory
@@ -485,14 +566,15 @@ private def runWasmActions
         economics := economics trace action success
         accounts := snapshot next.state trace.observeAccounts
       }
-      runWasmActions trace (index + 1) next nextHost rest (observation :: observations)
+      let _ := host
+      runWasmActions trace (index + 1) next rest (observation :: observations)
 
 def CanonicalTrace.run (trace : CanonicalTrace) : Except String CanonicalRun := do
   if trace.schemaVersion != 1 then
     throw s!"unsupported trace schema {trace.schemaVersion}"
   let chain ← initialChain trace
   let observations ← if trace.wasmMode.getD false then
-    runWasmActions trace 0 chain {} trace.actions []
+    runWasmActions trace 0 chain trace.actions []
   else
     runActions trace 0 chain trace.actions []
   return {

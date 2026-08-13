@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "nearcoreRelease": "2.13.3",
+  "protocolVersion": 86,
+  "seed": 10,
+  "genesis": [
+    {
+      "id": "bench-owner",
+      "balance": "100000000000000000000000000"
+    },
+    {
+      "id": "counter.bench-owner",
+      "balance": "10000000000000000000000000"
+    },
+    {
+      "id": "escrow.bench-owner",
+      "balance": "10000000000000000000000000"
+    },
+    {
+      "id": "ft.bench-owner",
+      "balance": "10000000000000000000000000"
+    },
+    {
+      "id": "nft.bench-owner",
+      "balance": "10000000000000000000000000"
+    },
+    {
+      "id": "async.bench-owner",
+      "balance": "10000000000000000000000000"
+    }
+  ],
+  "actions": [
+    {
+      "kind": "deployContract",
+      "deployer": "counter.bench-owner",
+      "accountId": "counter.bench-owner",
+      "contract": "counter"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "counter.bench-owner",
+      "method": "increment",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "counter.bench-owner",
+      "method": "get",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "deployContract",
+      "deployer": "escrow.bench-owner",
+      "accountId": "escrow.bench-owner",
+      "contract": "escrow"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "escrow.bench-owner",
+      "method": "deposit",
+      "arguments": "",
+      "attachedDeposit": "9",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "escrow.bench-owner",
+      "method": "balance",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "escrow.bench-owner",
+      "method": "release",
+      "arguments": "beneficiary.bench-owner",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "deployContract",
+      "deployer": "ft.bench-owner",
+      "accountId": "ft.bench-owner",
+      "contract": "fungible_token"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "ft.bench-owner",
+      "method": "mint",
+      "arguments": "alice",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "ft.bench-owner",
+      "method": "ft_balance_of",
+      "arguments": "alice",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "ft.bench-owner",
+      "method": "ft_transfer",
+      "arguments": "alice",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "deployContract",
+      "deployer": "nft.bench-owner",
+      "accountId": "nft.bench-owner",
+      "contract": "nft"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "nft.bench-owner",
+      "method": "nft_mint",
+      "arguments": "token-1",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "nft.bench-owner",
+      "method": "nft_token",
+      "arguments": "token-1",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "deployContract",
+      "deployer": "async.bench-owner",
+      "accountId": "async.bench-owner",
+      "contract": "async"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "async.bench-owner",
+      "method": "echo",
+      "arguments": "",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    },
+    {
+      "kind": "functionCall",
+      "caller": "bench-owner",
+      "receiver": "async.bench-owner",
+      "method": "call_then",
+      "arguments": "async.bench-owner",
+      "attachedDeposit": "0",
+      "prepaidGas": "100000000000000"
+    }
+  ],
+  "observeAccounts": [
+    "bench-owner",
+    "counter.bench-owner",
+    "escrow.bench-owner",
+    "ft.bench-owner",
+    "nft.bench-owner",
+    "async.bench-owner"
+  ],
+  "receiptMode": false,
+  "economicMode": false,
+  "wasmMode": true
+}

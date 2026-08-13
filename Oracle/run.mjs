@@ -10,7 +10,6 @@ import {
   GenesisAccount,
   Sandbox
 } from "near-sandbox";
-import wabtFactory from "wabt";
 
 const PINNED_RELEASE = "2.13.3";
 const PINNED_COMMIT = "5af9ca74631e6cf0dae33e77d1a632e94d2952ce";
@@ -34,21 +33,10 @@ function assertBaseline(trace) {
 }
 
 async function compileContract(name) {
-  if (name !== "counter" && name !== "async") {
+  if (!["counter", "escrow", "fungible_token", "nft", "async"].includes(name)) {
     throw new Error(`unsupported oracle contract \`${name}\``);
   }
-  if (name === "counter") {
-    return new Uint8Array(await fs.readFile(path.join(SCRIPT_DIR, "contracts", "counter.wasm")));
-  }
-  const source = await fs.readFile(path.join(SCRIPT_DIR, "contracts", `${name}.wat`), "utf8");
-  const wabt = await wabtFactory();
-  const module = wabt.parseWat(`${name}.wat`, source);
-  try {
-    module.validate();
-    return new Uint8Array(module.toBinary({ write_debug_names: false }).buffer);
-  } finally {
-    module.destroy();
-  }
+  return new Uint8Array(await fs.readFile(path.join(SCRIPT_DIR, "contracts", `${name}.wasm`)));
 }
 
 function finalBytes(outcome) {
@@ -352,7 +340,9 @@ async function runTrace(trace, rpcUrl) {
         errorCategory: null,
         returnValue: finalBytes(outcome),
         logs: logs(outcome),
-        receiptGraph: await receiptGraph(outcome, provider, trace.blockMode === true),
+        receiptGraph: trace.receiptMode === true
+          ? await receiptGraph(outcome, provider, trace.blockMode === true)
+          : { transactionReceiptIds: [], outcomes: [] },
         economics: trace.economicMode === true
           ? economicObservation(outcome, beforeStorage, afterStorage)
           : emptyEconomics(),

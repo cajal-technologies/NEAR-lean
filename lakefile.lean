@@ -2,9 +2,9 @@ import Lake
 
 open Lake DSL
 
-require Interpreter from git
+require CodeLib from git
   "https://github.com/cajal-technologies/talos.git" @
-  "87336df09b41d819c670be99860481573fd00055" / "interpreter"
+  "87336df09b41d819c670be99860481573fd00055" / "codelib"
 
 package «near-lean» where
   version := v!"0.0.0"
@@ -24,3 +24,6 @@ lean_exe nearLeanOracle where
 
 lean_exe wasmValidation where
   root := `Oracle.WasmValidation
+
+lean_exe m10Validation where
+  root := `Oracle.M10Validation

@@ -342,20 +342,21 @@ def main : IO Unit := do
   assertEqual 4 carriedMachine.carriedBalance
 
   let (wasmState, initTrace) ← expectWasmSuccess <| WasmHost.runCounter {} "init"
-  assertEqual [([1], [])] wasmState.storage
+  assertEqual [([1], [])] wasmState.storageEntries
   let (wasmState, incrementTrace) ← expectWasmSuccess <|
     WasmHost.runCounter wasmState "increment"
-  assertEqual [0] wasmState.returnValue
+  assertEqual (some [0]) wasmState.returnData
   assertEqual [[1]] wasmState.logs
-  assertEqual [([1], [0])] wasmState.storage
+  assertEqual [([1], [0])] wasmState.storageEntries
   let (wasmState, getTrace) ← expectWasmSuccess <| WasmHost.runCounter wasmState "get"
-  assertEqual [0] wasmState.returnValue
+  assertEqual (some [0]) wasmState.returnData
   assertEqual [] wasmState.logs
   assertEqual true ("i32.store8" ∈ incrementTrace)
   assertEqual true ("host.0" ∈ incrementTrace)
   assertEqual true ("host.5" ∈ incrementTrace)
-  let replay ← expectWasmSuccess <| WasmHost.runCounter { storage := [([1], [])] } "increment"
-  assertEqual wasmState.storage replay.1.storage
+  let replay ← expectWasmSuccess <|
+    WasmHost.runCounter (.ofStorage [([1], [])]) "increment"
+  assertEqual wasmState.storageEntries replay.1.storageEntries
   assertEqual incrementTrace replay.2
   match WasmHost.runCounter wasmState "missing" with
   | .error (.missingExport "missing") => pure ()
@@ -374,4 +375,4 @@ def main : IO Unit := do
   assertEqual true (getTrace.length > 0)
 
   runTransferScenarios config
-  IO.println "100 transfer scenarios and Milestone 2-9 API tests passed"
+  IO.println "100 transfer scenarios and Milestone 2-10 API tests passed"

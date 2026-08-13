@@ -1,7 +1,8 @@
 .PHONY: build test lint audit format format-check scorecard nearcore-references \
 	negative-tests differential-self-test differential-smoke receipt-smoke differential-campaign \
 	receipt-campaign block-smoke block-campaign economic-smoke economic-campaign wasm-campaign \
-	oracle-install wasm-artifacts wasm-validation wasm-smoke validation-campaign \
+	oracle-install wasm-artifacts wasm-validation wasm-smoke m10-validation m10-smoke \
+	m10-campaign validation-campaign \
 	differential-nightly ci ci-online notes
 
 build:
@@ -45,6 +46,17 @@ wasm-validation: build
 wasm-smoke: oracle-install
 	python3 scripts/differential.py smoke differential/fixtures/wasm-counter.json --level L4
 
+m10-validation: build
+	lake build m10Validation --wfail
+	python3 scripts/m10_report.py --check
+
+m10-smoke: oracle-install
+	python3 scripts/differential.py smoke differential/fixtures/wasm-benchmarks.json --level L5
+
+m10-campaign: oracle-install
+	python3 scripts/differential.py wasm-benchmark-campaign
+	python3 scripts/m10_report.py
+
 differential-smoke: oracle-install
 	python3 scripts/differential.py smoke
 
@@ -85,7 +97,7 @@ notes:
 	uv run python -m http.server
 
 ci: format-check lint test scorecard nearcore-references negative-tests differential-self-test \
-	wasm-artifacts wasm-validation
+	wasm-artifacts wasm-validation m10-validation
 	python3 scripts/validation.py --actions 1000000 --seed 1 --output validation/report.json --check
 
 ci-online: ci
@@ -95,3 +107,4 @@ ci-online: ci
 	$(MAKE) block-smoke
 	$(MAKE) economic-smoke
 	$(MAKE) wasm-smoke
+	$(MAKE) m10-smoke

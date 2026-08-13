@@ -1,6 +1,38 @@
 {
   "binary": "Oracle/contracts/counter.wasm",
   "binarySha256": "4a0edc10f897c5916ba0540db1bb638738e64810e693a74bf749a1c703becaef",
+  "benchmarks": [
+    {
+      "binary": "Oracle/contracts/counter.wasm",
+      "binarySha256": "4a0edc10f897c5916ba0540db1bb638738e64810e693a74bf749a1c703becaef",
+      "compiledWat": "Oracle/contracts/counter.compiled.wat",
+      "name": "counter"
+    },
+    {
+      "binary": "Oracle/contracts/escrow.wasm",
+      "binarySha256": "2ec64413e9ee7630c63291c79e207089687db4d09f4f045f0bd46b44b7e0acab",
+      "compiledWat": "Oracle/contracts/escrow.compiled.wat",
+      "name": "escrow"
+    },
+    {
+      "binary": "Oracle/contracts/fungible_token.wasm",
+      "binarySha256": "abdc3e0c57552cfcf6d3f4ec4e69a8177eef3f97f24240b45d09b93a428cfb32",
+      "compiledWat": "Oracle/contracts/fungible_token.compiled.wat",
+      "name": "fungible_token"
+    },
+    {
+      "binary": "Oracle/contracts/nft.wasm",
+      "binarySha256": "d02cd595977866855a3c97c238ef27f4bb5794e0d1301553bd93fe974ae57f66",
+      "compiledWat": "Oracle/contracts/nft.compiled.wat",
+      "name": "nft"
+    },
+    {
+      "binary": "Oracle/contracts/async.wasm",
+      "binarySha256": "fe9eaea0c53a5770dc1f4c517cfc0eedbe65fa094db6a71e73ba6c1f5d4c1d81",
+      "compiledWat": "Oracle/contracts/async.compiled.wat",
+      "name": "async"
+    }
+  ],
   "decoder": "wasm-tools print followed by Talos WAT decoding",
   "execution": "Talos deterministic small-step interpreter",
   "instructionFamilies": [

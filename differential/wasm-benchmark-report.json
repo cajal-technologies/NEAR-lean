@@ -1,0 +1,30 @@
+{
+  "matched": true,
+  "observationLevel": "L5",
+  "traceCount": 1,
+  "actionCount": 17,
+  "firstDifference": null,
+  "schemaVersion": 1,
+  "seed": 10,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "nearcoreRelease": "2.13.3",
+  "protocolVersion": 86,
+  "benchmarkContracts": [
+    "counter",
+    "escrow",
+    "fungible_token",
+    "nft",
+    "async"
+  ],
+  "compiledArtifacts": [
+    "Oracle/contracts/counter.wasm",
+    "Oracle/contracts/escrow.wasm",
+    "Oracle/contracts/fungible_token.wasm",
+    "Oracle/contracts/nft.wasm",
+    "Oracle/contracts/async.wasm"
+  ],
+  "executionBackend": "Talos with CodeLib.Near host semantics",
+  "transactionEconomicsCompared": false,
+  "receiptGraphCompared": false,
+  "projectionNote": "L5 fields are present but the benchmark trace intentionally leaves transaction economics and receipt graphs empty; protocol-86 host gas and compiled callbacks are independently executable-gated."
+}

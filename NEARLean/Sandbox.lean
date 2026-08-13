@@ -81,6 +81,8 @@ def viewNative
       if methodName = NativeMethod.echo then
         return { returnValue := [7], gasBurnt := 1 }
       throw (.methodNotFound methodName)
+  | .fungibleToken | .nft =>
+      throw (.methodNotFound methodName)
 
 /-- Views return an explicit unchanged chain alongside their result. -/
 def NearChain.view

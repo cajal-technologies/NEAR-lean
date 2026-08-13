@@ -5,8 +5,8 @@
       "Quot.sound",
       "propext"
     ],
-    "auditedDeclarations": 1817,
-    "declarationsUsingAxioms": 273,
+    "auditedDeclarations": 1908,
+    "declarationsUsingAxioms": 295,
     "headlineTheoremNames": [
       "NEARLean.Account.initial_wellFormed",
       "NEARLean.WorldState.initial_wellFormed",
@@ -59,16 +59,16 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 27,
+      "unsupported": 20,
       "partial": 1,
-      "implemented": 47,
+      "implemented": 54,
       "verified": 0
     },
     "coverage": {
-      "positive": 48,
-      "negative": 48,
-      "differential": 48,
-      "executableSemantics": 48,
+      "positive": 55,
+      "negative": 55,
+      "differential": 55,
+      "executableSemantics": 55,
       "proofObligationsDischarged": 23
     },
     "total": 75,
@@ -110,7 +110,7 @@
   },
   "generatedValidation": {
     "actions": 1000000,
-    "featuresCovered": 48,
+    "featuresCovered": 55,
     "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
     "mutationScore": 100.0,
     "seed": 1

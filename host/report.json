@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "protocolVersion": 86,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "talosCommit": "87336df09b41d819c670be99860481573fd00055",
+  "generatedCompiledCalls": 10000,
+  "benchmarkContracts": 5,
+  "validatedHostFunctions": 17,
+  "benchmarkArtifacts": [
+    {
+      "name": "counter",
+      "path": "Oracle/contracts/counter.wasm",
+      "sha256": "4a0edc10f897c5916ba0540db1bb638738e64810e693a74bf749a1c703becaef"
+    },
+    {
+      "name": "escrow",
+      "path": "Oracle/contracts/escrow.wasm",
+      "sha256": "2ec64413e9ee7630c63291c79e207089687db4d09f4f045f0bd46b44b7e0acab"
+    },
+    {
+      "name": "fungible_token",
+      "path": "Oracle/contracts/fungible_token.wasm",
+      "sha256": "abdc3e0c57552cfcf6d3f4ec4e69a8177eef3f97f24240b45d09b93a428cfb32"
+    },
+    {
+      "name": "nft",
+      "path": "Oracle/contracts/nft.wasm",
+      "sha256": "d02cd595977866855a3c97c238ef27f4bb5794e0d1301553bd93fe974ae57f66"
+    },
+    {
+      "name": "async",
+      "path": "Oracle/contracts/async.wasm",
+      "sha256": "fe9eaea0c53a5770dc1f4c517cfc0eedbe65fa094db6a71e73ba6c1f5d4c1d81"
+    }
+  ],
+  "differential": {
+    "matched": true,
+    "observationLevel": "L5",
+    "traceCount": 1,
+    "actionCount": 17,
+    "firstDifference": null,
+    "schemaVersion": 1,
+    "seed": 10,
+    "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+    "nearcoreRelease": "2.13.3",
+    "protocolVersion": 86,
+    "benchmarkContracts": [
+      "counter",
+      "escrow",
+      "fungible_token",
+      "nft",
+      "async"
+    ],
+    "compiledArtifacts": [
+      "Oracle/contracts/counter.wasm",
+      "Oracle/contracts/escrow.wasm",
+      "Oracle/contracts/fungible_token.wasm",
+      "Oracle/contracts/nft.wasm",
+      "Oracle/contracts/async.wasm"
+    ],
+    "executionBackend": "Talos with CodeLib.Near host semantics",
+    "transactionEconomicsCompared": false,
+    "receiptGraphCompared": false,
+    "projectionNote": "L5 fields are present but the benchmark trace intentionally leaves transaction economics and receipt graphs empty; protocol-86 host gas and compiled callbacks are independently executable-gated."
+  },
+  "hostGasSchedule": {
+    "exactProtocol86ExternalCosts": true,
+    "source": "nearcore core/parameters/src/snapshots/near_parameters__config_store__tests__85.json.snap",
+    "transactionEnvelopeEconomics": "out of the M10 host-layer scope"
+  },
+  "nativeWasmRefinement": true,
+  "promiseCallbacks": true,
+  "sha256KnownAnswer": true,
+  "hostFunctions": [
+    {
+      "name": "attached_deposit",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "current_account_id",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "input",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "log_utf8",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "predecessor_account_id",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "promise_create",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "promise_result",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "promise_return",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "promise_then",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "read_register",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "register_len",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "sha256",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "signer_account_id",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "storage_read",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "storage_remove",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "storage_write",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    },
+    {
+      "name": "value_return",
+      "boundary": true,
+      "error": true,
+      "gas": true,
+      "differential": true
+    }
+  ]
+}

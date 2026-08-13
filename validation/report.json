@@ -53,7 +53,7 @@
     }
   ],
   "featureCoverage": {
-    "complete": 48,
+    "complete": 55,
     "features": [
       {
         "id": "account-identifiers",
@@ -342,9 +342,51 @@
         "differential": true,
         "negative": true,
         "positive": true
+      },
+      {
+        "id": "host-registers-memory",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "host-context",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "host-storage",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "host-output",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "host-promises",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "host-crypto",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "host-errors-gas",
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     ],
-    "supported": 48
+    "supported": 55
   },
   "failureFixturePolicy": "minimized-permanent-fixture",
   "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",

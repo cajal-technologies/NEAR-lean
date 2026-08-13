@@ -20,6 +20,7 @@ ASYNC_FIXTURE = ROOT / "differential/fixtures/async.json"
 BLOCK_FIXTURE = ROOT / "differential/fixtures/block.json"
 ECONOMIC_FIXTURE = ROOT / "differential/fixtures/economic.json"
 WASM_FIXTURE = ROOT / "differential/fixtures/wasm-counter.json"
+WASM_BENCHMARK_FIXTURE = ROOT / "differential/fixtures/wasm-benchmarks.json"
 LEAN_RUNNER = ROOT / ".lake/build/bin/nearLeanOracle"
 
 
@@ -495,6 +496,37 @@ def wasm_campaign(output: pathlib.Path) -> None:
         raise SystemExit("compiled counter WASM differs from nearcore")
 
 
+def wasm_benchmark_campaign(output: pathlib.Path) -> None:
+    with tempfile.TemporaryDirectory() as temporary:
+        result = execute([WASM_BENCHMARK_FIXTURE], pathlib.Path(temporary), "L5")
+    trace = json.loads(WASM_BENCHMARK_FIXTURE.read_text(encoding="utf-8"))
+    result.update(
+        {
+            "schemaVersion": 1,
+            "seed": trace["seed"],
+            "nearcoreCommit": BASELINE["nearcore"]["commit"],
+            "nearcoreRelease": BASELINE["nearcore"]["release"],
+            "protocolVersion": BASELINE["protocolVersions"]["minimum"],
+            "benchmarkContracts": ["counter", "escrow", "fungible_token", "nft", "async"],
+            "compiledArtifacts": [
+                f"Oracle/contracts/{name}.wasm"
+                for name in ("counter", "escrow", "fungible_token", "nft", "async")
+            ],
+            "executionBackend": "Talos with CodeLib.Near host semantics",
+            "transactionEconomicsCompared": False,
+            "receiptGraphCompared": False,
+            "projectionNote": (
+                "L5 fields are present but the benchmark trace intentionally leaves transaction "
+                "economics and receipt graphs empty; protocol-86 host gas and compiled callbacks "
+                "are independently executable-gated."
+            ),
+        }
+    )
+    write_json(output, result)
+    if not result["matched"]:
+        raise SystemExit("compiled benchmark WASM corpus differs from nearcore")
+
+
 def receipt_campaign(count: int, seed: int, batch_size: int, output: pathlib.Path) -> None:
     with tempfile.TemporaryDirectory() as temporary:
         directory = pathlib.Path(temporary)
@@ -691,6 +723,11 @@ def main() -> None:
     wasm_campaign_parser.add_argument(
         "--output", type=pathlib.Path, default=ROOT / "differential/wasm-report.json"
     )
+    wasm_benchmark_parser = subparsers.add_parser("wasm-benchmark-campaign")
+    wasm_benchmark_parser.add_argument(
+        "--output", type=pathlib.Path,
+        default=ROOT / "differential/wasm-benchmark-report.json",
+    )
     compare_parser = subparsers.add_parser("compare")
     compare_parser.add_argument("lean", type=pathlib.Path)
     compare_parser.add_argument("nearcore", type=pathlib.Path)
@@ -734,6 +771,8 @@ def main() -> None:
         )
     elif arguments.command == "wasm-campaign":
         wasm_campaign(arguments.output)
+    elif arguments.command == "wasm-benchmark-campaign":
+        wasm_benchmark_campaign(arguments.output)
     elif arguments.command == "compare":
         result = compare(
             json.loads(arguments.lean.read_text(encoding="utf-8")),

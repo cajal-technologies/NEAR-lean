@@ -1724,6 +1724,13 @@
       "name": "NEARLean.ContractId.WellFormed"
     },
     {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Crypto.SHA256.hash"
+    },
+    {
       "axioms": [],
       "name": "NEARLean.DataId"
     },
@@ -2789,6 +2796,38 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.NativeContract.fungibleToken"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.fungibleToken.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.fungibleToken.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.fungibleTokenId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.nft"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.nft.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.nft.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeContract.nftId"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.NativeContract.noConfusion"
     },
     {
@@ -2833,11 +2872,31 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.NativeMethod.ftBalanceOf"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.ftTransfer"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.NativeMethod.get"
     },
     {
       "axioms": [],
       "name": "NEARLean.NativeMethod.increment"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.mint"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.nftMint"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.NativeMethod.nftToken"
     },
     {
       "axioms": [],
@@ -5959,7 +6018,151 @@
     },
     {
       "axioms": [],
-      "name": "NEARLean.WasmHost.Registers"
+      "name": "NEARLean.WasmHost.Context"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.actionReceiptExecution"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.actionReceiptSend"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.base"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.dataReceiptBaseExecution"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.dataReceiptBaseSend"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.functionCallByteExecution"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.functionCallByteSend"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.functionCallExecution"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.functionCallSend"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.logBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.logByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.promiseReturn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.readMemoryBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.readMemoryByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.readRegisterBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.readRegisterByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.sha256Base"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.sha256Byte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageHasKeyBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageHasKeyByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageReadBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageReadKeyByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageReadValueByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageRemoveBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageRemoveKeyByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageRemoveValueByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageWriteBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageWriteEvictedByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageWriteKeyByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.storageWriteValueByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.utf8Base"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.utf8Byte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.writeMemoryBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.writeMemoryByte"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.writeRegisterBase"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.WasmHost.Protocol86Gas.writeRegisterByte"
     },
     {
       "axioms": [],
@@ -5967,97 +6170,18 @@
     },
     {
       "axioms": [],
-      "name": "NEARLean.WasmHost.State._sizeOf_1"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State._sizeOf_inst"
-    },
-    {
-      "axioms": [],
       "name": "NEARLean.WasmHost.State.beginCall"
     },
     {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.casesOn"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.ctorIdx"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.logs"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.logs._default"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.mk"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.mk._flat_ctor"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.mk.inj"
-    },
-    {
       "axioms": [
+        "Quot.sound",
         "propext"
       ],
-      "name": "NEARLean.WasmHost.State.mk.injEq"
+      "name": "NEARLean.WasmHost.State.ofStorage"
     },
     {
       "axioms": [],
-      "name": "NEARLean.WasmHost.State.mk.noConfusion"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.mk.sizeOf_spec"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.noConfusion"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.noConfusionType"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.rec"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.recOn"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.registers"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.registers._default"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.returnValue"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.returnValue._default"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.storage"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.State.storage._default"
+      "name": "NEARLean.WasmHost.State.storageEntries"
     },
     {
       "axioms": [],
@@ -6069,73 +6193,48 @@
         "Quot.sound",
         "propext"
       ],
-      "name": "NEARLean.WasmHost.counterModule"
+      "name": "NEARLean.WasmHost.contractModule"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.WasmHost.contractSource"
     },
     {
       "axioms": [],
-      "name": "NEARLean.WasmHost.counterSource"
+      "name": "NEARLean.WasmHost.contractSource.match_1"
     },
     {
       "axioms": [
         "Quot.sound",
         "propext"
       ],
-      "name": "NEARLean.WasmHost.environment"
+      "name": "NEARLean.WasmHost.environmentFor"
     },
     {
       "axioms": [],
-      "name": "NEARLean.WasmHost.instInhabitedState"
+      "name": "NEARLean.WasmHost.environmentFor.match_1"
     },
     {
       "axioms": [],
-      "name": "NEARLean.WasmHost.instInhabitedState.default"
+      "name": "NEARLean.WasmHost.protocol86Config"
     },
     {
       "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.instReprState"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.instReprState.repr"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.logUtf8"
-    },
-    {
-      "axioms": [
+        "Classical.choice",
         "Quot.sound",
         "propext"
       ],
-      "name": "NEARLean.WasmHost.readRegister"
+      "name": "NEARLean.WasmHost.resolveReturnedPromise"
     },
     {
       "axioms": [
+        "Classical.choice",
+        "Quot.sound",
         "propext"
       ],
-      "name": "NEARLean.WasmHost.readRegister.match_1"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.registerLen"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.registerLen.match_1"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.registerLen.match_3"
+      "name": "NEARLean.WasmHost.runContract"
     },
     {
       "axioms": [
@@ -6144,58 +6243,6 @@
         "propext"
       ],
       "name": "NEARLean.WasmHost.runCounter"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.storageRead"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.storageRead._sparseCasesOn_3"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.storageRead._sparseCasesOn_4"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.storageRead._sparseCasesOn_5"
-    },
-    {
-      "axioms": [],
-      "name": "NEARLean.WasmHost.storageRead.match_1"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.storageRead.match_3"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.storageWrite"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.storageWrite.match_1"
-    },
-    {
-      "axioms": [
-        "propext"
-      ],
-      "name": "NEARLean.WasmHost.valueReturn"
     },
     {
       "axioms": [],
@@ -7603,6 +7650,198 @@
     },
     {
       "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.a"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.b"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.c"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.d"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.e"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.f"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.g"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.h"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.mk"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.rec"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.Working.recOn"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.bigSigma0"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.bigSigma1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.byteAt"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.choose"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.compress"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.constants"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.initial"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.lengthBytes"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.majority"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.padded"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.rotr"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.schedule"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.smallSigma0"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.smallSigma1"
+    },
+    {
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.wordAt"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.Crypto.SHA256.0.NEARLean.Crypto.SHA256.wordBytes"
+    },
+    {
+      "axioms": [],
       "name": "_private.NEARLean.Economics.0.NEARLean.EconomicState.commit"
     },
     {
@@ -7812,24 +8051,220 @@
       "name": "_private.NEARLean.Receipts.0.NEARLean.executeInputs.loop.match_6"
     },
     {
-      "axioms": [],
-      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.lookupRegister"
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.argI64?"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.argI64?._f"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.argI64?._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.argI64?._sunfold"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.argI64?._unsafe_rec"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.argI64?.match_1"
     },
     {
       "axioms": [],
-      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.lookupStorage"
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.charge"
     },
     {
       "axioms": [],
-      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.readMemory"
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.contextRegisterCost"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.executePromiseActions"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.executePromiseActions._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.executePromiseActions._sparseCasesOn_6"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.executePromiseActions.match_1"
     },
     {
       "axioms": [],
-      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.setRegister"
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.executePromiseActions.match_4"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.executePromiseActions.match_6"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.hostCost"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.hostCost._sparseCasesOn_5"
     },
     {
       "axioms": [],
-      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.setStorage"
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.hostCost.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.hostCost.match_3"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.hostCost.match_5"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.inputCost"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.memoryOrRegisterBytes"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.metered"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.metered.match_1"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.methodString"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.outputMemoryCost"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.outputRegisterCost"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.promiseAt?"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.promiseAt?._f"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.promiseAt?._sunfold"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.promiseAt?._unsafe_rec"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.promiseAt?.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.registerBytes"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.resolvePromise"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.resolvePromise._f"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.resolvePromise._sunfold"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.resolvePromise._unsafe_rec"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.resolvePromise.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.resolvePromise.match_3"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.resolvePromise.match_5"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.resolvePromise.match_7"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.WasmHost.0.NEARLean.WasmHost.storageLookup"
     }
   ],
   "headlineTheorems": [
