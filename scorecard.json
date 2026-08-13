@@ -1,6 +1,11 @@
 {
   "axiomAudit": {
     "allowedAxioms": [],
+    "auditedDeclarations": 30,
+    "declarationsUsingAxioms": 0,
+    "headlineTheoremNames": [
+      "NEARLean.SemanticsLayer.abstract_ne_concrete"
+    ],
     "headlineTheorems": 1
   },
   "baseline": {
@@ -30,5 +35,5 @@
     "verifiedWeightPercent": 0.0
   },
   "observationLevel": "L0",
-  "schemaVersion": 1
+  "schemaVersion": 2
 }

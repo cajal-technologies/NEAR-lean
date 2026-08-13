@@ -8,24 +8,33 @@ A fresh checkout must pass:
 make ci
 ```
 
-No network access is required after elan has installed the toolchain named by
-`lean-toolchain`; the project currently has no third-party Lake dependencies.
+Python 3.11 or newer is required. No network access is required after elan has
+installed the toolchain named by `lean-toolchain`; the project currently has no
+third-party Lake dependencies. Hosted CI additionally verifies nearcore path
+provenance against GitHub.
 
 The command runs these gates:
 
-1. `make format` checks UTF-8, final newlines, trailing whitespace, tabs, and
-   canonical two-space JSON.
+1. `make format-check` checks UTF-8, final newlines, trailing whitespace, tabs,
+   and canonical two-space JSON. `make format` is an alias. This is a
+   source-hygiene policy, not a canonical Lean layout formatter.
 2. `make build` builds every default target with warnings treated as errors.
 3. `make lint` rejects proof holes and unsafe/prohibited declarations, validates
-   manifests, and audits headline theorem axioms through Lean. It depends on the
-   build so transitive `#print axioms` checks also work on a fresh checkout.
+   manifests, enforces feature lifecycle and history ratchets, and audits every
+   declaration from every production `NEARLean.*` module through Lean's elaborated
+   environment. It also checks the generated `audit/report.json` artifact.
 4. `make test` runs the configured Lake test driver with warnings as errors.
-5. `make scorecard` proves that `scorecard.json` matches the feature manifest.
-6. `make negative-tests` proves that deliberately bad formatting, `sorry`, a
-   compiler warning, and both direct and transitive prohibited axioms are rejected.
+5. `make nearcore-references` checks every feature reference against the pinned
+   Git-object provenance snapshot.
+6. `make scorecard` proves that `scorecard.json` matches the feature manifest and
+   audited declaration evidence.
+7. `make negative-tests` exercises source hygiene, comments and strings, `sorry`,
+   warnings, direct/private/transitive axioms, manifest evidence, reference
+   provenance, and history ratchets.
 
-CI runs the same command and uploads `scorecard.json` as a machine-readable
-artifact even when another gate fails.
+CI runs `make ci-online`, which adds a one-request verification of every stored
+nearcore Git object against the pinned upstream tree, and uploads `scorecard.json`
+as a machine-readable artifact even when another gate fails.
 
 ## Adding Lean declarations
 
@@ -34,20 +43,25 @@ artifact even when another gate fails.
 - Put executable tests below `Test/`.
 - Keep proofs free of `sorry`, `admit`, `unsafe`, local axioms, and opaque escape
   hatches.
-- Add every headline theorem to `audit/theorems.txt` so its transitive axioms are
-  checked.
+- Add release-significant theorem names to `audit/theorems.txt` so they are
+  highlighted in the dashboard. All declarations are audited regardless of that
+  list.
 - Run `make ci` before submitting a change.
 
 ## Updating protocol coverage
 
 Every planned feature has a stable ID in `protocol/features.json`. Status values
 ratchet in this order: `unsupported`, `partial`, `implemented`, `verified`.
-Changing a feature requires a pinned nearcore source path and must not silently
-lower status or narrow an already supported protocol range.
+Implemented features require executable semantics plus positive and negative
+tests. Verified features additionally require differential coverage and at least
+one discharged proof obligation. CI rejects feature removal, status/evidence
+regression, weight or identity changes, and narrowing a supported protocol range.
+Changing a nearcore source path requires regenerating its Git-object provenance.
 
-After editing either protocol manifest, regenerate the deterministic dashboard:
+After editing proof or protocol evidence, regenerate deterministic artifacts:
 
 ```sh
+python3 scripts/check.py audit
 python3 scripts/check.py scorecard --output scorecard.json
 ```
 

@@ -1,0 +1,132 @@
+{
+  "allowedAxioms": [],
+  "declarations": [
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.abstract"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.abstract.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.abstract.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.abstract_ne_concrete"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.concreteCompatibility"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.concreteCompatibility.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.concreteCompatibility.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.label"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.ofNat"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.ofNat_ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.SemanticsLayer.toCtorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqSemanticsLayer"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqSemanticsLayer.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqSemanticsLayer"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqSemanticsLayer._proof_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqSemanticsLayer._proof_2"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprSemanticsLayer"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprSemanticsLayer.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprSemanticsLayer.repr.match_1"
+    }
+  ],
+  "headlineTheorems": [
+    "NEARLean.SemanticsLayer.abstract_ne_concrete"
+  ],
+  "modulePrefixes": [
+    "NEARLean"
+  ],
+  "schemaVersion": 1
+}

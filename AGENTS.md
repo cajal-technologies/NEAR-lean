@@ -2,7 +2,7 @@
 
 This repository implements the NEAR Protocol chain and smart-contract runtime in Lean 4, with the goal of executable compatibility with nearcore and formal verification of contract behavior.
 
-Before developing here, consult `notes/MILESTONES.md` for the current scope and completion criteria, and `notes/EVALUATION.md` for the correctness signals and metrics that changes should satisfy.
+Before developing here, consult `notes/milestones.html` for the current scope and completion criteria, and `notes/evaluation.html` for the correctness signals and metrics that changes should satisfy.
 Keep implementation, tests, proofs, and documentation aligned with those plans.
 
 
