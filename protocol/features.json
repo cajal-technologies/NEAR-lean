@@ -1,0 +1,1441 @@
+{
+  "features": [
+    {
+      "id": "account-identifiers",
+      "name": "Account and contract identifiers",
+      "group": "abstract-kernel",
+      "milestone": 1,
+      "weight": 3,
+      "nearcoreReference": "core/primitives-core/src/types/account.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "balances-and-gas-types",
+      "name": "Balance and gas types",
+      "group": "abstract-kernel",
+      "milestone": 1,
+      "weight": 2,
+      "nearcoreReference": "core/primitives-core/src/types.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "block-context",
+      "name": "Block context",
+      "group": "abstract-kernel",
+      "milestone": 1,
+      "weight": 2,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/context.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "world-state",
+      "name": "Accounts, storage, and world state",
+      "group": "abstract-kernel",
+      "milestone": 1,
+      "weight": 4,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "state-transition",
+      "name": "Pure state transition interface",
+      "group": "abstract-kernel",
+      "milestone": 1,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "state-invariants",
+      "name": "World-state well-formedness and preservation",
+      "group": "abstract-kernel",
+      "milestone": 1,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/verifier.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "create-account",
+      "name": "CreateAccount action",
+      "group": "basic-actions",
+      "milestone": 2,
+      "weight": 3,
+      "nearcoreReference": "runtime/runtime/src/actions.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "transfer",
+      "name": "Transfer action",
+      "group": "basic-actions",
+      "milestone": 2,
+      "weight": 3,
+      "nearcoreReference": "runtime/runtime/src/actions.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "deploy-contract",
+      "name": "DeployContract action",
+      "group": "basic-actions",
+      "milestone": 2,
+      "weight": 3,
+      "nearcoreReference": "runtime/runtime/src/actions.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "function-call",
+      "name": "FunctionCall action",
+      "group": "basic-actions",
+      "milestone": 2,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/actions.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "native-contracts",
+      "name": "Native Lean contract backend",
+      "group": "sandbox-api",
+      "milestone": 2,
+      "weight": 3,
+      "nearcoreReference": "runtime/near-vm-runner/src/runner.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "atomic-rollback",
+      "name": "Atomic failed-call rollback",
+      "group": "sandbox-api",
+      "milestone": 2,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/actions.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "sandbox-api",
+      "name": "Workspaces-style sandbox API",
+      "group": "sandbox-api",
+      "milestone": 2,
+      "weight": 3,
+      "nearcoreReference": "test-utils/runtime-tester/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "canonical-traces",
+      "name": "Canonical differential trace format",
+      "group": "differential",
+      "milestone": 3,
+      "weight": 3,
+      "nearcoreReference": "core/primitives/src/views.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "nearcore-oracle",
+      "name": "Pinned nearcore trace runner",
+      "group": "differential",
+      "milestone": 3,
+      "weight": 5,
+      "nearcoreReference": "test-utils/runtime-tester/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "result-comparison",
+      "name": "Canonicalizer and L1-L7 comparison",
+      "group": "differential",
+      "milestone": 3,
+      "weight": 5,
+      "nearcoreReference": "core/primitives/src/views.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "trace-generation",
+      "name": "Deterministic random trace generation",
+      "group": "differential",
+      "milestone": 3,
+      "weight": 3,
+      "nearcoreReference": "test-utils/runtime-tester/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "trace-minimization",
+      "name": "Failing-trace minimization and regression corpus",
+      "group": "differential",
+      "milestone": 3,
+      "weight": 3,
+      "nearcoreReference": "integration-tests/src/tests/client/features",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "transaction-to-receipt",
+      "name": "Transaction-to-receipt conversion",
+      "group": "receipts",
+      "milestone": 4,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/verifier.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "action-receipts",
+      "name": "Action receipts",
+      "group": "receipts",
+      "milestone": 4,
+      "weight": 5,
+      "nearcoreReference": "core/primitives/src/receipt.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "data-receipts",
+      "name": "Data receipts and dependencies",
+      "group": "receipts",
+      "milestone": 4,
+      "weight": 5,
+      "nearcoreReference": "core/primitives/src/receipt.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "promises-callbacks",
+      "name": "Promise results and callbacks",
+      "group": "receipts",
+      "milestone": 4,
+      "weight": 5,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "cross-contract-calls",
+      "name": "Cross-contract calls",
+      "group": "receipts",
+      "milestone": 4,
+      "weight": 5,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "receipt-queues",
+      "name": "Receipt queues and bounded execution",
+      "group": "receipts",
+      "milestone": 4,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "block-production",
+      "name": "Block production and context advancement",
+      "group": "scheduler",
+      "milestone": 5,
+      "weight": 4,
+      "nearcoreReference": "chain/chain/src/chain.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "receipt-scheduling",
+      "name": "Local, incoming, delayed, and postponed receipt scheduling",
+      "group": "scheduler",
+      "milestone": 5,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "protocol-ordering",
+      "name": "Protocol processing order",
+      "group": "scheduler",
+      "milestone": 5,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "block-execution-bound",
+      "name": "Per-block execution bound",
+      "group": "scheduler",
+      "milestone": 5,
+      "weight": 3,
+      "nearcoreReference": "runtime/runtime/src/config.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "trace-reachability",
+      "name": "Reachability over arbitrary valid traces",
+      "group": "verification-api",
+      "milestone": 6,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "adversary-model",
+      "name": "Explicit adversary and environment model",
+      "group": "verification-api",
+      "milestone": 6,
+      "weight": 4,
+      "nearcoreReference": "core/primitives/src/types.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "contract-properties",
+      "name": "Reusable contract property framework",
+      "group": "verification-api",
+      "milestone": 6,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "verification-benchmarks",
+      "name": "Counter, escrow, and fungible-token benchmarks",
+      "group": "verification-api",
+      "milestone": 6,
+      "weight": 4,
+      "nearcoreReference": "integration-tests/src/tests/client/features",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "attached-deposits",
+      "name": "Attached deposits",
+      "group": "economics",
+      "milestone": 7,
+      "weight": 4,
+      "nearcoreReference": "runtime/runtime/src/actions.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "gas-accounting",
+      "name": "Prepaid, burnt, and used gas",
+      "group": "economics",
+      "milestone": 7,
+      "weight": 5,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/gas_counter.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "gas-schedules",
+      "name": "Gas schedules and action fees",
+      "group": "economics",
+      "milestone": 7,
+      "weight": 5,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/gas_costs.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "storage-accounting",
+      "name": "Storage usage and staking",
+      "group": "economics",
+      "milestone": 7,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/actions.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "refunds",
+      "name": "Gas and deposit refunds",
+      "group": "economics",
+      "milestone": 7,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "economic-failures",
+      "name": "Out-of-gas and insufficient-balance behavior",
+      "group": "economics",
+      "milestone": 7,
+      "weight": 5,
+      "nearcoreReference": "runtime/runtime/src/errors.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "grammar-generators",
+      "name": "Grammar-aware model generators",
+      "group": "validation",
+      "milestone": 8,
+      "weight": 3,
+      "nearcoreReference": "test-utils/runtime-tester/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "coverage-reporting",
+      "name": "Feature-aware coverage reporting",
+      "group": "validation",
+      "milestone": 8,
+      "weight": 3,
+      "nearcoreReference": "integration-tests/src/tests",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "automatic-shrinking",
+      "name": "Automatic counterexample shrinking",
+      "group": "validation",
+      "milestone": 8,
+      "weight": 3,
+      "nearcoreReference": "integration-tests/src/tests",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "metamorphic-testing",
+      "name": "Metamorphic tests",
+      "group": "validation",
+      "milestone": 8,
+      "weight": 4,
+      "nearcoreReference": "integration-tests/src/tests",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "semantic-mutations",
+      "name": "Semantic mutation framework",
+      "group": "validation",
+      "milestone": 8,
+      "weight": 4,
+      "nearcoreReference": "integration-tests/src/tests",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "differential-corpora",
+      "name": "Visible and held-out differential corpora",
+      "group": "validation",
+      "milestone": 8,
+      "weight": 3,
+      "nearcoreReference": "integration-tests/src/tests",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "wasm-decoding-validation",
+      "name": "WASM decoding and validation",
+      "group": "wasm",
+      "milestone": 9,
+      "weight": 5,
+      "nearcoreReference": "runtime/near-vm-runner/src/prepare.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "wasm-interpreter",
+      "name": "Deterministic WASM execution",
+      "group": "wasm",
+      "milestone": 9,
+      "weight": 8,
+      "nearcoreReference": "runtime/near-vm-runner/src/runner.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "wasm-machine-state",
+      "name": "WASM memory, globals, tables, calls, and traps",
+      "group": "wasm",
+      "milestone": 9,
+      "weight": 6,
+      "nearcoreReference": "runtime/near-vm-runner/src/runner.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "wasm-exports",
+      "name": "Exported method resolution",
+      "group": "wasm",
+      "milestone": 9,
+      "weight": 3,
+      "nearcoreReference": "runtime/near-vm-runner/src/runner.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "host-registers-memory",
+      "name": "Host registers and memory interfaces",
+      "group": "host-functions",
+      "milestone": 10,
+      "weight": 5,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "host-context",
+      "name": "Context host functions",
+      "group": "host-functions",
+      "milestone": 10,
+      "weight": 4,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "host-storage",
+      "name": "Storage host functions",
+      "group": "host-functions",
+      "milestone": 10,
+      "weight": 5,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "host-output",
+      "name": "Logging and return host functions",
+      "group": "host-functions",
+      "milestone": 10,
+      "weight": 3,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "host-promises",
+      "name": "Promise host functions",
+      "group": "host-functions",
+      "milestone": 10,
+      "weight": 6,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "host-crypto",
+      "name": "Cryptographic host functions",
+      "group": "host-functions",
+      "milestone": 10,
+      "weight": 5,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/logic.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "host-errors-gas",
+      "name": "Exact host errors and gas charging",
+      "group": "host-functions",
+      "milestone": 10,
+      "weight": 6,
+      "nearcoreReference": "runtime/near-vm-runner/src/logic/errors.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "exact-serialization",
+      "name": "Exact protocol serialization",
+      "group": "concrete-semantics",
+      "milestone": 11,
+      "weight": 6,
+      "nearcoreReference": "core/primitives/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "hash-identifiers",
+      "name": "Hash and identifier derivation",
+      "group": "concrete-semantics",
+      "milestone": 11,
+      "weight": 5,
+      "nearcoreReference": "core/primitives/src/hash.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "concrete-encodings",
+      "name": "Concrete receipt and outcome encodings",
+      "group": "concrete-semantics",
+      "milestone": 11,
+      "weight": 6,
+      "nearcoreReference": "core/primitives/src/receipt.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "trie-state-roots",
+      "name": "Trie keys and state roots",
+      "group": "concrete-semantics",
+      "milestone": 11,
+      "weight": 8,
+      "nearcoreReference": "core/store/src/trie",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "concrete-transition",
+      "name": "Concrete runtime transition",
+      "group": "concrete-semantics",
+      "milestone": 11,
+      "weight": 8,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "abstract-refinement",
+      "name": "Concrete-to-abstract refinement",
+      "group": "concrete-semantics",
+      "milestone": 11,
+      "weight": 8,
+      "nearcoreReference": "runtime/runtime/src/lib.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "historical-importers",
+      "name": "Real state, block, chunk, transaction, and receipt importers",
+      "group": "replay",
+      "milestone": 12,
+      "weight": 6,
+      "nearcoreReference": "chain/jsonrpc-primitives/src/types",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "fixture-provenance",
+      "name": "Historical fixture provenance and hashes",
+      "group": "replay",
+      "milestone": 12,
+      "weight": 3,
+      "nearcoreReference": "chain/jsonrpc/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "stratified-corpus",
+      "name": "Stratified historical replay corpus",
+      "group": "replay",
+      "milestone": 12,
+      "weight": 4,
+      "nearcoreReference": "chain/chain/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "replay-diagnostics",
+      "name": "First-difference replay diagnostics",
+      "group": "replay",
+      "milestone": 12,
+      "weight": 4,
+      "nearcoreReference": "chain/chain/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "replay-resume",
+      "name": "Replay checkpointing and resumability",
+      "group": "replay",
+      "milestone": 12,
+      "weight": 3,
+      "nearcoreReference": "chain/chain/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "versioned-config",
+      "name": "Protocol-version-indexed configuration and feature gates",
+      "group": "history",
+      "milestone": 13,
+      "weight": 6,
+      "nearcoreReference": "core/primitives/src/version.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "runtime-migrations",
+      "name": "Runtime migrations",
+      "group": "history",
+      "milestone": 13,
+      "weight": 6,
+      "nearcoreReference": "runtime/runtime/src/migrations.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "shard-routing",
+      "name": "Shard layout and receipt routing",
+      "group": "history",
+      "milestone": 13,
+      "weight": 7,
+      "nearcoreReference": "core/primitives/src/shard_layout.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "cross-shard-delays",
+      "name": "Cross-shard receipt delays",
+      "group": "history",
+      "milestone": 13,
+      "weight": 5,
+      "nearcoreReference": "chain/chain/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "epoch-inputs",
+      "name": "Validator and epoch transition inputs",
+      "group": "history",
+      "milestone": 13,
+      "weight": 5,
+      "nearcoreReference": "chain/epoch-manager/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "upgrade-fixtures",
+      "name": "Protocol upgrade-boundary fixtures",
+      "group": "history",
+      "milestone": 13,
+      "weight": 4,
+      "nearcoreReference": "integration-tests/src/tests/client/features",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "genesis-replay",
+      "name": "Genesis-to-checkpoint exact replay",
+      "group": "stabilization",
+      "milestone": 14,
+      "weight": 10,
+      "nearcoreReference": "chain/chain/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "historical-protocols",
+      "name": "Historical protocol transition support",
+      "group": "stabilization",
+      "milestone": 14,
+      "weight": 10,
+      "nearcoreReference": "core/primitives/src/version.rs",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    },
+    {
+      "id": "replay-performance",
+      "name": "Measured replay throughput and memory",
+      "group": "stabilization",
+      "milestone": 14,
+      "weight": 3,
+      "nearcoreReference": "chain/chain/src",
+      "status": "unsupported",
+      "executableSemantics": false,
+      "knownDeviations": [
+        "Unsupported at Milestone 0."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": false,
+        "negative": false,
+        "positive": false
+      }
+    }
+  ],
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "protocolVersionRange": {
+    "maximum": 86,
+    "minimum": 86
+  },
+  "schemaVersion": 1,
+  "statusValues": [
+    "unsupported",
+    "partial",
+    "implemented",
+    "verified"
+  ]
+}

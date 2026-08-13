@@ -1,0 +1,34 @@
+{
+  "axiomAudit": {
+    "allowedAxioms": [],
+    "headlineTheorems": 1
+  },
+  "baseline": {
+    "leanToolchain": "leanprover/lean4:v4.33.0",
+    "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+    "nearcoreRelease": "2.13.3",
+    "protocolVersionRange": {
+      "maximum": 86,
+      "minimum": 86
+    }
+  },
+  "features": {
+    "byStatus": {
+      "unsupported": 75,
+      "partial": 0,
+      "implemented": 0,
+      "verified": 0
+    },
+    "coverage": {
+      "positive": 0,
+      "negative": 0,
+      "differential": 0,
+      "executableSemantics": 0,
+      "proofObligationsDischarged": 0
+    },
+    "total": 75,
+    "verifiedWeightPercent": 0.0
+  },
+  "observationLevel": "L0",
+  "schemaVersion": 1
+}

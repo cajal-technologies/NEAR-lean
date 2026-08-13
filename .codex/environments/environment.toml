@@ -1,0 +1,20 @@
+version = 1
+name = "NEAR Lean"
+
+[setup]
+script = "bash scripts/setup-worktree.sh"
+
+[[actions]]
+name = "Build"
+icon = "run"
+command = "make build"
+
+[[actions]]
+name = "Test"
+icon = "test"
+command = "make test"
+
+[[actions]]
+name = "Full CI"
+icon = "tool"
+command = "make ci"

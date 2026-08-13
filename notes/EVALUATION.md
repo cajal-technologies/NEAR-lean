@@ -372,4 +372,3 @@ The north-star goal is not simply “Lean matches nearcore.” It is:
 > For every supported protocol feature, we know where its semantics came from, can execute it, can compare it against nearcore, can detect plausible incorrect implementations, and can use it in contract-level proofs under an explicit adversary model.
 
 That gives both humans and autonomous agents a concrete, hard-to-game definition of progress.
-

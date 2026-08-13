@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "lean": {
+    "commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+    "toolchain": "leanprover/lean4:v4.33.0"
+  },
+  "nearcore": {
+    "commit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+    "release": "2.13.3",
+    "repository": "https://github.com/near/nearcore"
+  },
+  "protocolVersions": {
+    "maximum": 86,
+    "minimum": 86
+  }
+}
