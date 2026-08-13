@@ -3,8 +3,8 @@
     "allowedAxioms": [
       "propext"
     ],
-    "auditedDeclarations": 1074,
-    "declarationsUsingAxioms": 172,
+    "auditedDeclarations": 1444,
+    "declarationsUsingAxioms": 202,
     "headlineTheoremNames": [
       "NEARLean.Account.initial_wellFormed",
       "NEARLean.WorldState.initial_wellFormed",
@@ -32,9 +32,17 @@
       "NEARLean.BlockScheduler.runUntil_preserves_wellFormed",
       "NEARLean.BlockScheduler.delayed_postponed_invariant",
       "NEARLean.BlockScheduler.production_deterministic",
+      "NEARLean.Verification.System.transition_deterministic",
+      "NEARLean.Verification.invariant_of_validTrace",
+      "NEARLean.Verification.invariant_of_reachable",
+      "NEARLean.Benchmarks.Counter.safe",
+      "NEARLean.Benchmarks.Escrow.safe",
+      "NEARLean.Benchmarks.Escrow.unauthorized_release_unchanged",
+      "NEARLean.Benchmarks.FungibleToken.safe",
+      "NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged",
       "NEARLean.SemanticsLayer.abstract_ne_concrete"
     ],
-    "headlineTheorems": 27
+    "headlineTheorems": 35
   },
   "baseline": {
     "leanToolchain": "leanprover/lean4:v4.33.0",
@@ -47,17 +55,17 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 47,
+      "unsupported": 43,
       "partial": 1,
-      "implemented": 27,
+      "implemented": 31,
       "verified": 0
     },
     "coverage": {
-      "positive": 28,
-      "negative": 28,
+      "positive": 32,
+      "negative": 32,
       "differential": 15,
-      "executableSemantics": 28,
-      "proofObligationsDischarged": 16
+      "executableSemantics": 32,
+      "proofObligationsDischarged": 19
     },
     "total": 75,
     "verifiedWeightPercent": 0.0

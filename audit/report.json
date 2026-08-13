@@ -281,6 +281,978 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.increment"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.increment.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.increment.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.Action.increment.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.increment.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.increment.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.read"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.read.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.read.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.Action.read.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.read.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.read.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Action.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.Invariant"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.isolated"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.State.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.State.value"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.instBEqAction"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.instBEqAction.beq"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.instBEqAction.beq._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.instBEqAction.beq._sparseCasesOn_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.instBEqAction.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.instBEqState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.instBEqState.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.instBEqState.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.instReprAction"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.instReprAction.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.instReprAction.repr.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.instReprState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.instReprState.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.safe"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.step"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.step.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.step.eq_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Counter.step_preserves"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.system"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Counter.system.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.deposit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.deposit.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.deposit.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.Action.deposit.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.deposit.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.deposit.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.release"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.release.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.release.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.Action.release.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.release.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Action.release.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Invariant"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.deposited"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.deposited.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.deposited.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.released"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.released.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.released.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.toCtorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.unauthorized"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.unauthorized.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.Result.unauthorized.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.balance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.deposited"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.State.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.owner"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.State.released"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqAction"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqAction.beq"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqAction.beq._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqAction.beq._sparseCasesOn_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqAction.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqResult"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqResult.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqState.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instBEqState.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instReprAction"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instReprAction.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instReprAction.repr.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instReprResult"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instReprResult.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instReprResult.repr.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instReprState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.instReprState.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.safe"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.step"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.step.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.step.eq_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.step_preserves"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.system"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.Escrow.system.eq_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.Escrow.unauthorized_release_unchanged"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.amount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.caller"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Action.receiver"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Invariant"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.rejected"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.rejected.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.rejected.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.toCtorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.transferred"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.transferred.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.Result.transferred.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.aliceBalance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.bobBalance"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.State.totalSupply"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.alice"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.bob"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instBEqAction"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instBEqAction.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instBEqAction.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instBEqResult"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instBEqResult.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instBEqState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instBEqState.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instBEqState.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instReprAction"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instReprAction.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instReprResult"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instReprResult.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instReprResult.repr.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instReprState"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.instReprState.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.FungibleToken.safe"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.step"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.step.eq_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Benchmarks.FungibleToken.step_preserves"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.system"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Benchmarks.FungibleToken.system.eq_1"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.BlockContext"
     },
     {
@@ -3243,6 +4215,550 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.allowed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Verification.AdversaryModel.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.AdversaryModel.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Authorization"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.arguments"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.attachedDeposit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.blockHeightAndTimestamp"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.callbackSuccess"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.callerIdentity"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.crossContractResponses"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.milestoneSix"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Verification.BlockchainThreatModel.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.prepaidGas"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.transactionOrdering"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.BlockchainThreatModel.upgrades"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ConditionalLiveness"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Conserves"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Ensures"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.enabled"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.fair"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Verification.EnvironmentModel.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.EnvironmentModel.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Noninterference"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Postcondition"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Precondition"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Preserves"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Principal"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.Reachable"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.StateInvariant"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.Transition"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.Transition.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Verification.System.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.step"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.System.transition_deterministic"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.authorizedOnly"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.authorizedOnly.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.authorizedOnly.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.forbidden"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.forbidden.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.forbidden.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.toCtorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.unrestricted"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.unrestricted.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.UpgradePolicy.unrestricted.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidAdversarialTrace"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.below"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.below.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.below.cons"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.below.nil"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.below.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.brecOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.cons"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.nil"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.ValidTrace.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instBEqBlockchainThreatModel"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instBEqBlockchainThreatModel.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instBEqBlockchainThreatModel.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instBEqUpgradePolicy"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instBEqUpgradePolicy.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instReprBlockchainThreatModel"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instReprBlockchainThreatModel.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instReprUpgradePolicy"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instReprUpgradePolicy.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.instReprUpgradePolicy.repr.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.invariant_of_reachable"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Verification.invariant_of_validTrace"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.WorldState"
     },
     {
@@ -4461,6 +5977,30 @@
     },
     {
       "axioms": [],
+      "name": "_private.NEARLean.Benchmarks.Counter.0.NEARLean.Benchmarks.Counter.instReprAction.repr.match_1.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Benchmarks.Counter.0.NEARLean.Benchmarks.Counter.instReprAction.repr.match_1.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Benchmarks.Counter.0.NEARLean.Benchmarks.Counter.instReprAction.repr.match_1.splitter"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Benchmarks.Escrow.0.NEARLean.Benchmarks.Escrow.instReprAction.repr.match_1.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Benchmarks.Escrow.0.NEARLean.Benchmarks.Escrow.instReprAction.repr.match_1.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Benchmarks.Escrow.0.NEARLean.Benchmarks.Escrow.instReprAction.repr.match_1.splitter"
+    },
+    {
+      "axioms": [],
       "name": "_private.NEARLean.Blocks.0.NEARLean.BlockScheduler.runUntil.match_1.eq_1"
     },
     {
@@ -4671,6 +6211,14 @@
     "NEARLean.BlockScheduler.runUntil_preserves_wellFormed",
     "NEARLean.BlockScheduler.delayed_postponed_invariant",
     "NEARLean.BlockScheduler.production_deterministic",
+    "NEARLean.Verification.System.transition_deterministic",
+    "NEARLean.Verification.invariant_of_validTrace",
+    "NEARLean.Verification.invariant_of_reachable",
+    "NEARLean.Benchmarks.Counter.safe",
+    "NEARLean.Benchmarks.Escrow.safe",
+    "NEARLean.Benchmarks.Escrow.unauthorized_release_unchanged",
+    "NEARLean.Benchmarks.FungibleToken.safe",
+    "NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged",
     "NEARLean.SemanticsLayer.abstract_ne_concrete"
   ],
   "modulePrefixes": [

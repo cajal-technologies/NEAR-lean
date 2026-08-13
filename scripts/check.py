@@ -153,6 +153,22 @@ def policy_errors(paths: list[pathlib.Path]) -> list[str]:
     return errors
 
 
+def benchmark_api_errors() -> list[str]:
+    errors: list[str] = []
+    directory = ROOT / "NEARLean/Benchmarks"
+    for path in sorted(directory.glob("*.lean")):
+        imports = [
+            line.removeprefix("import ").strip()
+            for line in path.read_text(encoding="utf-8").splitlines()
+            if line.startswith("import ")
+        ]
+        if imports != ["NEARLean.Verification"]:
+            errors.append(
+                f"{path.relative_to(ROOT)} must import only the public verification API"
+            )
+    return errors
+
+
 def is_integer(value: object) -> bool:
     return isinstance(value, int) and not isinstance(value, bool)
 
@@ -853,7 +869,8 @@ def main() -> int:
     if args.command == "lint":
         lean_files = [path for path in repository_files() if path.suffix == ".lean"]
         audit_errors, report = production_audit()
-        errors = policy_errors(lean_files) + validate_manifest() + differential_report_errors()
+        errors = policy_errors(lean_files) + benchmark_api_errors()
+        errors += validate_manifest() + differential_report_errors()
         errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)

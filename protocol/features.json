@@ -643,16 +643,25 @@
       "milestone": 6,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "ValidTrace covers arbitrary finite traces; infinite traces and temporal coinduction are deferred, while conditional one-step progress is exposed explicitly."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "arbitrary-trace-invariant-lifting",
+          "discharged": true
+        },
+        {
+          "id": "reachable-state-invariant-lifting",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -662,16 +671,16 @@
       "milestone": 6,
       "weight": 4,
       "nearcoreReference": "core/primitives/src/types.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The threat boundary records every Milestone 6 adversarial input and forbids upgrades; protocol-specific fairness and admissibility predicates must be supplied by each environment model."
       ],
       "proofObligations": [],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -681,16 +690,21 @@
       "milestone": 6,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Conditional liveness states enabled one-step progress; stronger scheduler fairness and infinite-run temporal operators remain future extensions of the public API."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "transition-determinism",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -700,16 +714,29 @@
       "milestone": 6,
       "weight": 4,
       "nearcoreReference": "integration-tests/src/tests/features",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The benchmarks are abstract native-contract specifications over the public verification API; refinement to exact WASM/runtime execution is measured separately in later milestones."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "counter-arbitrary-trace-safety",
+          "discharged": true
+        },
+        {
+          "id": "escrow-arbitrary-trace-conservation",
+          "discharged": true
+        },
+        {
+          "id": "fungible-token-arbitrary-trace-supply",
+          "discharged": true
+        }
+      ],
       "tests": {
         "differential": false,
-        "negative": false,
-        "positive": false
+        "negative": true,
+        "positive": true
       }
     },
     {

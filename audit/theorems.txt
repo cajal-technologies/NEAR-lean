@@ -24,4 +24,12 @@ NEARLean.BlockScheduler.produce_preserves_wellFormed
 NEARLean.BlockScheduler.runUntil_preserves_wellFormed
 NEARLean.BlockScheduler.delayed_postponed_invariant
 NEARLean.BlockScheduler.production_deterministic
+NEARLean.Verification.System.transition_deterministic
+NEARLean.Verification.invariant_of_validTrace
+NEARLean.Verification.invariant_of_reachable
+NEARLean.Benchmarks.Counter.safe
+NEARLean.Benchmarks.Escrow.safe
+NEARLean.Benchmarks.Escrow.unauthorized_release_unchanged
+NEARLean.Benchmarks.FungibleToken.safe
+NEARLean.Benchmarks.FungibleToken.rejected_transfer_unchanged
 NEARLean.SemanticsLayer.abstract_ne_concrete

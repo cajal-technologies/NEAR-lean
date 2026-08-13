@@ -253,5 +253,38 @@ def main : IO Unit := do
   assertEqual 1000 firstReplay.blocks.length
   assertEqual 1000 firstReplay.machine.world.block.height
 
+  let counterState : Benchmarks.Counter.State := { value := 4, isolated := 9 }
+  let (counterState, counterValue) :=
+    Benchmarks.Counter.step counterState (.increment 7)
+  assertEqual 5 counterValue
+  assertEqual 9 counterState.isolated
+
+  let escrowState : Benchmarks.Escrow.State := {
+    owner := 1
+    balance := 3
+    released := 0
+    deposited := 3
+  }
+  let (unauthorizedEscrow, unauthorizedResult) :=
+    Benchmarks.Escrow.step escrowState (.release 2)
+  assertEqual escrowState unauthorizedEscrow
+  assertEqual Benchmarks.Escrow.Result.unauthorized unauthorizedResult
+
+  let tokenState : Benchmarks.FungibleToken.State := {
+    aliceBalance := 7
+    bobBalance := 3
+    totalSupply := 10
+  }
+  let transfer : Benchmarks.FungibleToken.Action := {
+    caller := Benchmarks.FungibleToken.alice
+    receiver := Benchmarks.FungibleToken.bob
+    amount := 2
+  }
+  let (tokenState, tokenResult) := Benchmarks.FungibleToken.step tokenState transfer
+  assertEqual Benchmarks.FungibleToken.Result.transferred tokenResult
+  assertEqual 10 (tokenState.aliceBalance + tokenState.bobBalance)
+  assertEqual Verification.UpgradePolicy.forbidden
+    Verification.BlockchainThreatModel.milestoneSix.upgrades
+
   runTransferScenarios config
-  IO.println "100 transfer scenarios and Milestone 2-5 API tests passed"
+  IO.println "100 transfer scenarios and Milestone 2-6 API tests passed"
