@@ -543,16 +543,25 @@
       "milestone": 5,
       "weight": 4,
       "nearcoreReference": "chain/chain/src/chain.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The single-shard simulator advances abstract height and timestamp counters; consensus, chunk headers, validators, forks, and wall-clock timestamp rules are outside Milestone 5."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "block-production-well-formedness",
+          "discharged": true
+        },
+        {
+          "id": "fixed-chain-replay-determinism",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -562,16 +571,21 @@
       "milestone": 5,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Receipt classes are modeled on one shard with in-memory queues; shard routing, congestion control, bandwidth scheduling, and persistent trie queues remain later work."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "delayed-postponed-uniqueness-and-disjointness",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -581,16 +595,21 @@
       "milestone": 5,
       "weight": 5,
       "nearcoreReference": "runtime/runtime/src/lib.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The pinned nearcore phase order is local, delayed, then incoming; the L4 corpus validates transaction-root, generated-target, and callback block placement while economic refund receipts are filtered from semantic observations."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "fixed-block-production-determinism",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -600,16 +619,21 @@
       "milestone": 5,
       "weight": 3,
       "nearcoreReference": "runtime/runtime/src/config.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The bound counts selected receipts instead of exact gas or compute usage; the exact protocol cost model begins in Milestone 9."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "fuel-bounded-run-well-formedness",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {

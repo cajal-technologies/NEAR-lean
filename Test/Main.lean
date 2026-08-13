@@ -49,6 +49,16 @@ private def runTransferScenarios (config : RuntimeConfig) : IO Unit := do
     assertEqual (some 0) (chain.balance? [1])
     assertEqual (some amount) (chain.balance? [2])
 
+private def generatedBlocks : Nat → BlockScheduler → BlockScheduler
+  | 0, scheduler => scheduler
+  | count + 1, scheduler =>
+      let transaction : Transaction := {
+        signerId := [1]
+        receiverId := [2]
+        actions := [.transfer [1] [2] 0]
+      }
+      generatedBlocks count (scheduler.submit transaction).produceBlock
+
 def main : IO Unit := do
   assertEqual "abstract" (SemanticsLayer.label .abstract)
   assertEqual "concrete-compatibility" (SemanticsLayer.label .concreteCompatibility)
@@ -190,5 +200,58 @@ def main : IO Unit := do
         completed.disposition
   | none => throw <| IO.userError "missing discarded receipt"
 
+  let scheduler := BlockScheduler.init config receiptWorld 10
+  assertEqual true (scheduler.WellFormed |> decide)
+  let scheduler := scheduler.submit receiptTransaction |>.runUntil 3
+  assertEqual 3 scheduler.blocks.length
+  assertEqual 3 scheduler.machine.world.block.height
+  assertEqual 0 scheduler.delayedReceipts.length
+  assertEqual 0 scheduler.machine.postponed.length
+  assertEqual [0, 1, 2]
+    (scheduler.blocks.flatMap (·.outcomes) |>.map (·.blockHeight))
+  match scheduler.outcome? 2 with
+  | some outcome =>
+      assertEqual 2 outcome.blockHeight
+      assertEqual (ReceiptExecutionStatus.successValue [7]) outcome.outcome.status
+  | none => throw <| IO.userError "missing scheduled callback outcome"
+
+  let emptyTransaction : Transaction := {
+    signerId := [1]
+    receiverId := [2]
+    actions := []
+  }
+  let ordered := BlockScheduler.init config receiptWorld 10
+    |>.enqueue .delayed emptyTransaction
+    |>.receive emptyTransaction
+    |>.submit emptyTransaction
+    |>.produceBlock
+  match ordered.blocks.getLast? with
+  | some block =>
+      assertEqual [.local, .delayed, .incoming] (block.processed.map (·.source))
+      assertEqual [2, 0, 1] (block.processed.map (·.receiptId))
+  | none => throw <| IO.userError "missing processing-order block"
+
+  let bounded := BlockScheduler.init config receiptWorld 1
+    |>.submit emptyTransaction
+    |>.submit emptyTransaction
+    |>.submit emptyTransaction
+    |>.produceBlock
+  assertEqual 1 (bounded.blocks.flatMap (·.processed)).length
+  assertEqual 2 bounded.delayedReceipts.length
+
+  let zeroBound := BlockScheduler.init config receiptWorld 0
+    |>.submit emptyTransaction
+    |>.runUntil 5
+  assertEqual 5 zeroBound.blocks.length
+  assertEqual 1 zeroBound.delayedReceipts.length
+  assertEqual 0 zeroBound.machine.outcomes.length
+
+  let replayStart := BlockScheduler.init config receiptWorld 1
+  let firstReplay := generatedBlocks 1000 replayStart
+  let secondReplay := generatedBlocks 1000 replayStart
+  assertEqual firstReplay secondReplay
+  assertEqual 1000 firstReplay.blocks.length
+  assertEqual 1000 firstReplay.machine.world.block.height
+
   runTransferScenarios config
-  IO.println "100 transfer scenarios and Milestone 2-4 API tests passed"
+  IO.println "100 transfer scenarios and Milestone 2-5 API tests passed"

@@ -363,6 +363,312 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.BlockOutcome"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.blockHeight"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockOutcome.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.outcome"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockOutcome.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.SchedulingInvariant"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.allReceiptIds"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.blocks"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.blocks._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.commit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.commit_preserves_wellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.config"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.delayedReceipts"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.delayedReceipts._default"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.delayed_postponed_invariant"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.enqueue"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.enqueueCandidate"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.enqueue_preserves_wellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.hasWork"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.incomingReceipts"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.incomingReceipts._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.init"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.init_wellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.localReceipts"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.localReceipts._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.machine"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.maxReceiptsPerBlock"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.outcome?"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.outcome?.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.produceBlock"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.produceCandidate"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.produce_preserves_wellFormed"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.production_deterministic"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.receive"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.runUntil"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.runUntil._f"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.runUntil._sunfold"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.runUntil._unsafe_rec"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.runUntil.eq_def"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.runUntil.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.BlockScheduler.runUntil_preserves_wellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.BlockScheduler.submit"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.CompletedReceipt"
     },
     {
@@ -1112,6 +1418,158 @@
     {
       "axioms": [],
       "name": "NEARLean.Output.returnValue._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ProcessedReceipt.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.receiptId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProcessedReceipt.source"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.delayedCount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.height"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ProducedBlock.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.outcomes"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.postponedCount"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.processed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProducedBlock.recOn"
     },
     {
       "axioms": [],
@@ -1890,6 +2348,98 @@
     {
       "axioms": [],
       "name": "NEARLean.ReceiptOutcome.status"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.delayed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.delayed.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.delayed.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.incoming"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.incoming.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.incoming.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.local"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.local.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.local.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.ofNat"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.ofNat_ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptSource.toCtorIdx"
     },
     {
       "axioms": [],
@@ -2932,6 +3482,22 @@
       "name": "NEARLean.instBEqActionDecision.beq"
     },
     {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqActionReceipt"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqActionReceipt.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqActionReceipt.beq.match_1"
+    },
+    {
       "axioms": [],
       "name": "NEARLean.instBEqBlockContext"
     },
@@ -2942,6 +3508,54 @@
     {
       "axioms": [],
       "name": "NEARLean.instBEqBlockContext.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqBlockOutcome"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqBlockOutcome.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqBlockOutcome.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqBlockScheduler"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqBlockScheduler.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqBlockScheduler.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqCompletedReceipt"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqCompletedReceipt.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqCompletedReceipt.beq.match_1"
     },
     {
       "axioms": [],
@@ -2966,6 +3580,48 @@
     {
       "axioms": [],
       "name": "NEARLean.instBEqDataReceiver.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqInput"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqInput.beq"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqInput.beq._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqInput.beq._sparseCasesOn_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqInput.beq._sparseCasesOn_3"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqInput.beq._sparseCasesOn_4"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqInput.beq.match_1"
     },
     {
       "axioms": [],
@@ -3000,6 +3656,34 @@
       "name": "NEARLean.instBEqOutput.beq.match_1"
     },
     {
+      "axioms": [],
+      "name": "NEARLean.instBEqProcessedReceipt"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqProcessedReceipt.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqProcessedReceipt.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqProducedBlock"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqProducedBlock.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqProducedBlock.beq.match_1"
+    },
+    {
       "axioms": [
         "propext"
       ],
@@ -3028,6 +3712,52 @@
         "propext"
       ],
       "name": "NEARLean.instBEqPromiseResult.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqReceipt"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqReceipt.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqReceipt.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqReceiptBody"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqReceiptBody.beq"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqReceiptBody.beq._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqReceiptBody.beq._sparseCasesOn_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqReceiptBody.beq.match_1"
     },
     {
       "axioms": [
@@ -3099,6 +3829,22 @@
       "axioms": [
         "propext"
       ],
+      "name": "NEARLean.instBEqReceiptMachine"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqReceiptMachine.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqReceiptMachine.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
       "name": "NEARLean.instBEqReceiptOutcome"
     },
     {
@@ -3110,6 +3856,14 @@
     {
       "axioms": [],
       "name": "NEARLean.instBEqReceiptOutcome.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqReceiptSource"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqReceiptSource.beq"
     },
     {
       "axioms": [],
@@ -3156,6 +3910,22 @@
       "name": "NEARLean.instBEqSemanticsLayer.beq"
     },
     {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqTransaction"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqTransaction.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqTransaction.beq.match_1"
+    },
+    {
       "axioms": [],
       "name": "NEARLean.instBEqWorldState"
     },
@@ -3166,6 +3936,18 @@
     {
       "axioms": [],
       "name": "NEARLean.instBEqWorldState.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqReceiptSource"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqReceiptSource._proof_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqReceiptSource._proof_2"
     },
     {
       "axioms": [],
@@ -3224,6 +4006,10 @@
       "name": "NEARLean.instDecidableWellFormed_7"
     },
     {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_8"
+    },
+    {
       "axioms": [
         "propext"
       ],
@@ -3266,6 +4052,30 @@
     {
       "axioms": [],
       "name": "NEARLean.instReprBlockContext.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprBlockOutcome"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprBlockOutcome.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprBlockScheduler"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprBlockScheduler.repr"
     },
     {
       "axioms": [
@@ -3354,6 +4164,26 @@
         "propext"
       ],
       "name": "NEARLean.instReprOutput.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprProcessedReceipt"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprProcessedReceipt.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprProducedBlock"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprProducedBlock.repr"
     },
     {
       "axioms": [
@@ -3454,6 +4284,18 @@
         "propext"
       ],
       "name": "NEARLean.instReprReceiptOutcome.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprReceiptSource"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprReceiptSource.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprReceiptSource.repr.match_1"
     },
     {
       "axioms": [
@@ -3616,6 +4458,26 @@
     {
       "axioms": [],
       "name": "_private.NEARLean.AbstractKernel.0.NEARLean.step.match_1.splitter"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Blocks.0.NEARLean.BlockScheduler.runUntil.match_1.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Blocks.0.NEARLean.BlockScheduler.runUntil.match_1.eq_2"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Blocks.0.NEARLean.BlockScheduler.runUntil.match_1.splitter"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Blocks.0.NEARLean.advanceBlock"
+    },
+    {
+      "axioms": [],
+      "name": "_private.NEARLean.Blocks.0.NEARLean.sources"
     },
     {
       "axioms": [],
@@ -3804,6 +4666,11 @@
     "NEARLean.ReceiptMachine.receiptId_unique",
     "NEARLean.ReceiptMachine.processing_deterministic",
     "NEARLean.ReceiptMachine.every_created_receipt_accounted",
+    "NEARLean.BlockScheduler.init_wellFormed",
+    "NEARLean.BlockScheduler.produce_preserves_wellFormed",
+    "NEARLean.BlockScheduler.runUntil_preserves_wellFormed",
+    "NEARLean.BlockScheduler.delayed_postponed_invariant",
+    "NEARLean.BlockScheduler.production_deterministic",
     "NEARLean.SemanticsLayer.abstract_ne_concrete"
   ],
   "modulePrefixes": [

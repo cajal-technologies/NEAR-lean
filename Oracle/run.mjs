@@ -112,7 +112,7 @@ function creditFees(feeCredits, signerId, outcome) {
   feeCredits.set(signerId, (feeCredits.get(signerId) ?? 0n) + tokensBurnt(outcome));
 }
 
-function receiptGraph(outcome) {
+async function receiptGraph(outcome, provider, includeBlocks) {
   const rootIds = outcome?.transaction_outcome?.outcome?.receipt_ids ?? [];
   const rootSet = new Set(rootIds);
   const rawOutcomes = outcome?.receipts_outcome ?? [];
@@ -134,6 +134,16 @@ function receiptGraph(outcome) {
       if (includedIds.has(id) && !ids.has(id)) ids.set(id, nextId++);
     }
   }
+  const heights = new Map();
+  if (includeBlocks) {
+    await Promise.all(included.map(async (entry) => {
+      if (!heights.has(entry.block_hash)) {
+        const block = await provider.viewBlock({ blockId: entry.block_hash });
+        heights.set(entry.block_hash, block.header.height);
+      }
+    }));
+  }
+  const firstHeight = includeBlocks ? Math.min(...heights.values()) : 0;
   function status(value) {
     if (value && typeof value === "object" && "SuccessValue" in value) {
       return {
@@ -166,7 +176,8 @@ function receiptGraph(outcome) {
         .filter((id) => ids.has(id))
         .map((id) => ids.get(id)),
       id: ids.get(entry.id),
-      executorId: bytes(entry.outcome.executor_id)
+      executorId: bytes(entry.outcome.executor_id),
+      blockIndex: includeBlocks ? heights.get(entry.block_hash) - firstHeight : null
     }))
   };
 }
@@ -286,7 +297,7 @@ async function runTrace(trace, rpcUrl) {
         errorCategory: null,
         returnValue: finalBytes(outcome),
         logs: logs(outcome),
-        receiptGraph: receiptGraph(outcome),
+        receiptGraph: await receiptGraph(outcome, provider, trace.blockMode === true),
         accounts: await snapshot(trace, provider, contracts, feeCredits)
       });
     } catch (error) {

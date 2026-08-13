@@ -17,6 +17,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 BASELINE = json.loads((ROOT / "protocol/baseline.json").read_text(encoding="utf-8"))
 DEFAULT_FIXTURE = ROOT / "differential/fixtures/counter.json"
 ASYNC_FIXTURE = ROOT / "differential/fixtures/async.json"
+BLOCK_FIXTURE = ROOT / "differential/fixtures/block.json"
 LEAN_RUNNER = ROOT / ".lake/build/bin/nearLeanOracle"
 
 
@@ -113,12 +114,12 @@ def trace(seed: int) -> dict[str, object]:
     }
 
 
-def receipt_trace(seed: int) -> dict[str, object]:
+def receipt_trace(seed: int, *, block_mode: bool = False) -> dict[str, object]:
     owner = f"r{seed:08x}"
     caller = "caller.receipts"
     callee = "callee.receipts"
     balance = "100000000000000000000000000"
-    return {
+    generated = {
         "schemaVersion": 1,
         "nearcoreCommit": BASELINE["nearcore"]["commit"],
         "nearcoreRelease": BASELINE["nearcore"]["release"],
@@ -143,6 +144,9 @@ def receipt_trace(seed: int) -> dict[str, object]:
         "observeAccounts": [owner],
         "receiptMode": True,
     }
+    if block_mode:
+        generated["blockMode"] = True
+    return generated
 
 
 def generate(count: int, seed: int, directory: pathlib.Path) -> list[pathlib.Path]:
@@ -159,6 +163,15 @@ def generate_receipts(count: int, seed: int, directory: pathlib.Path) -> list[pa
     for current in range(seed, seed + count):
         path = directory / f"{current:08d}.json"
         write_json(path, receipt_trace(current))
+        paths.append(path)
+    return paths
+
+
+def generate_blocks(count: int, seed: int, directory: pathlib.Path) -> list[pathlib.Path]:
+    paths = []
+    for current in range(seed, seed + count):
+        path = directory / f"{current:08d}.json"
+        write_json(path, receipt_trace(current, block_mode=True))
         paths.append(path)
     return paths
 
@@ -343,6 +356,15 @@ def self_test() -> None:
     result = compare(async_reference, corrupted, "L4")
     if result["matched"] or result["firstDifference"]["level"] != "L4":
         raise AssertionError("comparator missed L4 receipt-order corruption")
+    with tempfile.TemporaryDirectory() as temporary:
+        block_output = pathlib.Path(temporary) / "lean.json"
+        run_lean([BLOCK_FIXTURE], block_output)
+        block_reference = json.loads(block_output.read_text(encoding="utf-8"))
+    corrupted = copy.deepcopy(block_reference)
+    corrupted["observations"][0]["receiptGraph"]["outcomes"][1]["blockIndex"] = 9
+    result = compare(block_reference, corrupted, "L4")
+    if result["matched"] or result["firstDifference"]["level"] != "L4":
+        raise AssertionError("comparator missed L4 block-index corruption")
     synthetic = {"actions": [{"kind": "transfer"}, {"kind": "functionCall"}, {"kind": "transfer"}]}
     minimized = minimize_actions(
         synthetic,
@@ -431,6 +453,68 @@ def receipt_campaign(count: int, seed: int, batch_size: int, output: pathlib.Pat
             raise SystemExit(f"receipt mismatch recorded at {failure}")
 
 
+def block_campaign(count: int, seed: int, batch_size: int, output: pathlib.Path) -> None:
+    with tempfile.TemporaryDirectory() as temporary:
+        directory = pathlib.Path(temporary)
+        paths = generate_blocks(count, seed, directory / "traces")
+        matched = True
+        first_difference = None
+        action_count = 0
+        block_count = 0
+        completed = 0
+        failure = None
+        for batch_index in range(0, len(paths), batch_size):
+            batch = paths[batch_index : batch_index + batch_size]
+            batch_directory = directory / f"batch-{batch_index // batch_size}"
+            result = execute(
+                batch,
+                batch_directory,
+                "L4",
+                build_lean=batch_index == 0,
+            )
+            action_count += result["actionCount"]
+            completed += result["traceCount"]
+            nearcore_runs = runs(json.loads(
+                (batch_directory / "nearcore.json").read_text(encoding="utf-8")
+            ))
+            for run in nearcore_runs:
+                for observation in run["observations"]:
+                    indices = [
+                        outcome["blockIndex"]
+                        for outcome in observation["receiptGraph"]["outcomes"]
+                    ]
+                    block_count += max(indices, default=-1) + 1
+            print(
+                f"block campaign: {completed}/{count} traces, {block_count} blocks",
+                flush=True,
+            )
+            if not result["matched"]:
+                matched = False
+                first_difference = result["firstDifference"]
+                failing_path = batch[first_difference["traceIndex"]]
+                failure = ROOT / "differential/failures" / failing_path.name
+                write_json(failure, json.loads(failing_path.read_text(encoding="utf-8")))
+                break
+        report = {
+            "matched": matched,
+            "observationLevel": "L4" if matched else "L3",
+            "traceCount": completed,
+            "actionCount": action_count,
+            "blockCount": block_count,
+            "firstDifference": first_difference,
+            "actionKinds": {"functionCall": action_count},
+            "maxTraceLength": 1,
+            "schemaVersion": 1,
+            "seed": seed,
+            "nearcoreCommit": BASELINE["nearcore"]["commit"],
+            "nearcoreRelease": BASELINE["nearcore"]["release"],
+            "protocolVersion": BASELINE["protocolVersions"]["minimum"],
+        }
+        write_json(output, report)
+        if not matched:
+            raise SystemExit(f"block mismatch recorded at {failure}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -451,6 +535,13 @@ def main() -> None:
     receipt_campaign_parser.add_argument(
         "--output", type=pathlib.Path, default=ROOT / "differential/receipt-report.json"
     )
+    block_campaign_parser = subparsers.add_parser("block-campaign")
+    block_campaign_parser.add_argument("--count", type=int, default=10000)
+    block_campaign_parser.add_argument("--seed", type=int, default=1)
+    block_campaign_parser.add_argument("--batch-size", type=int, default=500)
+    block_campaign_parser.add_argument(
+        "--output", type=pathlib.Path, default=ROOT / "differential/block-report.json"
+    )
     compare_parser = subparsers.add_parser("compare")
     compare_parser.add_argument("lean", type=pathlib.Path)
     compare_parser.add_argument("nearcore", type=pathlib.Path)
@@ -469,6 +560,13 @@ def main() -> None:
         campaign(arguments.count, arguments.seed, arguments.output)
     elif arguments.command == "receipt-campaign":
         receipt_campaign(
+            arguments.count,
+            arguments.seed,
+            arguments.batch_size,
+            arguments.output,
+        )
+    elif arguments.command == "block-campaign":
+        block_campaign(
             arguments.count,
             arguments.seed,
             arguments.batch_size,

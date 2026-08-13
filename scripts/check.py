@@ -495,7 +495,11 @@ def differential_report_errors() -> list[str]:
     errors += generated_report_errors(
         ROOT / "differential/receipt-report.json", "receipt differential", 10000, "L4"
     )
+    errors += generated_report_errors(
+        ROOT / "differential/block-report.json", "block differential", 1, "L4"
+    )
     receipt = load_json(ROOT / "differential/receipt-report.json")
+    blocks = load_json(ROOT / "differential/block-report.json")
     manifest = load_json(ROOT / "protocol/features.json")
     if not isinstance(receipt, dict) or receipt.get("receiptOutcomesPerTrace") != 3:
         errors.append("receipt differential report must record three semantic outcomes per trace")
@@ -503,6 +507,10 @@ def differential_report_errors() -> list[str]:
         "observationLevel"
     ):
         errors.append("feature manifest must match the strongest receipt observation level")
+    if not isinstance(blocks, dict) or not is_integer(blocks.get("blockCount")) or blocks[
+        "blockCount"
+    ] < 10000:
+        errors.append("block differential report must record at least 10,000 compared blocks")
     return errors
 
 
@@ -611,6 +619,7 @@ def scorecard() -> dict[str, object]:
     audit = load_json(ROOT / "audit/report.json")
     differential = load_json(ROOT / "differential/report.json")
     receipts = load_json(ROOT / "differential/receipt-report.json")
+    blocks = load_json(ROOT / "differential/block-report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -666,8 +675,15 @@ def scorecard() -> dict[str, object]:
             "seed": receipts["seed"],
             "traces": receipts["traceCount"],
         },
+        "generatedBlocks": {
+            "actions": blocks["actionCount"],
+            "blocks": blocks["blockCount"],
+            "firstDifference": blocks["firstDifference"],
+            "seed": blocks["seed"],
+            "traces": blocks["traceCount"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 4,
+        "schemaVersion": 5,
     }
 
 

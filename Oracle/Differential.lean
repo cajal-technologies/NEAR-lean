@@ -1,5 +1,5 @@
 import Lean.Data.Json
-import NEARLean.Receipts
+import NEARLean.Blocks
 import NEARLean.Sandbox
 
 /-!
@@ -47,6 +47,7 @@ structure CanonicalTrace where
   actions : List TraceAction
   observeAccounts : List String
   receiptMode : Option Bool
+  blockMode : Option Bool
   deriving FromJson, Repr
 
 structure CanonicalStorageEntry where
@@ -70,6 +71,7 @@ structure CanonicalReceiptOutcome where
   returnValue : List Nat
   statusReceiptId : Option Nat
   errorCategory : Option String
+  blockIndex : Option Nat
   deriving BEq, FromJson, ToJson, Repr
 
 structure CanonicalReceiptGraph where
@@ -233,7 +235,8 @@ private def canonicalAccount (state : WorldState) (id : String) : CanonicalAccou
 private def snapshot (state : WorldState) (accountIds : List String) : List CanonicalAccount :=
   accountIds.map (canonicalAccount state)
 
-private def canonicalReceiptOutcome (outcome : ReceiptOutcome) : CanonicalReceiptOutcome :=
+private def canonicalReceiptOutcome
+    (outcome : ReceiptOutcome) (blockIndex : Option Nat := none) : CanonicalReceiptOutcome :=
   let (statusKind, returnValue, statusReceiptId, errorCategory) := match outcome.status with
     | .successValue value => ("successValue", naturals value, none, none)
     | .successReceiptId receiptId => ("successReceiptId", [], some receiptId, none)
@@ -246,6 +249,7 @@ private def canonicalReceiptOutcome (outcome : ReceiptOutcome) : CanonicalReceip
     returnValue := returnValue
     statusReceiptId := statusReceiptId
     errorCategory := errorCategory
+    blockIndex := blockIndex
   }
 
 private def runReceiptInput
@@ -264,6 +268,28 @@ private def runReceiptInput
       | .successValue value => .ok { Output.empty with returnValue := value }
       | .successReceiptId _ => .ok Output.empty
   ({ chain with state := machine.world }, result, graph)
+
+private def runBlockInput
+    (chain : NearChain)
+    (input : Input) : NearChain × Except RuntimeError Output × CanonicalReceiptGraph :=
+  let initialHeight := chain.state.block.height
+  let scheduler := BlockScheduler.init chain.config chain.state 10
+    |>.submit input.transaction
+    |>.runUntil 32
+  let blockOutcomes := scheduler.blocks.flatMap (·.outcomes)
+  let outcomes := blockOutcomes.map fun outcome =>
+    canonicalReceiptOutcome outcome.outcome (some (outcome.blockHeight - initialHeight))
+  let graph : CanonicalReceiptGraph := {
+    transactionReceiptIds := if outcomes.isEmpty then [] else [0]
+    outcomes := outcomes
+  }
+  let result := match blockOutcomes.getLast? with
+    | none => Except.error RuntimeError.invariantViolation
+    | some outcome => match outcome.outcome.status with
+      | .failure runtimeError => .error runtimeError
+      | .successValue value => .ok { Output.empty with returnValue := value }
+      | .successReceiptId _ => .ok Output.empty
+  ({ chain with state := scheduler.machine.world }, result, graph)
 
 private def initialChain (trace : CanonicalTrace) : Except String NearChain := do
   let accounts ← trace.genesis.mapM fun entry => do
@@ -289,7 +315,9 @@ private def runActions
   | action :: rest =>
       let input ← action.toInput
       let (next, result, receiptGraph) :=
-        if trace.receiptMode.getD false then
+        if trace.blockMode.getD false then
+          runBlockInput chain input
+        else if trace.receiptMode.getD false then
           runReceiptInput chain input
         else
           let (next, result) := chain.apply input

@@ -272,7 +272,7 @@ inductive Input where
       (arguments : StorageValue)
       (attachedDeposit : Balance)
       (prepaidGas : Gas)
-  deriving Repr
+  deriving BEq, Repr
 
 /-- Explicit failures for the executable sandbox. -/
 inductive RuntimeError where

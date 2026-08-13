@@ -23,7 +23,7 @@ structure ActionReceipt where
   outputDataReceivers : List DataReceiver
   inputDataIds : List DataId
   actions : List Input
-  deriving Repr
+  deriving BEq, Repr
 
 structure DataReceipt where
   dataId : DataId
@@ -33,20 +33,20 @@ structure DataReceipt where
 inductive ReceiptBody where
   | action (receipt : ActionReceipt)
   | data (receipt : DataReceipt)
-  deriving Repr
+  deriving BEq, Repr
 
 structure Receipt where
   predecessorId : AccountId
   receiverId : AccountId
   receiptId : ReceiptId
   body : ReceiptBody
-  deriving Repr
+  deriving BEq, Repr
 
 structure Transaction where
   signerId : AccountId
   receiverId : AccountId
   actions : List Input
-  deriving Repr
+  deriving BEq, Repr
 
 inductive PromiseResult where
   | successful (value : StorageValue)
@@ -74,7 +74,7 @@ inductive ReceiptDisposition where
 structure CompletedReceipt where
   receipt : Receipt
   disposition : ReceiptDisposition
-  deriving Repr
+  deriving BEq, Repr
 
 structure ReceivedData where
   receiverId : AccountId
@@ -117,7 +117,7 @@ structure ReceiptMachine where
   outcomes : List ReceiptOutcome := []
   nextReceiptId : ReceiptId := 0
   nextDataId : DataId := 0
-  deriving Repr
+  deriving BEq, Repr
 
 def ReceiptMachine.allReceiptIds (state : ReceiptMachine) : List ReceiptId :=
   state.queued.map (·.receiptId) ++
