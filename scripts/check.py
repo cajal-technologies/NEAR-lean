@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import gzip
 import hashlib
 import json
 import os
@@ -788,6 +789,66 @@ def concrete_report_errors(path: pathlib.Path | None = None) -> list[str]:
     return errors
 
 
+def historical_report_errors(path: pathlib.Path | None = None) -> list[str]:
+    report = load_json(path or ROOT / "replay/report.json")
+    baseline = load_json(ROOT / "protocol/baseline.json")
+    if not isinstance(report, dict) or not isinstance(baseline, dict):
+        return ["historical report and baseline must be JSON objects"]
+    errors: list[str] = []
+    if report.get("schemaVersion") != 1 or report.get("network") != "mainnet":
+        errors.append("historical replay schema or network differs")
+    if report.get("protocolVersion") != 86:
+        errors.append("historical replay protocol version must be 86")
+    if report.get("nearcoreCommit") != baseline.get("nearcore", {}).get("commit"):
+        errors.append("historical replay nearcore commit is stale")
+    if report.get("replayMode") != "commitment-and-import-replay":
+        errors.append("historical replay mode must be explicit")
+    if report.get("contiguousProducedBlocks") != 10_000:
+        errors.append("historical replay needs 10,000 contiguous produced blocks")
+    if report.get("stratifiedChunks") != 10_000 or report.get("adjacentStateRootLinks") != 10_000:
+        errors.append("historical replay needs 10,000 linked chunk commitments")
+    if not is_integer(report.get("importedOutcomesPreserved")) or report["importedOutcomesPreserved"] < 10_000:
+        errors.append("historical replay must preserve imported outcomes")
+    actions = report.get("actionKinds")
+    required_actions = {"CreateAccount", "DeployContract", "FunctionCall", "Transfer"}
+    if not isinstance(actions, dict) or not required_actions <= set(actions):
+        errors.append("historical replay misses a supported action kind")
+    errors_seen = report.get("errorClasses")
+    if not isinstance(errors_seen, dict) or len(errors_seen) < 2:
+        errors.append("historical replay needs multiple real error classes")
+    if report.get("checkpointResume") is not True:
+        errors.append("historical replay checkpoint/resume evidence is missing")
+    expected_identifiers = {"block", "chunk", "transaction", "receipt", "account", "trieKey"}
+    if set(report.get("firstDifferenceIdentifiers", [])) != expected_identifiers:
+        errors.append("historical first-difference identifiers are incomplete")
+    if report.get("independentRuntimeExecution") is not False:
+        errors.append("historical report must not overclaim independent runtime execution")
+    if not isinstance(report.get("knownDeviation"), str) or not report["knownDeviation"].strip():
+        errors.append("historical report must state its runtime-execution deviation")
+    for field in ("cache", "sample"):
+        descriptor = report.get(field)
+        if not isinstance(descriptor, dict):
+            errors.append(f"historical {field} descriptor must be an object")
+            continue
+        relative = descriptor.get("path")
+        expected = descriptor.get("sha256")
+        target = ROOT / relative if isinstance(relative, str) else None
+        if not isinstance(expected, str) or not SHA256.fullmatch(expected):
+            errors.append(f"historical {field} needs a SHA-256 digest")
+        elif target is None or not target.is_file():
+            errors.append(f"historical {field} artifact is missing")
+        elif hashlib.sha256(target.read_bytes()).hexdigest() != expected:
+            errors.append(f"historical {field} digest is stale")
+    try:
+        corpus = json.loads(gzip.decompress((ROOT / "replay/current-era.json.gz").read_bytes()))
+    except (OSError, EOFError, json.JSONDecodeError) as error:
+        errors.append(f"historical cache is unreadable: {error}")
+    else:
+        if len(corpus.get("blocks", [])) != 10_000 or len(corpus.get("chunks", [])) != 10_000:
+            errors.append("historical cache counts differ from its report")
+    return errors
+
+
 def production_theorems() -> list[str]:
     lines = (ROOT / "audit/theorems.txt").read_text(encoding="utf-8").splitlines()
     return [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
@@ -898,6 +959,7 @@ def scorecard() -> dict[str, object]:
     validation = load_json(ROOT / "validation/report.json")
     wasm = load_json(ROOT / "wasm/report.json")
     concrete = load_json(ROOT / "concrete/report.json")
+    historical = load_json(ROOT / "replay/report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -988,8 +1050,16 @@ def scorecard() -> dict[str, object]:
             "serializationVectors": concrete["serializationVectors"],
             "syntheticChunks": concrete["syntheticChunks"],
         },
+        "generatedHistoricalReplay": {
+            "adjacentStateRootLinks": historical["adjacentStateRootLinks"],
+            "blocks": historical["contiguousProducedBlocks"],
+            "chunks": historical["stratifiedChunks"],
+            "endHeight": historical["endHeight"],
+            "independentRuntimeExecution": historical["independentRuntimeExecution"],
+            "startHeight": historical["startHeight"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 9,
+        "schemaVersion": 10,
     }
 
 
@@ -1100,6 +1170,11 @@ def run_negative_tests() -> int:
         corrupted_concrete_path = pathlib.Path(temporary) / "concrete-report.json"
         corrupted_concrete_path.write_text(json.dumps(corrupted_concrete), encoding="utf-8")
         corrupted_concrete_errors = concrete_report_errors(corrupted_concrete_path)
+        corrupted_historical = copy.deepcopy(load_json(ROOT / "replay/report.json"))
+        corrupted_historical["stratifiedChunks"] = 9_999
+        corrupted_historical_path = pathlib.Path(temporary) / "historical-report.json"
+        corrupted_historical_path.write_text(json.dumps(corrupted_historical), encoding="utf-8")
+        corrupted_historical_errors = historical_report_errors(corrupted_historical_path)
     outcomes = [
         expect_failure("source hygiene", format_errors([negative / "BadFormat.lean"])),
         expect_failure("sorry", policy_errors([negative / "Sorry.lean"])),
@@ -1125,6 +1200,7 @@ def run_negative_tests() -> int:
         expect_failure("validation report ratchet", corrupted_validation_errors),
         expect_failure("WASM report ratchet", corrupted_wasm_errors),
         expect_failure("concrete report ratchet", corrupted_concrete_errors),
+        expect_failure("historical report ratchet", corrupted_historical_errors),
     ]
     warning = subprocess.run(
         ["lake", "env", "lean", "-DwarningAsError=true", "Tests/Negative/Warning.lean"],
@@ -1182,6 +1258,7 @@ def main() -> int:
         errors += validate_manifest() + differential_report_errors() + validation_report_errors()
         errors += wasm_report_errors()
         errors += concrete_report_errors()
+        errors += historical_report_errors()
         errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)

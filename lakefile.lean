@@ -30,3 +30,6 @@ lean_exe m10Validation where
 
 lean_exe m11Validation where
   root := `Oracle.M11Validation
+
+lean_exe m12Validation where
+  root := `Oracle.M12Validation

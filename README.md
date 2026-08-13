@@ -3,7 +3,7 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 11**. The proof-friendly kernel covers transactions,
+The project is at **Milestone 12 (partial exit)**. The proof-friendly kernel covers transactions,
 receipts, block scheduling, verification APIs, and aggregate economics. Generated
 campaigns compare the model with the pinned nearcore 2.13.3 sandbox through L5.
 A scheduled validation suite executes one million model actions and 10,000
@@ -13,6 +13,10 @@ The concrete layer runs five compiled contracts through pinned Talos semantics
 and matches the scoped host corpus through L5. It also implements exact Borsh,
 identifier, trie-key, and state-root projection, with 1,000 synthetic chunks
 matching pinned near-store through L7.
+The historical layer also imports a protocol-86 mainnet corpus with 10,000
+consecutive produced blocks and 10,000 included chunks, with provenance,
+checkpoint/resume, and first-difference diagnostics. This is commitment replay,
+not independent full-state runtime execution, so the v0.4 release is withheld.
 
 ## Quick start
 
@@ -47,6 +51,11 @@ for the protocol-86 gas scope and intentional projection limits.
 refinement theorem, state-change encodings, and all 1,000 synthetic L7 roots. See
 [docs/CONCRETE_SEMANTICS.md](docs/CONCRETE_SEMANTICS.md) for scope and trusted
 adapters.
+
+`make m12-validation` checks the typed historical importer, fixed-source hashes,
+block/chunk continuity, action and failure strata, root links, checkpoint resume,
+and diagnostic mutations. See [docs/HISTORICAL_REPLAY.md](docs/HISTORICAL_REPLAY.md)
+for the exact compatibility boundary.
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the

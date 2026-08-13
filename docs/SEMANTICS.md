@@ -95,3 +95,8 @@ The concrete wrapper reuses the abstract transition and independently projects
 exact Borsh records and near-store-compatible roots. Contract proofs still do not
 import concrete runtime internals. See `docs/CONCRETE_SEMANTICS.md` for its scoped
 L7 corpus and remaining adapters.
+
+`NEARLean.Concrete.Historical` extends only the import boundary: it decodes real
+block/chunk headers and preserves transaction, receipt, outcome, and state-change
+JSON for the historical tools. It does not enter the verification API or promote
+imported root commitments into a theorem about independent historical execution.

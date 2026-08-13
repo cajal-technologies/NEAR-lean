@@ -23,3 +23,12 @@ The differential driver minimizes failing action sequences and writes the result
 under `differential/failures`. These files are permanent regression fixtures.
 Field-level and receipt-graph shrinking are deferred until later milestones add
 richer action grammars.
+
+Milestone 12 adds `make m12-validation`. Its checked-in protocol-86 mainnet cache
+contains 10,000 consecutive produced blocks and 10,000 real included chunks.
+The gate checks canonical source hashes, predecessor continuity, typed sample
+imports, action/error strata, adjacent state-root commitments, checkpoint/resume,
+and first-difference mutations. It deliberately reports
+`commitment-and-import-replay`: complete pre-state/state witnesses are absent, so
+historical outcomes and roots are preserved and linked rather than independently
+recomputed by the Lean runtime.

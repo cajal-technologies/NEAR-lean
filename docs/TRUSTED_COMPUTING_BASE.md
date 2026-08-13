@@ -16,6 +16,10 @@ The list is expected to become more precise as executable semantics are added.
 - The Milestone 11 corpus generator, the checked-in near-store roots, and the
   pinned helper in `Oracle/nearcore/m11_oracle.rs`. CI independently recomputes
   them in Lean but does not rebuild nearcore.
+- The fixed-height FastNEAR/Lava RPC responses, NEAR Data streamer responses,
+  and `scripts/m12_fetch.py` canonical projection. The checked-in M12 cache
+  records projection hashes but omits the multi-gigabyte raw responses and
+  provider-specific non-consensus JSON decorations.
 - Node.js 22.22.2 or newer and the exact packages locked in
   `Oracle/package-lock.json`: `near-sandbox`, `near-api-js`, and `wabt`. The
   sandbox archive reader is overridden to patched `tar` 7.5.22.
@@ -80,6 +84,8 @@ lexical gate supplements, but does not replace, the environment-level audit.
 
 ## Not yet in the trusted base
 
-There is no historical fixture importer, protocol-migration engine, complete
-failure/action-receipt codec, or arbitrary cross-contract WASM module router yet.
-Those are unsupported features rather than silently trusted components.
+There is no complete archival-state importer, state-witness archive,
+protocol-migration engine, complete failure/action-receipt codec, or arbitrary
+cross-contract WASM module router yet. The M12 commitment replayer cannot replace
+independent runtime execution; these are partial or unsupported features rather
+than silently trusted components.

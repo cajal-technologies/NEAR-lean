@@ -375,4 +375,4 @@ def main : IO Unit := do
   assertEqual true (getTrace.length > 0)
 
   runTransferScenarios config
-  IO.println "100 transfer scenarios and Milestone 2-10 API tests passed"
+  IO.println "100 transfer scenarios and Milestone 2-11 API plus M12 import tests passed"

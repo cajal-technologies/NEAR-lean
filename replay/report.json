@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "network": "mainnet",
+  "protocolVersion": 86,
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "replayMode": "commitment-and-import-replay",
+  "observationLevel": "L7-commitments",
+  "contiguousProducedBlocks": 10000,
+  "startHeight": 211150000,
+  "endHeight": 211160021,
+  "stratifiedChunks": 10000,
+  "adjacentStateRootLinks": 10000,
+  "importedOutcomesPreserved": 28417,
+  "actionKinds": {
+    "AddKey": 105,
+    "CreateAccount": 10,
+    "Delegate": 5211,
+    "Delegate.AddKey": 188,
+    "Delegate.DeleteKey": 29,
+    "Delegate.FunctionCall": 4917,
+    "Delegate.Transfer": 118,
+    "DeleteKey": 15,
+    "DeployContract": 2,
+    "FunctionCall": 13580,
+    "Stake": 1,
+    "Transfer": 14718
+  },
+  "errorClasses": {
+    "ActionError.FunctionCallError.ExecutionError": 301,
+    "ActionError.LackBalanceForState.account_id": 2
+  },
+  "stateChangeKinds": {
+    "access_key_deletion": 15,
+    "access_key_update": 7751,
+    "account_update": 44228,
+    "contract_code_update": 1,
+    "data_deletion": 1892,
+    "data_update": 83662
+  },
+  "sampleChunks": 11,
+  "cache": {
+    "path": "replay/current-era.json.gz",
+    "sha256": "bb2b480b082d02dfa84383e103a90f785943ba4e2c1f09d7fa60c72fddf1a7ac",
+    "blockContentSha256": "6a162471d100f85a3870ff0a9c7f66fd10e1719abeb36963a1727e4c77bdc0bd",
+    "chunkContentSha256": "7123b0034dde078b6e45c4f51db4a8a9db017079b529ffd076046b9795ace90a"
+  },
+  "sample": {
+    "path": "replay/sample.json",
+    "sha256": "1288fef6561aab25fa79effa99d6c260c82777d812561fdc6f7c4a93c9359652"
+  },
+  "checkpointResume": true,
+  "firstDifferenceIdentifiers": [
+    "block",
+    "chunk",
+    "transaction",
+    "receipt",
+    "account",
+    "trieKey"
+  ],
+  "cleanCacheReproductionCommand": "python3 scripts/m12_fetch.py --fetch --check",
+  "independentRuntimeExecution": false,
+  "knownDeviation": "The cache independently verifies real block/chunk continuity, imported outcomes, content digests, and adjacent state-root commitments. It does not execute nearcore's full runtime from a complete archival pre-state or retained chunk state witnesses."
+}

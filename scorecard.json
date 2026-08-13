@@ -5,8 +5,8 @@
       "Quot.sound",
       "propext"
     ],
-    "auditedDeclarations": 2210,
-    "declarationsUsingAxioms": 367,
+    "auditedDeclarations": 2327,
+    "declarationsUsingAxioms": 429,
     "headlineTheoremNames": [
       "NEARLean.Account.initial_wellFormed",
       "NEARLean.WorldState.initial_wellFormed",
@@ -60,16 +60,16 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 14,
-      "partial": 1,
-      "implemented": 60,
+      "unsupported": 9,
+      "partial": 3,
+      "implemented": 63,
       "verified": 0
     },
     "coverage": {
-      "positive": 61,
-      "negative": 61,
-      "differential": 61,
-      "executableSemantics": 61,
+      "positive": 66,
+      "negative": 66,
+      "differential": 66,
+      "executableSemantics": 66,
       "proofObligationsDischarged": 24
     },
     "total": 75,
@@ -111,7 +111,7 @@
   },
   "generatedValidation": {
     "actions": 1000000,
-    "featuresCovered": 61,
+    "featuresCovered": 66,
     "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
     "mutationScore": 100.0,
     "seed": 1
@@ -130,6 +130,14 @@
     "serializationVectors": 4,
     "syntheticChunks": 1000
   },
+  "generatedHistoricalReplay": {
+    "adjacentStateRootLinks": 10000,
+    "blocks": 10000,
+    "chunks": 10000,
+    "endHeight": 211160021,
+    "independentRuntimeExecution": false,
+    "startHeight": 211150000
+  },
   "observationLevel": "L7",
-  "schemaVersion": 9
+  "schemaVersion": 10
 }

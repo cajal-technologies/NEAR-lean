@@ -3,6 +3,7 @@
 	receipt-campaign block-smoke block-campaign economic-smoke economic-campaign wasm-campaign \
 	oracle-install wasm-artifacts wasm-validation wasm-smoke m10-validation m10-smoke \
 	m10-campaign m11-validation validation-campaign \
+	m12-validation \
 	differential-nightly ci ci-online notes
 
 build:
@@ -62,6 +63,13 @@ m11-validation: build
 	python3 scripts/m11_corpus.py --check
 	python3 scripts/m11_report.py --check
 
+m12-validation: build
+	lake build m12Validation --wfail
+	python3 scripts/m12_fetch.py --check
+	python3 scripts/m12_replay.py --check
+	python3 scripts/m12_replay.py --self-test
+	python3 scripts/m12_report.py --check
+
 differential-smoke: oracle-install
 	python3 scripts/differential.py smoke
 
@@ -102,7 +110,7 @@ notes:
 	uv run python -m http.server
 
 ci: format-check lint test scorecard nearcore-references negative-tests differential-self-test \
-	wasm-artifacts wasm-validation m10-validation m11-validation
+	wasm-artifacts wasm-validation m10-validation m11-validation m12-validation
 	python3 scripts/validation.py --actions 1000000 --seed 1 --output validation/report.json --check
 
 ci-online: ci

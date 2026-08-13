@@ -2,7 +2,7 @@
 
 The pinned compatibility target is nearcore 2.13.3 at protocol version 86.
 
-At Milestone 11, the repository implements a proof-friendly abstract sandbox. It
+At Milestone 12, the repository implements a proof-friendly abstract sandbox. It
 executes account creation, liquid-balance transfers, native-contract deployment,
 and synchronous function calls. Failed calls restore the full abstract pre-state,
 and views are pure. The native backend contains counter, simple escrow, and a
@@ -49,21 +49,31 @@ second independent action processor matches nearcore. Access keys, action
 receipts, serialized failures, newer outcome metadata, delayed/buffered records,
 migrations, and real shard state remain outside this scoped L7 corpus.
 
+The historical cache covers 10,000 consecutive produced protocol-86 mainnet
+blocks and 10,000 real included chunks. It imports and hashes transactions,
+receipts, outcomes, state changes, and adjacent root commitments, but public
+fixed-height APIs do not provide a complete pre-state or retained state witness.
+Accordingly, it does not independently execute the full nearcore runtime or
+recompute historical roots. The M12 exact-runtime exit gate and v0.4 release are
+intentionally withheld; the report labels this mode `commitment-and-import-replay`.
+
 The project does not yet:
 
 - validate signatures, nonces, access keys, or transaction fees;
 - execute shards, promise-and, promise yield/resume, or arbitrary unsupported WASM modules;
 - implement complete transaction gas economics, storage staking, refunds,
   every protocol serialization variant, or migration-aware historical roots;
-- compare escrow release, refund receipts, exact transaction gas, or state roots
-  outside the scoped synthetic corpus;
+- compare escrow release, refund receipts, exact transaction gas, or independently
+  recomputed state roots outside the scoped synthetic corpus;
 - claim equivalence outside the recorded L3/L4 corpora and the scoped M10 L5
   compiled-contract projection;
-- replay historical chain data; or
-- prove compatibility of any abstract invariant with nearcore.
+- independently execute historical chunks; or
+- prove compatibility of any abstract invariant with nearcore;
+- replay historical chunks from a complete archival trie snapshot or state witness.
 
 `protocol/features.json` is the exhaustive machine-readable deviation list.
-Milestones 1 through 11 record implementation, test, proof, and mutation evidence;
+Milestones 1 through 11 and the non-runtime M12 infrastructure record implementation,
+test, proof, and mutation evidence;
 later features remain `unsupported`.
 
 The project makes no compatibility claim for protocol versions other than 86.

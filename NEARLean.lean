@@ -5,6 +5,7 @@ import NEARLean.Benchmarks.FungibleToken
 import NEARLean.Blocks
 import NEARLean.Concrete.Borsh
 import NEARLean.Concrete.Hex
+import NEARLean.Concrete.Historical
 import NEARLean.Concrete.State
 import NEARLean.Concrete.Trie
 import NEARLean.Concrete.Types

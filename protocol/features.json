@@ -1322,16 +1322,16 @@
       "milestone": 12,
       "weight": 6,
       "nearcoreReference": "chain/jsonrpc-primitives/src/types",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "partial",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Typed import covers real block and chunk headers, transactions, receipts, outcomes, state changes, and committed pre-state roots; complete archival pre-state records and state witnesses are not cached, so this is not independent runtime execution."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1341,16 +1341,16 @@
       "milestone": 12,
       "weight": 3,
       "nearcoreReference": "chain/jsonrpc/src",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The checked-in cache stores canonical projections and canonical-projection hashes rather than multi-gigabyte raw streamer responses; regeneration therefore depends on public fixed-height archival endpoints remaining available."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1360,16 +1360,16 @@
       "milestone": 12,
       "weight": 4,
       "nearcoreReference": "chain/chain/src",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "partial",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The corpus contains 10,000 real chunks, every abstract action kind, failed outcomes, and real state changes, but only preserves imported outcome digests and adjacent root commitments; it does not recompute outcomes and roots from full pre-state."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1379,16 +1379,16 @@
       "milestone": 12,
       "weight": 4,
       "nearcoreReference": "chain/chain/src",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Diagnostics identify the first differing block, chunk, and available transaction, receipt, account, or trie key from the imported projection; they cannot localize a divergence inside an unavailable full-state witness."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1398,16 +1398,16 @@
       "milestone": 12,
       "weight": 3,
       "nearcoreReference": "chain/chain/src",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Checkpoints cover deterministic imported block/chunk projections and rolling digests, not nearcore database or runtime in-memory state."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {

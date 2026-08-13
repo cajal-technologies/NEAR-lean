@@ -2191,6 +2191,710 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.chunkMask"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.chunksIncluded"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.hash"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.height"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Block.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.outcomeRoot"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.prevHash"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.prevHeight"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.prevStateRoot"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.protocolVersion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Block.sourceSha256"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk._sizeOf_1"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk._sizeOf_inst"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.casesOn"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.ctorIdx"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.header"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.importedOutcomes"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.importedPreStateRoot"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.importedReceipts"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.importedStateChanges"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.importedTransactions"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.mk"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.mk._flat_ctor"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.mk.inj"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.mk.injEq"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.mk.noConfusion"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.noConfusion"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.noConfusionType"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.outcomes"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.rec"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.recOn"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.receipts"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.stateChanges"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Chunk.transactions"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.blockHash"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.blockHeight"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.chunkHash"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.gasUsed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.heightCreated"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.heightIncluded"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.inputStateRoot"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.outcomeRoot"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.outcomes"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.outputStateRoot"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.outputStateRoot._default"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.receipts"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.shardId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.stateChanges"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.transactionRoot"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.ChunkHeader.transactions"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture._sizeOf_1"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture._sizeOf_inst"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.blocks"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.Concrete.Historical.Fixture.blocks._default"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.casesOn"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.ctorIdx"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.mk"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.mk._flat_ctor"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.mk.inj"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.mk.injEq"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.mk.noConfusion"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.network"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.noConfusion"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.noConfusionType"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.preStateKind"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.protocolVersion"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.rec"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.recOn"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.samples"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.schemaVersion"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.Fixture.wellFormed"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.importFixture"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instFromJsonBlock"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instFromJsonBlock.fromJson"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instFromJsonChunk"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instFromJsonChunk.fromJson"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instFromJsonChunkHeader"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instFromJsonChunkHeader.fromJson"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instFromJsonFixture"
+    },
+    {
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instFromJsonFixture.fromJson"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instReprBlock"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instReprBlock.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instReprChunkHeader"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.Concrete.Historical.instReprChunkHeader.repr"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.Concrete.State"
     },
     {
