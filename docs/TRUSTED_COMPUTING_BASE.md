@@ -24,6 +24,9 @@ The list is expected to become more precise as executable semantics are added.
   used by the bounded rolling replay. The optional exact path additionally
   trusts the digest-pinned nearcore oracle called by `Oracle/m12_exact_replay`;
   expected roots and outcomes are withheld from that oracle's request stream.
+- The mainnet `EXPERIMENTAL_protocol_config` and `validators` RPC responses,
+  NEAR Data outgoing-receipt representation, and `scripts/m13_latest.py`
+  projection logic for current shard routing and epoch inputs.
 - Node.js 22.22.2 or newer and the exact packages locked in
   `Oracle/package-lock.json`: `near-sandbox`, `near-api-js`, and `wabt`. The
   sandbox archive reader is overridden to patched `tar` 7.5.22.

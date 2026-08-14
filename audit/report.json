@@ -3683,6 +3683,110 @@
       "name": "NEARLean.ContractId.WellFormed"
     },
     {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.accepts"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.fixed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.fixed.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.fixed.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ContractProtocolPolicy.fixed.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.fixed.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.fixed.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.range"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.range.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.range.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ContractProtocolPolicy.range.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.range.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.range.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ContractProtocolPolicy.supported"
+    },
+    {
       "axioms": [
         "Quot.sound",
         "propext"
@@ -4436,6 +4540,92 @@
     {
       "axioms": [],
       "name": "NEARLean.EconomicState.totalTokens"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.epochHeight"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.epochId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.EpochInputs.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.nextEpochId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.protocolVersion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.EpochInputs.validators"
     },
     {
       "axioms": [],
@@ -5343,6 +5533,122 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.ProtocolFeature"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.activationVersion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.dynamicResharding"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.dynamicResharding.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.dynamicResharding.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.enabled"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.enforcePerReceiptStorageProofLimit"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.enforcePerReceiptStorageProofLimit.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.enforcePerReceiptStorageProofLimit.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.invalidTxGenerateOutcomes"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.invalidTxGenerateOutcomes.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.invalidTxGenerateOutcomes.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.ofNat"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.ofNat_ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.toCtorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.wasmtime"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.wasmtime.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolFeature.wasmtime.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ProtocolVersion"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.Receipt"
     },
     {
@@ -6055,6 +6361,86 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.ReceiptRoute"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.crossShard"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.crossShard.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.crossShard.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.ctorElim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.ctorElimType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.local"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.local.elim"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.local.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.ofNat"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.ofNat_ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ReceiptRoute.toCtorIdx"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.ReceiptSource"
     },
     {
@@ -6270,6 +6656,88 @@
     {
       "axioms": [],
       "name": "NEARLean.ReceivedData.set._unsafe_rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.ctorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.deliveryHeight"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.RoutedReceipt.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.receipt"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.route"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.sourceShard"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.RoutedReceipt.targetShard"
     },
     {
       "axioms": [],
@@ -6806,6 +7274,166 @@
     {
       "axioms": [],
       "name": "NEARLean.SemanticsLayer.toCtorIdx"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardId"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.WellFormed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.boundaryAccounts"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.ctorIdx"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.currentMainnet"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.currentMainnet_wellFormed"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.currentMainnet_wellFormed._proof_1_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.recOn"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.route"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.route._f"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.route._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.route._sparseCasesOn_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.route._sunfold"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.route._unsafe_rec"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.route.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.routeReceipt?"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.routing_deterministic"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.ShardLayout.shardId?"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.shardIds"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.ShardLayout.version"
     },
     {
       "axioms": [],
@@ -7488,6 +8116,96 @@
     {
       "axioms": [],
       "name": "NEARLean.Verification.invariant_of_validTrace"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig._sizeOf_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig._sizeOf_inst"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.casesOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.ctorIdx"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.VersionedRuntimeConfig.current"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.epochLength"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.VersionedRuntimeConfig.forVersion?"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.mk"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.mk._flat_ctor"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.mk.inj"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.VersionedRuntimeConfig.mk.injEq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.mk.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.mk.sizeOf_spec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.noConfusion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.noConfusionType"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.protocolVersion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.rec"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.recOn"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.runtime"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.VersionedRuntimeConfig.shardLayout"
     },
     {
       "axioms": [],
@@ -8379,6 +9097,10 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.activation_boundaries"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.asyncAccount"
     },
     {
@@ -8402,6 +9124,24 @@
         "propext"
       ],
       "name": "NEARLean.crossContractExample"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.crossShard_receipt_delayed"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.currentProtocolVersion"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.current_fixed_policy_supported"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.current_range_policy_supported"
     },
     {
       "axioms": [],
@@ -8520,6 +9260,36 @@
       "name": "NEARLean.instBEqCompletedReceipt.beq.match_1"
     },
     {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqContractProtocolPolicy"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqContractProtocolPolicy.beq"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqContractProtocolPolicy.beq._sparseCasesOn_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqContractProtocolPolicy.beq._sparseCasesOn_2"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqContractProtocolPolicy.beq.match_1"
+    },
+    {
       "axioms": [],
       "name": "NEARLean.instBEqDataReceipt"
     },
@@ -8628,6 +9398,18 @@
     {
       "axioms": [],
       "name": "NEARLean.instBEqEconomicState.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEpochInputs"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEpochInputs.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqEpochInputs.beq.match_1"
     },
     {
       "axioms": [],
@@ -8772,6 +9554,14 @@
         "propext"
       ],
       "name": "NEARLean.instBEqPromiseResult.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqProtocolFeature"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqProtocolFeature.beq"
     },
     {
       "axioms": [
@@ -8919,6 +9709,14 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.instBEqReceiptRoute"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqReceiptRoute.beq"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.instBEqReceiptSource"
     },
     {
@@ -8936,6 +9734,22 @@
     {
       "axioms": [],
       "name": "NEARLean.instBEqReceivedData.beq.match_1"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqRoutedReceipt"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instBEqRoutedReceipt.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqRoutedReceipt.beq.match_1"
     },
     {
       "axioms": [],
@@ -8970,6 +9784,18 @@
       "name": "NEARLean.instBEqSemanticsLayer.beq"
     },
     {
+      "axioms": [],
+      "name": "NEARLean.instBEqShardLayout"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqShardLayout.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqShardLayout.beq.match_1"
+    },
+    {
       "axioms": [
         "propext"
       ],
@@ -8987,6 +9813,18 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.instBEqVersionedRuntimeConfig"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqVersionedRuntimeConfig.beq"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instBEqVersionedRuntimeConfig.beq.match_1"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.instBEqWorldState"
     },
     {
@@ -8996,6 +9834,30 @@
     {
       "axioms": [],
       "name": "NEARLean.instBEqWorldState.beq.match_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqProtocolFeature"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqProtocolFeature._proof_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqProtocolFeature._proof_2"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqReceiptRoute"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqReceiptRoute._proof_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableEqReceiptRoute._proof_2"
     },
     {
       "axioms": [],
@@ -9064,6 +9926,14 @@
     {
       "axioms": [],
       "name": "NEARLean.instDecidableWellFormed_7"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_8"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instDecidableWellFormed_9"
     },
     {
       "axioms": [
@@ -9146,6 +10016,18 @@
       "name": "NEARLean.instReprCompletedReceipt.repr"
     },
     {
+      "axioms": [],
+      "name": "NEARLean.instReprContractProtocolPolicy"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprContractProtocolPolicy.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprContractProtocolPolicy.repr.match_1"
+    },
+    {
       "axioms": [
         "propext"
       ],
@@ -9208,6 +10090,18 @@
     {
       "axioms": [],
       "name": "NEARLean.instReprEconomicState.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprEpochInputs"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprEpochInputs.repr"
     },
     {
       "axioms": [],
@@ -9306,6 +10200,18 @@
       "name": "NEARLean.instReprPromiseResult.repr.match_1"
     },
     {
+      "axioms": [],
+      "name": "NEARLean.instReprProtocolFeature"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprProtocolFeature.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprProtocolFeature.repr.match_1"
+    },
+    {
       "axioms": [
         "propext"
       ],
@@ -9391,6 +10297,18 @@
     },
     {
       "axioms": [],
+      "name": "NEARLean.instReprReceiptRoute"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprReceiptRoute.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.instReprReceiptRoute.repr.match_1"
+    },
+    {
+      "axioms": [],
       "name": "NEARLean.instReprReceiptSource"
     },
     {
@@ -9412,6 +10330,18 @@
         "propext"
       ],
       "name": "NEARLean.instReprReceivedData.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprRoutedReceipt"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprRoutedReceipt.repr"
     },
     {
       "axioms": [],
@@ -9453,6 +10383,18 @@
       "axioms": [
         "propext"
       ],
+      "name": "NEARLean.instReprShardLayout"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprShardLayout.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
       "name": "NEARLean.instReprTransaction"
     },
     {
@@ -9465,6 +10407,18 @@
       "axioms": [
         "propext"
       ],
+      "name": "NEARLean.instReprVersionedRuntimeConfig"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "name": "NEARLean.instReprVersionedRuntimeConfig.repr"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
       "name": "NEARLean.instReprWorldState"
     },
     {
@@ -9472,6 +10426,18 @@
         "propext"
       ],
       "name": "NEARLean.instReprWorldState.repr"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.receiptDeliveryHeight"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.receiptDeliveryHeight.eq_1"
+    },
+    {
+      "axioms": [],
+      "name": "NEARLean.receiptRoute"
     },
     {
       "axioms": [],
@@ -9964,6 +10930,12 @@
       "name": "_private.NEARLean.Economics.0.NEARLean.instReprEconomicAction.repr.match_1.splitter"
     },
     {
+      "axioms": [
+        "propext"
+      ],
+      "name": "_private.NEARLean.Protocol.0.NEARLean.accountId"
+    },
+    {
       "axioms": [],
       "name": "_private.NEARLean.Receipts.0.NEARLean.ReceiptMachine.complete"
     },
@@ -10371,6 +11343,10 @@
     "NEARLean.BlockScheduler.runUntil_preserves_wellFormed",
     "NEARLean.BlockScheduler.delayed_postponed_invariant",
     "NEARLean.BlockScheduler.production_deterministic",
+    "NEARLean.ShardLayout.currentMainnet_wellFormed",
+    "NEARLean.ShardLayout.routing_deterministic",
+    "NEARLean.crossShard_receipt_delayed",
+    "NEARLean.activation_boundaries",
     "NEARLean.Verification.System.transition_deterministic",
     "NEARLean.Verification.invariant_of_validTrace",
     "NEARLean.Verification.invariant_of_reachable",

@@ -126,7 +126,7 @@ def latest_stream() -> dict[str, object]:
     return value
 
 
-def live_report(count: int, workers: int) -> dict[str, object]:
+def latest_streams(count: int, workers: int) -> list[dict[str, object]]:
     if count < 2 or count > MAX_COUNT:
         raise ValueError(f"latest replay count must be between 2 and {MAX_COUNT}")
     latest = latest_stream()
@@ -142,7 +142,11 @@ def live_report(count: int, workers: int) -> dict[str, object]:
     ):
         streams.append(latest)
     streams.sort(key=lambda stream: stream["block"]["header"]["height"])
-    return report_from_streams(streams[-count:], count)
+    return streams[-count:]
+
+
+def live_report(count: int, workers: int) -> dict[str, object]:
+    return report_from_streams(latest_streams(count, workers), count)
 
 
 def report_errors(report: object) -> list[str]:

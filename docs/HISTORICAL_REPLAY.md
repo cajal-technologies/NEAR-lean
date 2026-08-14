@@ -80,3 +80,8 @@ produced blocks without updating tracked artifacts. This workflow remains
 `independentRuntimeExecution` to `false`. The exact witness gate and its
 repository-owned runner remain available as an optional stronger mode, but the
 latest-only workflow does not depend on archival state.
+
+Current protocol-86 configuration, V3 shard routing, and epoch inputs are checked
+separately by the bounded M13 workflow documented in
+[`CURRENT_PROTOCOL.md`](CURRENT_PROTOCOL.md). It does not broaden this historical
+replayer into an independent runtime or archival replay claim.

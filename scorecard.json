@@ -5,8 +5,8 @@
       "Quot.sound",
       "propext"
     ],
-    "auditedDeclarations": 2327,
-    "declarationsUsingAxioms": 429,
+    "auditedDeclarations": 2551,
+    "declarationsUsingAxioms": 467,
     "headlineTheoremNames": [
       "NEARLean.Account.initial_wellFormed",
       "NEARLean.WorldState.initial_wellFormed",
@@ -34,6 +34,10 @@
       "NEARLean.BlockScheduler.runUntil_preserves_wellFormed",
       "NEARLean.BlockScheduler.delayed_postponed_invariant",
       "NEARLean.BlockScheduler.production_deterministic",
+      "NEARLean.ShardLayout.currentMainnet_wellFormed",
+      "NEARLean.ShardLayout.routing_deterministic",
+      "NEARLean.crossShard_receipt_delayed",
+      "NEARLean.activation_boundaries",
       "NEARLean.Verification.System.transition_deterministic",
       "NEARLean.Verification.invariant_of_validTrace",
       "NEARLean.Verification.invariant_of_reachable",
@@ -47,7 +51,7 @@
       "NEARLean.SemanticsLayer.abstract_ne_concrete",
       "NEARLean.Concrete.concreteStep_refines_abstract"
     ],
-    "headlineTheorems": 38
+    "headlineTheorems": 42
   },
   "baseline": {
     "leanToolchain": "leanprover/lean4:v4.32.2",
@@ -60,17 +64,17 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 9,
-      "partial": 3,
-      "implemented": 64,
+      "unsupported": 5,
+      "partial": 5,
+      "implemented": 66,
       "verified": 0
     },
     "coverage": {
-      "positive": 67,
-      "negative": 67,
-      "differential": 67,
-      "executableSemantics": 67,
-      "proofObligationsDischarged": 24
+      "positive": 71,
+      "negative": 71,
+      "differential": 71,
+      "executableSemantics": 71,
+      "proofObligationsDischarged": 27
     },
     "total": 76,
     "verifiedWeightPercent": 0.0
@@ -111,7 +115,7 @@
   },
   "generatedValidation": {
     "actions": 1000000,
-    "featuresCovered": 67,
+    "featuresCovered": 71,
     "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
     "mutationScore": 100.0,
     "seed": 1
@@ -147,6 +151,16 @@
     "outcomes": 2797,
     "scope": "bounded-latest-finalized-window"
   },
+  "generatedLatestSharding": {
+    "blocks": 100,
+    "crossShardReceipts": 2120,
+    "independentRuntimeExecution": false,
+    "latestHeight": 211319916,
+    "routeMismatches": 0,
+    "routedReceipts": 3038,
+    "shards": 10,
+    "validators": 414
+  },
   "observationLevel": "L7",
-  "schemaVersion": 11
+  "schemaVersion": 12
 }

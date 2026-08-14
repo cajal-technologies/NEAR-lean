@@ -4,6 +4,7 @@
 	oracle-install wasm-artifacts wasm-validation wasm-smoke m10-validation m10-smoke \
 	m10-campaign m11-validation validation-campaign \
 	m12-validation m12-exact-gate m12-latest m12-latest-smoke \
+	m13-validation m13-latest m13-latest-smoke \
 	differential-nightly ci ci-online notes
 
 build:
@@ -82,6 +83,15 @@ m12-latest:
 m12-latest-smoke:
 	python3 scripts/m12_latest.py --count 10 --live
 
+m13-validation: build
+	python3 scripts/m13_latest.py --self-test --check-report
+
+m13-latest:
+	python3 scripts/m13_latest.py --count 100 --output replay/latest-sharding-report.json
+
+m13-latest-smoke:
+	python3 scripts/m13_latest.py --count 10 --live
+
 differential-smoke: oracle-install
 	python3 scripts/differential.py smoke
 
@@ -122,7 +132,7 @@ notes:
 	uv run python -m http.server
 
 ci: format-check lint test scorecard nearcore-references negative-tests differential-self-test \
-	wasm-artifacts wasm-validation m10-validation m11-validation m12-validation
+	wasm-artifacts wasm-validation m10-validation m11-validation m12-validation m13-validation
 	python3 scripts/validation.py --actions 1000000 --seed 1 --output validation/report.json --check
 
 ci-online: ci
@@ -134,3 +144,4 @@ ci-online: ci
 	$(MAKE) wasm-smoke
 	$(MAKE) m10-smoke
 	$(MAKE) m12-latest-smoke
+	$(MAKE) m13-latest-smoke

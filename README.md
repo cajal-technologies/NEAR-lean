@@ -3,7 +3,7 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 12 (partial exit)**. The proof-friendly kernel covers transactions,
+The project is at **Milestone 13 (latest-window scope)**. The proof-friendly kernel covers transactions,
 receipts, block scheduling, verification APIs, and aggregate economics. Generated
 campaigns compare the model with the pinned nearcore 2.13.3 sandbox through L5.
 A scheduled validation suite executes one million model actions and 10,000
@@ -20,6 +20,11 @@ not independent full-state runtime execution, so the v0.4 release is withheld.
 The active replay workflow is intentionally bounded to the latest finalized
 window: `make m12-latest` refreshes a 100-block report, and the online smoke gate
 checks the newest 10 blocks without requiring an archival node.
+The current-protocol layer selects exactly protocol 86, implements the active
+10-shard V3 account-range layout, proves routing determinism and minimum
+cross-shard delay, and imports current epoch and validator inputs. Historical
+migrations and upgrade boundaries remain intentionally unsupported under the
+latest-block-only scope.
 
 ## Quick start
 
@@ -61,6 +66,10 @@ and diagnostic mutations. See [docs/HISTORICAL_REPLAY.md](docs/HISTORICAL_REPLAY
 for the exact compatibility boundary.
 `make m12-latest` refreshes the checked 100-block latest-window artifact;
 `make m12-latest-smoke` performs a read-only live 10-block check.
+`make m13-validation` checks the protocol-86 Lean model and the checked current
+sharding artifact. `make m13-latest` refreshes 100 finalized blocks of receipt
+routing and epoch evidence; `make m13-latest-smoke` validates the newest 10. See
+[docs/CURRENT_PROTOCOL.md](docs/CURRENT_PROTOCOL.md) for the exact scope.
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the
@@ -99,6 +108,7 @@ CI verifies that snapshot against the pinned upstream commit.
 - [`docs/SEMANTICS.md`](docs/SEMANTICS.md) defines the abstract/concrete boundary.
 - [`docs/TRUSTED_COMPUTING_BASE.md`](docs/TRUSTED_COMPUTING_BASE.md) records what is trusted.
 - [`docs/KNOWN_DEVIATIONS.md`](docs/KNOWN_DEVIATIONS.md) records compatibility gaps.
+- [`docs/CURRENT_PROTOCOL.md`](docs/CURRENT_PROTOCOL.md) defines the latest-only protocol and sharding scope.
 - [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) documents the gates and update workflow.
 - [`notes/milestones.html`](notes/milestones.html) is the development roadmap.
 - [`notes/evaluation.html`](notes/evaluation.html) defines the correctness signals and metrics.

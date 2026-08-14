@@ -886,6 +886,74 @@ def latest_replay_report_errors(path: pathlib.Path | None = None) -> list[str]:
     return errors
 
 
+def latest_sharding_report_errors(path: pathlib.Path | None = None) -> list[str]:
+    report = load_json(path or ROOT / "replay/latest-sharding-report.json")
+    if not isinstance(report, dict):
+        return ["latest sharding report must be a JSON object"]
+    errors: list[str] = []
+    if report.get("schemaVersion") != 1 or report.get("network") != "mainnet":
+        errors.append("latest sharding schema or network differs")
+    if report.get("protocolVersion") != 86:
+        errors.append("latest sharding protocol version must be 86")
+    if report.get("scope") != "bounded-latest-finalized-window":
+        errors.append("latest sharding scope must remain bounded and explicit")
+    if report.get("replayMode") != "current-config-and-receipt-routing-import":
+        errors.append("latest sharding replay mode must remain explicit")
+    window = report.get("window", {})
+    if window.get("requestedProducedBlocks") != 100 or window.get("producedBlocks") != 100:
+        errors.append("checked latest sharding artifact must contain 100 produced blocks")
+    oldest = window.get("oldestHeight")
+    latest = window.get("latestHeight")
+    if not is_integer(oldest) or not is_integer(latest) or latest < oldest + 99:
+        errors.append("latest sharding height window is invalid")
+    config = report.get("protocolConfig", {})
+    if (
+        config.get("protocolVersion") != 86
+        or config.get("shardLayoutVersion") != 3
+        or config.get("epochLength") != 43200
+    ):
+        errors.append("latest sharding protocol configuration differs")
+    if config.get("boundaryAccounts") != [
+        "650",
+        "aurora",
+        "aurora-0",
+        "earn.kaiching",
+        "game.hot.tg",
+        "game.hot.tg-0",
+        "kkuuue2akv_1630967379.near",
+        "tge-lockup.sweat",
+        "wallet.ka",
+    ]:
+        errors.append("latest sharding boundary accounts differ")
+    if config.get("shardIds") != [10, 11, 1, 8, 9, 6, 7, 4, 12, 13]:
+        errors.append("latest sharding shard ids differ")
+    if not isinstance(config.get("projectionSha256"), str) or not SHA256.fullmatch(
+        config["projectionSha256"]
+    ):
+        errors.append("latest sharding protocol projection digest is invalid")
+    epoch = report.get("epochInputs", {})
+    if not epoch.get("epochIds") or not epoch.get("nextEpochIds"):
+        errors.append("latest sharding epoch ids are missing")
+    if not is_integer(epoch.get("currentValidators")) or epoch["currentValidators"] <= 0:
+        errors.append("latest sharding validator inputs are missing")
+    if not isinstance(epoch.get("validatorProjectionSha256"), str) or not SHA256.fullmatch(
+        epoch["validatorProjectionSha256"]
+    ):
+        errors.append("latest sharding validator projection digest is invalid")
+    routing = report.get("receiptRouting", {})
+    if not is_integer(routing.get("routedReceipts")) or routing["routedReceipts"] <= 0:
+        errors.append("latest sharding report must route real receipts")
+    if not is_integer(routing.get("crossShardReceipts")) or routing["crossShardReceipts"] <= 0:
+        errors.append("latest sharding report must contain cross-shard traffic")
+    if routing.get("routeMismatches") != 0 or routing.get("unroutableReceipts") != 0:
+        errors.append("latest sharding receipt routes differ from observed source shards")
+    if report.get("independentRuntimeExecution") is not False:
+        errors.append("latest sharding report must not overclaim independent execution")
+    if report.get("firstDifference") is not None:
+        errors.append("latest sharding report contains a first difference")
+    return errors
+
+
 def production_theorems() -> list[str]:
     lines = (ROOT / "audit/theorems.txt").read_text(encoding="utf-8").splitlines()
     return [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
@@ -998,6 +1066,7 @@ def scorecard() -> dict[str, object]:
     concrete = load_json(ROOT / "concrete/report.json")
     historical = load_json(ROOT / "replay/report.json")
     latest_replay = load_json(ROOT / "replay/latest-report.json")
+    latest_sharding = load_json(ROOT / "replay/latest-sharding-report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -1105,8 +1174,18 @@ def scorecard() -> dict[str, object]:
             "outcomes": latest_replay["importedOutcomes"],
             "scope": latest_replay["scope"],
         },
+        "generatedLatestSharding": {
+            "blocks": latest_sharding["window"]["producedBlocks"],
+            "crossShardReceipts": latest_sharding["receiptRouting"]["crossShardReceipts"],
+            "independentRuntimeExecution": latest_sharding["independentRuntimeExecution"],
+            "latestHeight": latest_sharding["window"]["latestHeight"],
+            "routeMismatches": latest_sharding["receiptRouting"]["routeMismatches"],
+            "routedReceipts": latest_sharding["receiptRouting"]["routedReceipts"],
+            "shards": len(latest_sharding["protocolConfig"]["shardIds"]),
+            "validators": latest_sharding["epochInputs"]["currentValidators"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 11,
+        "schemaVersion": 12,
     }
 
 
@@ -1227,6 +1306,13 @@ def run_negative_tests() -> int:
         corrupted_latest_path = pathlib.Path(temporary) / "latest-replay-report.json"
         corrupted_latest_path.write_text(json.dumps(corrupted_latest), encoding="utf-8")
         corrupted_latest_errors = latest_replay_report_errors(corrupted_latest_path)
+        corrupted_sharding = copy.deepcopy(
+            load_json(ROOT / "replay/latest-sharding-report.json")
+        )
+        corrupted_sharding["receiptRouting"]["routeMismatches"] = 1
+        corrupted_sharding_path = pathlib.Path(temporary) / "latest-sharding-report.json"
+        corrupted_sharding_path.write_text(json.dumps(corrupted_sharding), encoding="utf-8")
+        corrupted_sharding_errors = latest_sharding_report_errors(corrupted_sharding_path)
     outcomes = [
         expect_failure("source hygiene", format_errors([negative / "BadFormat.lean"])),
         expect_failure("sorry", policy_errors([negative / "Sorry.lean"])),
@@ -1254,6 +1340,7 @@ def run_negative_tests() -> int:
         expect_failure("concrete report ratchet", corrupted_concrete_errors),
         expect_failure("historical report ratchet", corrupted_historical_errors),
         expect_failure("latest replay report ratchet", corrupted_latest_errors),
+        expect_failure("latest sharding report ratchet", corrupted_sharding_errors),
     ]
     warning = subprocess.run(
         ["lake", "env", "lean", "-DwarningAsError=true", "Tests/Negative/Warning.lean"],
@@ -1313,6 +1400,7 @@ def main() -> int:
         errors += concrete_report_errors()
         errors += historical_report_errors()
         errors += latest_replay_report_errors()
+        errors += latest_sharding_report_errors()
         errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)

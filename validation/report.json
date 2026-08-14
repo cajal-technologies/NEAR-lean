@@ -53,7 +53,7 @@
     }
   ],
   "featureCoverage": {
-    "complete": 67,
+    "complete": 71,
     "features": [
       {
         "id": "account-identifiers",
@@ -456,9 +456,33 @@
         "differential": true,
         "negative": true,
         "positive": true
+      },
+      {
+        "id": "versioned-config",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "shard-routing",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "cross-shard-delays",
+        "differential": true,
+        "negative": true,
+        "positive": true
+      },
+      {
+        "id": "epoch-inputs",
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     ],
-    "supported": 67
+    "supported": 71
   },
   "failureFixturePolicy": "minimized-permanent-fixture",
   "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",

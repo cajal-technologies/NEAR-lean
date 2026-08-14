@@ -75,6 +75,20 @@ The project does not yet:
 - replay historical chunks from a complete archival trie snapshot or state witness.
 
 `protocol/features.json` is the exhaustive machine-readable deviation list.
+
+## Current protocol and sharding
+
+The active Milestone 13 workflow supports only protocol 86 and the current
+mainnet V3 shard layout. Feature activation versions 83 through 86 are gate
+metadata and boundary tests, not historical runtime support. Runtime migrations,
+upgrade fixtures, resharding state migration, and historical layouts are excluded
+by the latest-block-only scope.
+
+Receipt routing is checked against outgoing receipts in the newest finalized
+window. The model gives cross-shard receipts a one-block minimum eligibility
+delay, but does not model congestion, bandwidth allocation, missed chunks, or an
+exact delivery height. Epoch IDs and validator inputs are imported; validator
+selection, stake transitions, rewards, and kickouts are not executed.
 Milestones 1 through 11 and the non-runtime M12 infrastructure record implementation,
 test, proof, and mutation evidence;
 later features remain `unsupported`.

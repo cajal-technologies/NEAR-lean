@@ -37,3 +37,10 @@ The intentionally bounded live workflow uses `make m12-latest` to refresh a
 checked 100-block finalized-head artifact and `make m12-latest-smoke` for a
 read-only 10-block online check. Both reject broken predecessor continuity or a
 protocol-version change and retain the explicit non-independent replay label.
+
+Milestone 13 adds `make m13-validation` for the protocol-86 feature gates,
+current V3 shard layout, receipt routing, minimum cross-shard delay, epoch input
+validation, and checked 100-block sharding report. `make m13-latest` refreshes
+that artifact, while `make m13-latest-smoke` repeats the RPC configuration and
+routing checks over the newest 10 finalized produced blocks. Any non-system
+predecessor whose routed shard differs from the producing shard is a hard failure.

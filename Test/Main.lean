@@ -260,6 +260,57 @@ def main : IO Unit := do
   assertEqual 1 zeroBound.delayedReceipts.length
   assertEqual 0 zeroBound.machine.outcomes.length
 
+  let currentProtocolConfig := VersionedRuntimeConfig.forVersion? 86
+  assertEqual (some VersionedRuntimeConfig.current) currentProtocolConfig
+  assertEqual none (VersionedRuntimeConfig.forVersion? 85)
+  assertEqual true (ProtocolFeature.invalidTxGenerateOutcomes.enabled 83)
+  assertEqual false (ProtocolFeature.invalidTxGenerateOutcomes.enabled 82)
+  assertEqual true (ProtocolFeature.wasmtime.enabled 84)
+  assertEqual false (ProtocolFeature.wasmtime.enabled 83)
+  assertEqual true (ProtocolFeature.dynamicResharding.enabled 85)
+  assertEqual false (ProtocolFeature.dynamicResharding.enabled 84)
+  assertEqual true (ProtocolFeature.enforcePerReceiptStorageProofLimit.enabled 86)
+  assertEqual false (ProtocolFeature.enforcePerReceiptStorageProofLimit.enabled 85)
+  let currentLayout := ShardLayout.currentMainnet
+  assertEqual (some 10) (currentLayout.shardId? "000".toUTF8.toList)
+  assertEqual (some 11) (currentLayout.shardId? "650".toUTF8.toList)
+  assertEqual (some 1) (currentLayout.shardId? "aurora".toUTF8.toList)
+  assertEqual (some 8) (currentLayout.shardId? "btc-client.bridge.near".toUTF8.toList)
+  assertEqual (some 12) (currentLayout.shardId? "token.sweat".toUTF8.toList)
+  assertEqual (some 13) (currentLayout.shardId? "z".toUTF8.toList)
+  let routedReceipt : Receipt := {
+    predecessorId := "base.omft.near".toUTF8.toList
+    receiverId := "token.sweat".toUTF8.toList
+    receiptId := 100
+    body := .action {
+      signerId := "base.omft.near".toUTF8.toList
+      outputDataReceivers := []
+      inputDataIds := []
+      actions := []
+    }
+  }
+  match currentLayout.routeReceipt? 100 routedReceipt with
+  | some routed =>
+      assertEqual 8 routed.sourceShard
+      assertEqual 12 routed.targetShard
+      assertEqual ReceiptRoute.crossShard routed.route
+      assertEqual 101 routed.deliveryHeight
+  | none => throw <| IO.userError "current layout failed to route a receipt"
+  let epochInputs : EpochInputs := {
+    protocolVersion := 86
+    epochHeight := 1
+    epochId := [1]
+    nextEpochId := [2]
+    validators := ["validator.near".toUTF8.toList]
+  }
+  assertEqual true (epochInputs.WellFormed VersionedRuntimeConfig.current |> decide)
+  assertEqual false
+    ({ epochInputs with validators := [] }.WellFormed VersionedRuntimeConfig.current |> decide)
+  assertEqual true ((ContractProtocolPolicy.fixed 86).accepts 86)
+  assertEqual false ((ContractProtocolPolicy.fixed 86).accepts 85)
+  assertEqual true ((ContractProtocolPolicy.range 86 86).supported)
+  assertEqual false ((ContractProtocolPolicy.range 85 86).supported)
+
   let replayStart := BlockScheduler.init config receiptWorld 1
   let firstReplay := generatedBlocks 1000 replayStart
   let secondReplay := generatedBlocks 1000 replayStart
@@ -375,4 +426,4 @@ def main : IO Unit := do
   assertEqual true (getTrace.length > 0)
 
   runTransferScenarios config
-  IO.println "100 transfer scenarios and Milestone 2-11 API plus M12 import tests passed"
+  IO.println "100 transfer scenarios and Milestone 2-13 current-protocol tests passed"

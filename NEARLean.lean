@@ -10,6 +10,7 @@ import NEARLean.Concrete.State
 import NEARLean.Concrete.Trie
 import NEARLean.Concrete.Types
 import NEARLean.Economics
+import NEARLean.Protocol
 import NEARLean.Receipts
 import NEARLean.Sandbox
 import NEARLean.Semantics

@@ -1436,16 +1436,25 @@
       "milestone": 13,
       "weight": 6,
       "nearcoreReference": "core/primitives/src/version.rs",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Runtime configuration is intentionally available only for the active mainnet protocol 86; activation metadata for versions 83 through 86 is modeled for boundary tests but is not a claim of historical runtime support."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "protocol-feature-activation-boundaries",
+          "discharged": true
+        },
+        {
+          "id": "fixed-and-range-current-version-policies",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1458,7 +1467,7 @@
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Historical runtime migrations are intentionally excluded by the latest-block-only replay scope."
       ],
       "proofObligations": [],
       "tests": {
@@ -1474,16 +1483,25 @@
       "milestone": 13,
       "weight": 7,
       "nearcoreReference": "core/primitives/src/shard_layout",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Routing implements the active mainnet V3 account-range layout only; historical layouts and resharding migrations are outside the latest-block scope."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "current-mainnet-layout-well-formed",
+          "discharged": true
+        },
+        {
+          "id": "current-layout-routing-deterministic",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1493,16 +1511,21 @@
       "milestone": 13,
       "weight": 5,
       "nearcoreReference": "chain/chain/src",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "partial",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "The Lean model proves one-block minimum eligibility for cross-shard receipts; congestion control, bandwidth scheduling, missed chunks, and exact delivery height remain outside scope."
       ],
-      "proofObligations": [],
+      "proofObligations": [
+        {
+          "id": "cross-shard-receipt-minimum-delay",
+          "discharged": true
+        }
+      ],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1512,16 +1535,16 @@
       "milestone": 13,
       "weight": 5,
       "nearcoreReference": "chain/epoch-manager/src",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "partial",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Epoch IDs, height, validator accounts, proposals, protocol version, and epoch length are explicit current inputs; validator selection, stake updates, rewards, kickouts, and epoch transitions are not executed."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     },
     {
@@ -1534,7 +1557,7 @@
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Historical upgrade-boundary fixtures are intentionally excluded by the latest-block-only replay scope."
       ],
       "proofObligations": [],
       "tests": {

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "network": "mainnet",
+  "nearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "protocolVersion": 86,
+  "scope": "bounded-latest-finalized-window",
+  "replayMode": "current-config-and-receipt-routing-import",
+  "sources": {
+    "protocolRpc": "https://rpc.mainnet.near.org",
+    "streamer": "https://mainnet.neardata.xyz/v0/block/{height}"
+  },
+  "window": {
+    "requestedProducedBlocks": 100,
+    "producedBlocks": 100,
+    "oldestHeight": 211319817,
+    "latestHeight": 211319916,
+    "latestBlockHash": "F5k6SSD3p7AsiaUiX2LZpzFmFHf7WZFmWvcrw6MDoefy"
+  },
+  "protocolConfig": {
+    "protocolVersion": 86,
+    "shardLayoutVersion": 3,
+    "boundaryAccounts": [
+      "650",
+      "aurora",
+      "aurora-0",
+      "earn.kaiching",
+      "game.hot.tg",
+      "game.hot.tg-0",
+      "kkuuue2akv_1630967379.near",
+      "tge-lockup.sweat",
+      "wallet.ka"
+    ],
+    "shardIds": [
+      10,
+      11,
+      1,
+      8,
+      9,
+      6,
+      7,
+      4,
+      12,
+      13
+    ],
+    "epochLength": 43200,
+    "projectionSha256": "b7479623daf4386fe70f132cf6a86e677ffa9d7712638d517f814794c716dff7"
+  },
+  "epochInputs": {
+    "epochIds": [
+      "2VKuEubEuUZrHK1feMmywyVL1aRAuqoBr9C5Ske4hdt2"
+    ],
+    "nextEpochIds": [
+      "ANhNGdzX2BnwZC8rezz7M6zDwuvgXyCqecpXAfDoxfmP"
+    ],
+    "epochHeight": 4664,
+    "epochStartHeight": 211305134,
+    "currentValidators": 414,
+    "currentProposals": 404,
+    "validatorProjectionSha256": "a35b5ca9143057a2213468bfb9e0cd56c8e718e1f400272cf8e43ae4da1d849d"
+  },
+  "receiptRouting": {
+    "routedReceipts": 3038,
+    "crossShardReceipts": 2120,
+    "routeMismatches": 0,
+    "unroutableReceipts": 0,
+    "systemReceipts": 1373,
+    "destinationShardCounts": {
+      "1": 5,
+      "4": 996,
+      "6": 153,
+      "7": 536,
+      "8": 330,
+      "9": 151,
+      "10": 205,
+      "11": 138,
+      "12": 432,
+      "13": 92
+    }
+  },
+  "independentRuntimeExecution": false,
+  "firstDifference": null
+}
