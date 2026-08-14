@@ -1,0 +1,337 @@
+#!/usr/bin/env python3
+"""Run a pinned nearcore witness oracle and compare its independent outputs."""
+
+from __future__ import annotations
+
+import argparse
+import gzip
+import hashlib
+import json
+import pathlib
+import subprocess
+import tempfile
+
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+REQUIRED_METADATA = {
+    "schemaVersion",
+    "nearcoreCommit",
+    "engine",
+    "witnessFormat",
+    "independentRuntimeExecution",
+}
+REQUIRED_RESULT = {
+    "chunkHash",
+    "outputStateRoot",
+    "outcomeSha256",
+    "independentRuntimeExecution",
+    "firstDifference",
+}
+
+
+def canonical(value: object) -> bytes:
+    return json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+
+
+def digest(path: pathlib.Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def load_json(path: pathlib.Path) -> object:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_corpus(path: pathlib.Path) -> dict[str, object]:
+    encoded = path.read_bytes()
+    if path.suffix == ".gz":
+        encoded = gzip.decompress(encoded)
+    value = json.loads(encoded)
+    if not isinstance(value, dict):
+        raise ValueError("historical corpus must be an object")
+    return value
+
+
+def artifact_path(value: object, label: str) -> pathlib.Path:
+    if not isinstance(value, str) or not value:
+        raise ValueError(f"{label} path must be a non-empty string")
+    path = pathlib.Path(value)
+    return path if path.is_absolute() else ROOT / path
+
+
+def checked_artifact(descriptor: dict[str, object], prefix: str) -> pathlib.Path:
+    path = artifact_path(descriptor.get(f"{prefix}Path"), prefix)
+    expected = descriptor.get(f"{prefix}Sha256")
+    if not path.is_file() or not isinstance(expected, str) or digest(path) != expected:
+        raise ValueError(f"{prefix} artifact or digest differs: {path}")
+    return path
+
+
+def oracle_metadata(oracle: pathlib.Path) -> dict[str, object]:
+    completed = subprocess.run(
+        [str(oracle), "metadata"], capture_output=True, check=False, text=True
+    )
+    if completed.returncode != 0:
+        raise ValueError(f"nearcore oracle metadata failed: {completed.stderr.strip()}")
+    try:
+        metadata = json.loads(completed.stdout)
+    except json.JSONDecodeError as error:
+        raise ValueError(f"nearcore oracle metadata is invalid JSON: {error}") from error
+    if not isinstance(metadata, dict) or not REQUIRED_METADATA <= set(metadata):
+        raise ValueError("nearcore oracle metadata fields are incomplete")
+    return metadata
+
+
+def oracle_results(
+    oracle: pathlib.Path, requests: list[dict[str, object]]
+) -> list[dict[str, object]]:
+    request_text = "".join(json.dumps(request, sort_keys=True) + "\n" for request in requests)
+    completed = subprocess.run(
+        [str(oracle), "replay-bundle"],
+        capture_output=True,
+        check=False,
+        input=request_text,
+        text=True,
+    )
+    if completed.returncode != 0:
+        raise ValueError(f"nearcore oracle replay failed: {completed.stderr.strip()}")
+    results: list[dict[str, object]] = []
+    for line_number, line in enumerate(completed.stdout.splitlines(), 1):
+        try:
+            result = json.loads(line)
+        except json.JSONDecodeError as error:
+            raise ValueError(
+                f"nearcore oracle result line {line_number} is invalid JSON: {error}"
+            ) from error
+        if not isinstance(result, dict) or not REQUIRED_RESULT <= set(result):
+            raise ValueError(f"nearcore oracle result line {line_number} is incomplete")
+        results.append(result)
+    if len(results) != len(requests):
+        raise ValueError(
+            f"nearcore oracle returned {len(results)} results for {len(requests)} witnesses"
+        )
+    return results
+
+
+def first_difference(
+    index: int,
+    entry: dict[str, object],
+    chunk: dict[str, object],
+    result: dict[str, object],
+) -> dict[str, object] | None:
+    identifiers = chunk.get("firstIdentifiers", {})
+    for field, expected_field in (
+        ("chunkHash", "chunkHash"),
+        ("outputStateRoot", "expectedOutputStateRoot"),
+        ("outcomeSha256", "expectedOutcomeSha256"),
+    ):
+        if result.get(field) != entry.get(expected_field):
+            return {
+                "index": index,
+                "field": field,
+                "expected": entry.get(expected_field),
+                "actual": result.get(field),
+                "blockHeight": entry.get("blockHeight"),
+                "shardId": entry.get("shardId"),
+                "chunk": entry.get("chunkHash"),
+                "transaction": identifiers.get("transaction"),
+                "receipt": identifiers.get("receipt"),
+                "account": identifiers.get("account"),
+                "trieKey": identifiers.get("trieKey"),
+            }
+    if result.get("independentRuntimeExecution") is not True:
+        return {
+            "index": index,
+            "field": "independentRuntimeExecution",
+            "expected": True,
+            "actual": result.get("independentRuntimeExecution"),
+            "blockHeight": entry.get("blockHeight"),
+            "shardId": entry.get("shardId"),
+            "chunk": entry.get("chunkHash"),
+        }
+    if result.get("firstDifference") is not None:
+        return result["firstDifference"]
+    return None
+
+
+def run(bundle_path: pathlib.Path, corpus_path: pathlib.Path) -> dict[str, object]:
+    bundle = load_json(bundle_path)
+    corpus = load_corpus(corpus_path)
+    if not isinstance(bundle, dict):
+        raise ValueError("witness bundle must be an object")
+    source = bundle.get("source")
+    entries = bundle.get("entries")
+    chunks = corpus.get("chunks")
+    if not isinstance(source, dict) or not isinstance(entries, list):
+        raise ValueError("witness bundle source or entries are invalid")
+    if not isinstance(chunks, list) or len(entries) != len(chunks):
+        raise ValueError("witness bundle and corpus chunk counts differ")
+    oracle = checked_artifact(source, "oracle")
+    if not (oracle.stat().st_mode & 0o111):
+        raise ValueError("nearcore oracle is not executable")
+    metadata = oracle_metadata(oracle)
+    if (
+        metadata.get("schemaVersion") != 1
+        or metadata.get("nearcoreCommit") != bundle.get("nearcoreCommit")
+        or metadata.get("engine") != "nearcore-chunk-state-witness"
+        or metadata.get("witnessFormat") != bundle.get("witnessFormat")
+        or metadata.get("independentRuntimeExecution") is not True
+    ):
+        raise ValueError("nearcore oracle metadata differs from the pinned bundle")
+    requests: list[dict[str, object]] = []
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict):
+            raise ValueError(f"witness entry {index} must be an object")
+        witness = checked_artifact(entry, "witness")
+        context = checked_artifact(entry, "context")
+        requests.append(
+            {
+                "schemaVersion": 1,
+                "chunkHash": entry.get("chunkHash"),
+                "witnessPath": str(witness),
+                "contextPath": str(context),
+            }
+        )
+    results = oracle_results(oracle, requests)
+    for index, (entry, chunk, result) in enumerate(zip(entries, chunks, results, strict=True)):
+        difference = first_difference(index, entry, chunk, result)
+        if difference is not None:
+            return {
+                "schemaVersion": 1,
+                "chunks": len(entries),
+                "identicalOutcomes": index,
+                "identicalRoots": index,
+                "independentRuntimeExecution": True,
+                "firstDifference": difference,
+            }
+        stored = load_json(checked_artifact(entry, "result"))
+        if stored != result:
+            return {
+                "schemaVersion": 1,
+                "chunks": len(entries),
+                "identicalOutcomes": index,
+                "identicalRoots": index,
+                "independentRuntimeExecution": True,
+                "firstDifference": {
+                    "index": index,
+                    "field": "storedResult",
+                    "expectedSha256": entry.get("resultSha256"),
+                    "actualSha256": hashlib.sha256(canonical(result)).hexdigest(),
+                    "chunk": entry.get("chunkHash"),
+                },
+            }
+    return {
+        "schemaVersion": 1,
+        "chunks": len(entries),
+        "identicalOutcomes": len(entries),
+        "identicalRoots": len(entries),
+        "independentRuntimeExecution": True,
+        "firstDifference": None,
+    }
+
+
+def self_test() -> None:
+    nearcore_commit = "5af9ca74631e6cf0dae33e77d1a632e94d2952ce"
+    with tempfile.TemporaryDirectory() as directory:
+        temporary = pathlib.Path(directory)
+        oracle = temporary / "oracle"
+        oracle.write_text(
+            """#!/usr/bin/env python3
+import json, pathlib, sys
+commit = \"5af9ca74631e6cf0dae33e77d1a632e94d2952ce\"
+if sys.argv[1] == \"metadata\":
+    print(json.dumps({\"schemaVersion\": 1, \"nearcoreCommit\": commit,
+        \"engine\": \"nearcore-chunk-state-witness\", \"witnessFormat\": \"test-witness\",
+        \"independentRuntimeExecution\": True}))
+elif sys.argv[1] == \"replay-bundle\":
+    for line in sys.stdin:
+        request = json.loads(line)
+        value = json.loads(pathlib.Path(request[\"witnessPath\"]).read_text())
+        print(json.dumps(value, sort_keys=True))
+else:
+    raise SystemExit(2)
+""",
+            encoding="utf-8",
+        )
+        oracle.chmod(0o755)
+        entries: list[dict[str, object]] = []
+        chunks: list[dict[str, object]] = []
+        for index in range(2):
+            chunk_hash = f"chunk-{index}"
+            result = {
+                "chunkHash": chunk_hash,
+                "outputStateRoot": f"root-{index}",
+                "outcomeSha256": f"outcome-{index}",
+                "independentRuntimeExecution": True,
+                "firstDifference": None,
+            }
+            witness = temporary / f"witness-{index}.json"
+            context = temporary / f"context-{index}.json"
+            result_path = temporary / f"result-{index}.json"
+            witness.write_text(json.dumps(result), encoding="utf-8")
+            context.write_text("{}", encoding="utf-8")
+            result_path.write_text(json.dumps(result, sort_keys=True), encoding="utf-8")
+            entries.append(
+                {
+                    "blockHeight": index,
+                    "shardId": 0,
+                    "chunkHash": chunk_hash,
+                    "expectedOutputStateRoot": f"root-{index}",
+                    "expectedOutcomeSha256": f"outcome-{index}",
+                    "witnessPath": str(witness),
+                    "witnessSha256": digest(witness),
+                    "contextPath": str(context),
+                    "contextSha256": digest(context),
+                    "resultPath": str(result_path),
+                    "resultSha256": digest(result_path),
+                }
+            )
+            chunks.append({"chunkHash": chunk_hash, "firstIdentifiers": {}})
+        bundle = {
+            "schemaVersion": 1,
+            "nearcoreCommit": nearcore_commit,
+            "witnessFormat": "test-witness",
+            "source": {
+                "oraclePath": str(oracle),
+                "oracleSha256": digest(oracle),
+            },
+            "entries": entries,
+        }
+        corpus = {"chunks": chunks}
+        bundle_path = temporary / "bundle.json"
+        corpus_path = temporary / "corpus.json.gz"
+        bundle_path.write_text(json.dumps(bundle), encoding="utf-8")
+        corpus_path.write_bytes(gzip.compress(canonical(corpus), mtime=0))
+        report = run(bundle_path, corpus_path)
+        assert report["identicalRoots"] == 2 and report["firstDifference"] is None
+        corrupted_path = pathlib.Path(entries[1]["witnessPath"])
+        corrupted = json.loads(corrupted_path.read_text(encoding="utf-8"))
+        corrupted["outputStateRoot"] = "wrong-root"
+        corrupted_path.write_text(json.dumps(corrupted), encoding="utf-8")
+        entries[1]["witnessSha256"] = digest(corrupted_path)
+        bundle_path.write_text(json.dumps(bundle), encoding="utf-8")
+        report = run(bundle_path, corpus_path)
+        assert report["identicalRoots"] == 1
+        assert report["firstDifference"]["field"] == "outputStateRoot"
+    print("exact replay runner interface tests passed")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bundle", type=pathlib.Path)
+    parser.add_argument("--corpus", type=pathlib.Path)
+    parser.add_argument("--self-test", action="store_true")
+    arguments = parser.parse_args()
+    if arguments.self_test:
+        self_test()
+        return
+    if arguments.bundle is None or arguments.corpus is None:
+        parser.error("--bundle and --corpus are required")
+    try:
+        report = run(arguments.bundle, arguments.corpus)
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        raise SystemExit(str(error)) from error
+    print(json.dumps(report, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()

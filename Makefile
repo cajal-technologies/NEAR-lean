@@ -3,7 +3,7 @@
 	receipt-campaign block-smoke block-campaign economic-smoke economic-campaign wasm-campaign \
 	oracle-install wasm-artifacts wasm-validation wasm-smoke m10-validation m10-smoke \
 	m10-campaign m11-validation validation-campaign \
-	m12-validation m12-exact-gate \
+	m12-validation m12-exact-gate m12-latest m12-latest-smoke \
 	differential-nightly ci ci-online notes
 
 build:
@@ -70,9 +70,17 @@ m12-validation: build
 	python3 scripts/m12_replay.py --self-test
 	python3 scripts/m12_report.py --check
 	python3 scripts/m12_witness_gate.py --check-contract --self-test
+	Oracle/m12_exact_replay --self-test
+	python3 scripts/m12_latest.py --self-test --check-report
 
 m12-exact-gate: m12-validation
 	python3 scripts/m12_witness_gate.py --exact
+
+m12-latest:
+	python3 scripts/m12_latest.py --count 100 --output replay/latest-report.json
+
+m12-latest-smoke:
+	python3 scripts/m12_latest.py --count 10 --live
 
 differential-smoke: oracle-install
 	python3 scripts/differential.py smoke
@@ -125,3 +133,4 @@ ci-online: ci
 	$(MAKE) economic-smoke
 	$(MAKE) wasm-smoke
 	$(MAKE) m10-smoke
+	$(MAKE) m12-latest-smoke

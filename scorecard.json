@@ -62,17 +62,17 @@
     "byStatus": {
       "unsupported": 9,
       "partial": 3,
-      "implemented": 63,
+      "implemented": 64,
       "verified": 0
     },
     "coverage": {
-      "positive": 66,
-      "negative": 66,
-      "differential": 66,
-      "executableSemantics": 66,
+      "positive": 67,
+      "negative": 67,
+      "differential": 67,
+      "executableSemantics": 67,
       "proofObligationsDischarged": 24
     },
-    "total": 75,
+    "total": 76,
     "verifiedWeightPercent": 0.0
   },
   "generatedDifferential": {
@@ -111,7 +111,7 @@
   },
   "generatedValidation": {
     "actions": 1000000,
-    "featuresCovered": 66,
+    "featuresCovered": 67,
     "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
     "mutationScore": 100.0,
     "seed": 1
@@ -138,6 +138,15 @@
     "independentRuntimeExecution": false,
     "startHeight": 211150000
   },
+  "generatedLatestReplay": {
+    "blocks": 100,
+    "chunks": 999,
+    "independentRuntimeExecution": false,
+    "latestHeight": 211318263,
+    "oldestHeight": 211318164,
+    "outcomes": 2797,
+    "scope": "bounded-latest-finalized-window"
+  },
   "observationLevel": "L7",
-  "schemaVersion": 10
+  "schemaVersion": 11
 }

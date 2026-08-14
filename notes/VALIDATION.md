@@ -32,3 +32,8 @@ and first-difference mutations. It deliberately reports
 `commitment-and-import-replay`: complete pre-state/state witnesses are absent, so
 historical outcomes and roots are preserved and linked rather than independently
 recomputed by the Lean runtime.
+
+The intentionally bounded live workflow uses `make m12-latest` to refresh a
+checked 100-block finalized-head artifact and `make m12-latest-smoke` for a
+read-only 10-block online check. Both reject broken predecessor continuity or a
+protocol-version change and retain the explicit non-independent replay label.

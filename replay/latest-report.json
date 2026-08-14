@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "network": "mainnet",
+  "protocolVersion": 86,
+  "scope": "bounded-latest-finalized-window",
+  "replayMode": "commitment-and-import-replay",
+  "source": "https://mainnet.neardata.xyz/v0/block/{height}",
+  "requestedProducedBlocks": 100,
+  "producedBlocks": 100,
+  "oldestHeight": 211318164,
+  "latestHeight": 211318263,
+  "latestBlockHash": "GDCTJNDDCBcycR5MvFKkmgSRsYb7DscQtPSRq4TTWxun",
+  "latestTimestampNanosec": "1786721173731750446",
+  "includedChunks": 999,
+  "adjacentInputRootLinks": 989,
+  "importedOutcomes": 2797,
+  "actionKinds": {
+    "AddKey": 12,
+    "CreateAccount": 3,
+    "Delegate": 375,
+    "Delegate.AddKey": 18,
+    "Delegate.DeleteKey": 6,
+    "Delegate.FunctionCall": 345,
+    "Delegate.Transfer": 12,
+    "DeleteKey": 3,
+    "FunctionCall": 1508,
+    "Transfer": 1440
+  },
+  "errorClasses": {
+    "ActionError.FunctionCallError.ExecutionError": 66
+  },
+  "stateChangeKinds": {
+    "access_key_deletion": 3,
+    "access_key_update": 732,
+    "account_update": 4414,
+    "data_deletion": 229,
+    "data_update": 3801
+  },
+  "blockProjectionSha256": "66f56541eb54920616de9408f4f2b4219ade0a2289a86156b7c9e2fc4542a6db",
+  "chunkProjectionSha256": "a36a755f343c7b757984138660ea1b5c1308e358dfa2f3d6eb148e29b61827cb",
+  "independentRuntimeExecution": false,
+  "firstDifference": null
+}

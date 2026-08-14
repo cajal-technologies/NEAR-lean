@@ -64,3 +64,19 @@ retention limits and opt-in behavior are pinned to nearcore's
 Run `make m12-validation` for the offline gate. On a clean machine,
 `python3 scripts/m12_fetch.py --fetch --check` re-fetches the fixed sources and
 requires byte-identical generated artifacts.
+
+## Rolling latest scope
+
+The active scope is a bounded window at the finalized mainnet head, not full
+history. `make m12-latest` replaces `replay/latest-report.json` with the newest
+100 produced blocks. It verifies the block predecessor/hash chain, protocol 86,
+included chunks, imported outcomes and state changes, canonical projection
+digests, and adjacent per-shard input-root commitments. The command is capped at
+1,000 blocks so it cannot silently become an archival ingestion job.
+
+`make m12-latest-smoke` performs the same checks over the newest 10 finalized
+produced blocks without updating tracked artifacts. This workflow remains
+`commitment-and-import-replay`; the report fixes
+`independentRuntimeExecution` to `false`. The exact witness gate and its
+repository-owned runner remain available as an optional stronger mode, but the
+latest-only workflow does not depend on archival state.

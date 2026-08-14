@@ -849,6 +849,43 @@ def historical_report_errors(path: pathlib.Path | None = None) -> list[str]:
     return errors
 
 
+def latest_replay_report_errors(path: pathlib.Path | None = None) -> list[str]:
+    report = load_json(path or ROOT / "replay/latest-report.json")
+    if not isinstance(report, dict):
+        return ["latest replay report must be a JSON object"]
+    errors: list[str] = []
+    if report.get("schemaVersion") != 1 or report.get("network") != "mainnet":
+        errors.append("latest replay schema or network differs")
+    if report.get("protocolVersion") != 86:
+        errors.append("latest replay protocol version must be 86")
+    if report.get("scope") != "bounded-latest-finalized-window":
+        errors.append("latest replay scope must remain bounded and explicit")
+    if report.get("replayMode") != "commitment-and-import-replay":
+        errors.append("latest replay mode must remain explicit")
+    if report.get("requestedProducedBlocks") != 100 or report.get("producedBlocks") != 100:
+        errors.append("checked latest replay artifact must contain 100 produced blocks")
+    oldest = report.get("oldestHeight")
+    latest = report.get("latestHeight")
+    if not is_integer(oldest) or not is_integer(latest) or latest < oldest + 99:
+        errors.append("latest replay height window is invalid")
+    chunks = report.get("includedChunks")
+    links = report.get("adjacentInputRootLinks")
+    if not is_integer(chunks) or chunks <= 0:
+        errors.append("latest replay must import included chunks")
+    if not is_integer(links) or links <= 0 or (is_integer(chunks) and links >= chunks):
+        errors.append("latest replay adjacent root-link count is invalid")
+    if not is_integer(report.get("importedOutcomes")) or report["importedOutcomes"] <= 0:
+        errors.append("latest replay must import outcomes")
+    if report.get("independentRuntimeExecution") is not False:
+        errors.append("latest replay must not overclaim independent runtime execution")
+    if report.get("firstDifference") is not None:
+        errors.append("latest replay report contains a first difference")
+    for field in ("blockProjectionSha256", "chunkProjectionSha256"):
+        if not isinstance(report.get(field), str) or not SHA256.fullmatch(report[field]):
+            errors.append(f"latest replay {field} must be a SHA-256 digest")
+    return errors
+
+
 def production_theorems() -> list[str]:
     lines = (ROOT / "audit/theorems.txt").read_text(encoding="utf-8").splitlines()
     return [line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#")]
@@ -960,6 +997,7 @@ def scorecard() -> dict[str, object]:
     wasm = load_json(ROOT / "wasm/report.json")
     concrete = load_json(ROOT / "concrete/report.json")
     historical = load_json(ROOT / "replay/report.json")
+    latest_replay = load_json(ROOT / "replay/latest-report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -1058,8 +1096,17 @@ def scorecard() -> dict[str, object]:
             "independentRuntimeExecution": historical["independentRuntimeExecution"],
             "startHeight": historical["startHeight"],
         },
+        "generatedLatestReplay": {
+            "blocks": latest_replay["producedBlocks"],
+            "chunks": latest_replay["includedChunks"],
+            "independentRuntimeExecution": latest_replay["independentRuntimeExecution"],
+            "latestHeight": latest_replay["latestHeight"],
+            "oldestHeight": latest_replay["oldestHeight"],
+            "outcomes": latest_replay["importedOutcomes"],
+            "scope": latest_replay["scope"],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 10,
+        "schemaVersion": 11,
     }
 
 
@@ -1175,6 +1222,11 @@ def run_negative_tests() -> int:
         corrupted_historical_path = pathlib.Path(temporary) / "historical-report.json"
         corrupted_historical_path.write_text(json.dumps(corrupted_historical), encoding="utf-8")
         corrupted_historical_errors = historical_report_errors(corrupted_historical_path)
+        corrupted_latest = copy.deepcopy(load_json(ROOT / "replay/latest-report.json"))
+        corrupted_latest["independentRuntimeExecution"] = True
+        corrupted_latest_path = pathlib.Path(temporary) / "latest-replay-report.json"
+        corrupted_latest_path.write_text(json.dumps(corrupted_latest), encoding="utf-8")
+        corrupted_latest_errors = latest_replay_report_errors(corrupted_latest_path)
     outcomes = [
         expect_failure("source hygiene", format_errors([negative / "BadFormat.lean"])),
         expect_failure("sorry", policy_errors([negative / "Sorry.lean"])),
@@ -1201,6 +1253,7 @@ def run_negative_tests() -> int:
         expect_failure("WASM report ratchet", corrupted_wasm_errors),
         expect_failure("concrete report ratchet", corrupted_concrete_errors),
         expect_failure("historical report ratchet", corrupted_historical_errors),
+        expect_failure("latest replay report ratchet", corrupted_latest_errors),
     ]
     warning = subprocess.run(
         ["lake", "env", "lean", "-DwarningAsError=true", "Tests/Negative/Warning.lean"],
@@ -1259,6 +1312,7 @@ def main() -> int:
         errors += wasm_report_errors()
         errors += concrete_report_errors()
         errors += historical_report_errors()
+        errors += latest_replay_report_errors()
         errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)

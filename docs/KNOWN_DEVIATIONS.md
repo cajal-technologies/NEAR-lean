@@ -56,6 +56,9 @@ fixed-height APIs do not provide a complete pre-state or retained state witness.
 Accordingly, it does not independently execute the full nearcore runtime or
 recompute historical roots. The M12 exact-runtime exit gate and v0.4 release are
 intentionally withheld; the report labels this mode `commitment-and-import-replay`.
+The active operational replay is intentionally limited to a rolling latest
+window of at most 1,000 finalized produced blocks. It does not attempt
+genesis-to-head replay or ingest a full archival database.
 
 The project does not yet:
 

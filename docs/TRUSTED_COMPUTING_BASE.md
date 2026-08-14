@@ -20,6 +20,10 @@ The list is expected to become more precise as executable semantics are added.
   and `scripts/m12_fetch.py` canonical projection. The checked-in M12 cache
   records projection hashes but omits the multi-gigabyte raw responses and
   provider-specific non-consensus JSON decorations.
+- The NEAR Data finalized-head response and `scripts/m12_latest.py` projection
+  used by the bounded rolling replay. The optional exact path additionally
+  trusts the digest-pinned nearcore oracle called by `Oracle/m12_exact_replay`;
+  expected roots and outcomes are withheld from that oracle's request stream.
 - Node.js 22.22.2 or newer and the exact packages locked in
   `Oracle/package-lock.json`: `near-sandbox`, `near-api-js`, and `wabt`. The
   sandbox archive reader is overridden to patched `tar` 7.5.22.

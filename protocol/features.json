@@ -1411,6 +1411,25 @@
       }
     },
     {
+      "id": "latest-window-replay",
+      "name": "Bounded rolling replay at the finalized head",
+      "group": "replay",
+      "milestone": 12,
+      "weight": 2,
+      "nearcoreReference": "chain/jsonrpc/src",
+      "status": "implemented",
+      "executableSemantics": true,
+      "knownDeviations": [
+        "The rolling workflow intentionally covers at most 1,000 latest finalized produced blocks and verifies imported outcomes, state changes, continuity, and commitments; without state witnesses it does not independently execute the runtime or recompute roots."
+      ],
+      "proofObligations": [],
+      "tests": {
+        "differential": true,
+        "negative": true,
+        "positive": true
+      }
+    },
+    {
       "id": "versioned-config",
       "name": "Protocol-version-indexed configuration and feature gates",
       "group": "history",

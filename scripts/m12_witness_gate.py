@@ -55,6 +55,7 @@ def contract_errors(contract: object) -> list[str]:
         "requiredEntryFields",
         "requiredResultFields",
         "requiredRunnerReportFields",
+        "requiredOracleMetadataFields",
         "sourceRequirements",
     ):
         values = contract.get(field)
@@ -89,12 +90,16 @@ def exact_errors(contract: dict[str, object], bundle_path: pathlib.Path) -> list
     for field in ("schemaVersion", "network", "protocolVersion", "nearcoreCommit"):
         if bundle.get(field) != contract.get(field):
             errors.append(f"witness bundle {field} differs from its contract")
+    if bundle.get("witnessFormat") != contract.get("requiredWitnessFormat"):
+        errors.append("witness bundle format differs from its contract")
     source = bundle.get("source")
     if not isinstance(source, dict) or not {
         "uri",
         "acquiredAt",
         "nodeConfigSha256",
         "runnerSha256",
+        "oraclePath",
+        "oracleSha256",
     } <= set(source):
         errors.append("witness bundle source provenance is incomplete")
     entries = bundle.get("entries")
@@ -127,7 +132,7 @@ def exact_errors(contract: dict[str, object], bundle_path: pathlib.Path) -> list
             errors.append(f"{label} has a missing or duplicate chunk hash")
         else:
             seen.add(chunk_hash)
-        for prefix in ("witness", "result"):
+        for prefix in ("witness", "context", "result"):
             relative = entry.get(f"{prefix}Path")
             expected_digest = entry.get(f"{prefix}Sha256")
             path = ROOT / relative if isinstance(relative, str) else None

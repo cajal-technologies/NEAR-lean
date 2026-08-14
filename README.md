@@ -17,6 +17,9 @@ The historical layer also imports a protocol-86 mainnet corpus with 10,000
 consecutive produced blocks and 10,000 included chunks, with provenance,
 checkpoint/resume, and first-difference diagnostics. This is commitment replay,
 not independent full-state runtime execution, so the v0.4 release is withheld.
+The active replay workflow is intentionally bounded to the latest finalized
+window: `make m12-latest` refreshes a 100-block report, and the online smoke gate
+checks the newest 10 blocks without requiring an archival node.
 
 ## Quick start
 
@@ -56,6 +59,8 @@ adapters.
 block/chunk continuity, action and failure strata, root links, checkpoint resume,
 and diagnostic mutations. See [docs/HISTORICAL_REPLAY.md](docs/HISTORICAL_REPLAY.md)
 for the exact compatibility boundary.
+`make m12-latest` refreshes the checked 100-block latest-window artifact;
+`make m12-latest-smoke` performs a read-only live 10-block check.
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the
