@@ -27,6 +27,9 @@ The list is expected to become more precise as executable semantics are added.
 - The mainnet `EXPERIMENTAL_protocol_config` and `validators` RPC responses,
   NEAR Data outgoing-receipt representation, and `scripts/m13_latest.py`
   projection logic for current shard routing and epoch inputs.
+- Python wall-clock and `getrusage` measurements used by `scripts/m14_latest.py`;
+  these measure the current process and environment rather than a consensus
+  property.
 - Node.js 22.22.2 or newer and the exact packages locked in
   `Oracle/package-lock.json`: `near-sandbox`, `near-api-js`, and `wabt`. The
   sandbox archive reader is overridden to patched `tar` 7.5.22.

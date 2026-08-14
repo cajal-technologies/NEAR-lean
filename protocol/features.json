@@ -1576,7 +1576,7 @@
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Genesis-to-checkpoint replay is intentionally excluded by the latest-block-only operating scope."
       ],
       "proofObligations": [],
       "tests": {
@@ -1595,7 +1595,7 @@
       "status": "unsupported",
       "executableSemantics": false,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Historical protocol transitions are intentionally excluded by the latest-block-only operating scope."
       ],
       "proofObligations": [],
       "tests": {
@@ -1611,16 +1611,16 @@
       "milestone": 14,
       "weight": 3,
       "nearcoreReference": "chain/chain/src",
-      "status": "unsupported",
-      "executableSemantics": false,
+      "status": "implemented",
+      "executableSemantics": true,
       "knownDeviations": [
-        "Unsupported at Milestone 0."
+        "Throughput and peak RSS measure the bounded commitment, routing, configuration, and epoch import pipeline; they do not measure independent runtime execution or archival state replay. Differential coverage refers to the live current-mainnet import and routing checks, not a nearcore performance oracle."
       ],
       "proofObligations": [],
       "tests": {
-        "differential": false,
-        "negative": false,
-        "positive": false
+        "differential": true,
+        "negative": true,
+        "positive": true
       }
     }
   ],

@@ -28,8 +28,11 @@ formed and that routing is deterministic.
 4. rejects missing fields or any source-route mismatch.
 
 The report also imports current and next epoch IDs, epoch height and start height,
-epoch length, validator count, and proposal count. `make m13-latest-smoke` repeats
-the checks over the newest 10 finalized produced blocks in online CI.
+epoch length, validator count, and proposal count. The validator snapshot is
+explicitly scoped to the replay head's epoch, and the report checks that the head
+height falls inside that epoch; it does not claim validator coverage for an older
+epoch if the rolling window crosses an epoch boundary. `make m13-latest-smoke`
+repeats the checks over the newest 10 finalized produced blocks in online CI.
 
 The Lean delay model states only minimum eligibility: a local receipt may be
 eligible at the producing height, while a cross-shard receipt is eligible no

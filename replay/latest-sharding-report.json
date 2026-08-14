@@ -12,9 +12,9 @@
   "window": {
     "requestedProducedBlocks": 100,
     "producedBlocks": 100,
-    "oldestHeight": 211319817,
-    "latestHeight": 211319916,
-    "latestBlockHash": "F5k6SSD3p7AsiaUiX2LZpzFmFHf7WZFmWvcrw6MDoefy"
+    "oldestHeight": 211321820,
+    "latestHeight": 211321920,
+    "latestBlockHash": "6fbJ8BwrXPAdwA154C3nrQCsyNEMETEXgzFpWvi9qQK"
   },
   "protocolConfig": {
     "protocolVersion": 86,
@@ -54,27 +54,29 @@
     ],
     "epochHeight": 4664,
     "epochStartHeight": 211305134,
+    "validatorReference": "latest-at-query-time-checked-against-head-height",
+    "validatorScope": "replay-head-epoch-only",
     "currentValidators": 414,
-    "currentProposals": 404,
-    "validatorProjectionSha256": "a35b5ca9143057a2213468bfb9e0cd56c8e718e1f400272cf8e43ae4da1d849d"
+    "currentProposals": 405,
+    "validatorProjectionSha256": "f8625840fac104d83299fd3236ee175629fe8be95f9486f8deac1f72465d37c7"
   },
   "receiptRouting": {
-    "routedReceipts": 3038,
-    "crossShardReceipts": 2120,
+    "routedReceipts": 5460,
+    "crossShardReceipts": 3790,
     "routeMismatches": 0,
     "unroutableReceipts": 0,
-    "systemReceipts": 1373,
+    "systemReceipts": 2439,
     "destinationShardCounts": {
-      "1": 5,
-      "4": 996,
-      "6": 153,
-      "7": 536,
-      "8": 330,
-      "9": 151,
-      "10": 205,
-      "11": 138,
-      "12": 432,
-      "13": 92
+      "1": 4,
+      "4": 2494,
+      "6": 126,
+      "7": 336,
+      "8": 650,
+      "9": 70,
+      "10": 211,
+      "11": 131,
+      "12": 1332,
+      "13": 106
     }
   },
   "independentRuntimeExecution": false,

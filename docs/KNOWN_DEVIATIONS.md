@@ -89,8 +89,18 @@ window. The model gives cross-shard receipts a one-block minimum eligibility
 delay, but does not model congestion, bandwidth allocation, missed chunks, or an
 exact delivery height. Epoch IDs and validator inputs are imported; validator
 selection, stake transitions, rewards, and kickouts are not executed.
+
+## Latest stabilization
+
+Milestone 14 measures only the bounded finalized-head import and routing pipeline.
+Genesis replay, historical protocol transitions, runtime migrations, resharding,
+and independent execution from complete state witnesses remain unsupported.
+Throughput and peak RSS are environment-dependent observations, not ratcheted
+performance guarantees. The latest provider responses are not a complete archived
+input corpus, and neither v0.4 nor v1.0 is claimed.
 Milestones 1 through 11 and the non-runtime M12 infrastructure record implementation,
-test, proof, and mutation evidence;
-later features remain `unsupported`.
+test, proof, and mutation evidence. Scoped latest-window features in M12 through
+M14 are implemented or partial as recorded in `protocol/features.json`; the
+original exact-runtime and historical exit features remain unsupported.
 
 The project makes no compatibility claim for protocol versions other than 86.

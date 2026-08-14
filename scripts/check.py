@@ -8,6 +8,7 @@ import copy
 import gzip
 import hashlib
 import json
+import math
 import os
 import pathlib
 import re
@@ -43,6 +44,7 @@ STATUS_RANK = {status: rank for rank, status in enumerate(STATUS_VALUES)}
 TEST_KINDS = {"differential", "negative", "positive"}
 SHA1 = re.compile(r"[0-9a-f]{40}")
 SHA256 = re.compile(r"[0-9a-f]{64}")
+BASE58_HASH = re.compile(r"[1-9A-HJ-NP-Za-km-z]{32,64}")
 AUDIT_MARKER = "AXIOM_AUDIT\t"
 OBSERVATION_RANK = {f"L{level}": level for level in range(8)}
 
@@ -936,6 +938,20 @@ def latest_sharding_report_errors(path: pathlib.Path | None = None) -> list[str]
         errors.append("latest sharding epoch ids are missing")
     if not is_integer(epoch.get("currentValidators")) or epoch["currentValidators"] <= 0:
         errors.append("latest sharding validator inputs are missing")
+    if epoch.get("validatorReference") != "latest-at-query-time-checked-against-head-height":
+        errors.append("latest sharding validator reference is not tied to the head height")
+    if epoch.get("validatorScope") != "replay-head-epoch-only":
+        errors.append("latest sharding validator scope must remain limited to the replay head epoch")
+    epoch_start = epoch.get("epochStartHeight")
+    latest_height = report.get("window", {}).get("latestHeight")
+    epoch_length = config.get("epochLength")
+    if (
+        not is_integer(epoch_start)
+        or not is_integer(latest_height)
+        or not is_integer(epoch_length)
+        or not epoch_start <= latest_height < epoch_start + epoch_length
+    ):
+        errors.append("latest sharding replay head is outside the validator epoch")
     if not isinstance(epoch.get("validatorProjectionSha256"), str) or not SHA256.fullmatch(
         epoch["validatorProjectionSha256"]
     ):
@@ -951,6 +967,151 @@ def latest_sharding_report_errors(path: pathlib.Path | None = None) -> list[str]
         errors.append("latest sharding report must not overclaim independent execution")
     if report.get("firstDifference") is not None:
         errors.append("latest sharding report contains a first difference")
+    return errors
+
+
+def latest_stabilization_report_errors(path: pathlib.Path | None = None) -> list[str]:
+    report = load_json(path or ROOT / "replay/latest-stabilization-report.json")
+    if not isinstance(report, dict):
+        return ["latest stabilization report must be a JSON object"]
+    errors: list[str] = []
+    if report.get("schemaVersion") != 1 or report.get("network") != "mainnet":
+        errors.append("latest stabilization schema or network differs")
+    if report.get("protocolVersion") != 86:
+        errors.append("latest stabilization protocol version must be 86")
+    if report.get("referenceNearcoreCommit") != "5af9ca74631e6cf0dae33e77d1a632e94d2952ce":
+        errors.append("latest stabilization reference nearcore commit differs")
+    if report.get("scope") != "bounded-latest-finalized-window":
+        errors.append("latest stabilization scope must remain bounded and explicit")
+    if report.get("replayMode") != "latest-window-stabilization":
+        errors.append("latest stabilization replay mode must remain explicit")
+    if report.get("sources") != {
+        "finalizedHead": "https://mainnet.neardata.xyz/v0/last_block/final",
+        "commitmentStreamer": "https://mainnet.neardata.xyz/v0/block/{height}",
+        "protocolRpc": "https://rpc.mainnet.near.org",
+        "shardingStreamer": "https://mainnet.neardata.xyz/v0/block/{height}",
+    }:
+        errors.append("latest stabilization source provenance differs")
+    window = report.get("window")
+    if not isinstance(window, dict):
+        errors.append("latest stabilization window must be an object")
+        window = {}
+    if window.get("producedBlocks") != 100 or window.get("largestContiguousLatestWindow") != 100:
+        errors.append("checked latest stabilization artifact must contain 100 blocks")
+    oldest = window.get("oldestHeight")
+    latest = window.get("latestHeight")
+    if not is_integer(oldest) or not is_integer(latest) or latest < oldest + 99:
+        errors.append("latest stabilization height window is invalid")
+    if not isinstance(window.get("latestBlockHash"), str) or not BASE58_HASH.fullmatch(
+        window["latestBlockHash"]
+    ):
+        errors.append("latest stabilization block hash is invalid")
+    for field in ("blockProjectionSha256", "chunkProjectionSha256"):
+        if not isinstance(window.get(field), str) or not SHA256.fullmatch(window[field]):
+            errors.append(f"latest stabilization {field} is invalid")
+    timestamp = window.get("latestTimestampNanosec")
+    if not isinstance(timestamp, str) or not timestamp.isdigit() or int(timestamp) <= 0:
+        errors.append("latest stabilization timestamp is invalid")
+    compatibility = report.get("compatibility")
+    if not isinstance(compatibility, dict):
+        errors.append("latest stabilization compatibility must be an object")
+        compatibility = {}
+    if compatibility.get("observedProtocolEras") != 1:
+        errors.append("latest stabilization must record one observed protocol era")
+    if compatibility.get("exactlyReplayedProtocolEras") != 0:
+        errors.append("latest stabilization must not claim an exactly replayed protocol era")
+    if compatibility.get("observedUpgradeBoundaries") != 0:
+        errors.append("latest stabilization latest window must not cross an upgrade boundary")
+    if compatibility.get("exactlyReplayedUpgradeBoundaries") != 0:
+        errors.append("latest stabilization must not claim exact upgrade replay")
+    for field in (
+        "includedChunks",
+        "importedOutcomes",
+        "routedReceipts",
+        "validatedSourceReceipts",
+        "crossShardReceipts",
+    ):
+        if not is_integer(compatibility.get(field)) or compatibility[field] <= 0:
+            errors.append(f"latest stabilization {field} is missing")
+    if compatibility.get("routeMismatches") != 0:
+        errors.append("latest stabilization contains receipt-routing mismatches")
+    if compatibility.get("unroutableReceipts") != 0:
+        errors.append("latest stabilization contains unroutable receipts")
+    system_receipts = compatibility.get("systemReceipts")
+    routed_receipts = compatibility.get("routedReceipts")
+    validated_sources = compatibility.get("validatedSourceReceipts")
+    counts_valid = (
+        is_integer(system_receipts)
+        and system_receipts >= 0
+        and is_integer(routed_receipts)
+        and is_integer(validated_sources)
+    )
+    if not counts_valid or validated_sources != routed_receipts - system_receipts:
+        errors.append("latest stabilization source-validation counts differ")
+    if compatibility.get("observedProjectionMismatches") != 0:
+        errors.append("latest stabilization contains an observed projection mismatch")
+    if compatibility.get("independentRuntimeExecution") is not False:
+        errors.append("latest stabilization must not overclaim independent execution")
+    performance = report.get("performance")
+    if not isinstance(performance, dict):
+        errors.append("latest stabilization performance must be an object")
+        performance = {}
+    for field in ("elapsedSeconds", "blocksPerSecond", "chunksPerSecond", "peakRssMiB"):
+        value = performance.get(field)
+        if (
+            not isinstance(value, (int, float))
+            or isinstance(value, bool)
+            or not math.isfinite(value)
+            or value <= 0
+        ):
+            errors.append(f"latest stabilization {field} is invalid")
+    elapsed = performance.get("elapsedSeconds")
+    blocks_per_second = performance.get("blocksPerSecond")
+    chunks_per_second = performance.get("chunksPerSecond")
+    chunks = compatibility.get("includedChunks")
+    if all(
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(value)
+        and value > 0
+        for value in (elapsed, blocks_per_second, chunks_per_second)
+    ) and is_integer(chunks):
+        if abs(blocks_per_second - round(100 / elapsed, 3)) > 0.001:
+            errors.append("latest stabilization block throughput is inconsistent")
+        if abs(chunks_per_second - round(chunks / elapsed, 3)) > 0.001:
+            errors.append("latest stabilization chunk throughput is inconsistent")
+    quality = report.get("quality")
+    if not isinstance(quality, dict):
+        errors.append("latest stabilization quality must be an object")
+        quality = {}
+    if quality.get("repositoryValidationMutationScore") != 100.0:
+        errors.append("latest stabilization repository mutation score differs")
+    validation_digest = hashlib.sha256((ROOT / "validation/report.json").read_bytes()).hexdigest()
+    if quality.get("repositoryValidationReportSha256") != validation_digest:
+        errors.append("latest stabilization validation-report digest is invalid")
+    if quality.get("latestWindowMutationScore") is not None:
+        errors.append("latest stabilization must not claim a latest-window mutation score")
+    if quality.get("routingPassRatePercent") != 100.0:
+        errors.append("latest stabilization routing pass rate differs")
+    if report.get("trustedAssumptionSummary") != [
+        "NEAR Data and mainnet RPC responses faithfully expose finalized consensus data",
+        "the Python projection and comparison scripts are trusted adapters",
+        "Python wall-clock, getrusage, operating-system, and hardware measurements are accurate",
+        "validation/report.json faithfully records the repository semantic mutation campaign",
+        "missing pre-state witnesses prevent independent runtime execution and root recomputation",
+    ]:
+        errors.append("latest stabilization trusted assumptions differ")
+    if report.get("intentionalScopeExclusions") != [
+        "genesis-to-checkpoint replay",
+        "historical protocol transitions and runtime migrations",
+        "upgrade-boundary and resharding replay",
+        "independent current-runtime execution from complete state witnesses",
+        "reproducibility from archived latest-window inputs",
+        "stratified historical sampled-block replay",
+    ]:
+        errors.append("latest stabilization scope exclusions differ")
+    if report.get("firstDifference") is not None:
+        errors.append("latest stabilization report contains a first difference")
     return errors
 
 
@@ -1067,6 +1228,7 @@ def scorecard() -> dict[str, object]:
     historical = load_json(ROOT / "replay/report.json")
     latest_replay = load_json(ROOT / "replay/latest-report.json")
     latest_sharding = load_json(ROOT / "replay/latest-sharding-report.json")
+    latest_stabilization = load_json(ROOT / "replay/latest-stabilization-report.json")
     features = manifest["features"]
     statuses = Counter(feature["status"] for feature in features)
     total_weight = sum(feature["weight"] for feature in features)
@@ -1184,8 +1346,29 @@ def scorecard() -> dict[str, object]:
             "shards": len(latest_sharding["protocolConfig"]["shardIds"]),
             "validators": latest_sharding["epochInputs"]["currentValidators"],
         },
+        "generatedLatestStabilization": {
+            "blocks": latest_stabilization["window"]["producedBlocks"],
+            "blocksPerSecond": latest_stabilization["performance"]["blocksPerSecond"],
+            "independentRuntimeExecution": latest_stabilization["compatibility"][
+                "independentRuntimeExecution"
+            ],
+            "latestHeight": latest_stabilization["window"]["latestHeight"],
+            "peakRssMiB": latest_stabilization["performance"]["peakRssMiB"],
+            "exactlyReplayedProtocolEras": latest_stabilization["compatibility"][
+                "exactlyReplayedProtocolEras"
+            ],
+            "observedProjectionMismatches": latest_stabilization["compatibility"][
+                "observedProjectionMismatches"
+            ],
+            "observedProtocolEras": latest_stabilization["compatibility"][
+                "observedProtocolEras"
+            ],
+            "observedUpgradeBoundaries": latest_stabilization["compatibility"][
+                "observedUpgradeBoundaries"
+            ],
+        },
         "observationLevel": manifest["observationLevel"],
-        "schemaVersion": 12,
+        "schemaVersion": 13,
     }
 
 
@@ -1313,6 +1496,19 @@ def run_negative_tests() -> int:
         corrupted_sharding_path = pathlib.Path(temporary) / "latest-sharding-report.json"
         corrupted_sharding_path.write_text(json.dumps(corrupted_sharding), encoding="utf-8")
         corrupted_sharding_errors = latest_sharding_report_errors(corrupted_sharding_path)
+        corrupted_stabilization = copy.deepcopy(
+            load_json(ROOT / "replay/latest-stabilization-report.json")
+        )
+        corrupted_stabilization["performance"]["blocksPerSecond"] = 0.001
+        corrupted_stabilization_path = (
+            pathlib.Path(temporary) / "latest-stabilization-report.json"
+        )
+        corrupted_stabilization_path.write_text(
+            json.dumps(corrupted_stabilization), encoding="utf-8"
+        )
+        corrupted_stabilization_errors = latest_stabilization_report_errors(
+            corrupted_stabilization_path
+        )
     outcomes = [
         expect_failure("source hygiene", format_errors([negative / "BadFormat.lean"])),
         expect_failure("sorry", policy_errors([negative / "Sorry.lean"])),
@@ -1341,6 +1537,9 @@ def run_negative_tests() -> int:
         expect_failure("historical report ratchet", corrupted_historical_errors),
         expect_failure("latest replay report ratchet", corrupted_latest_errors),
         expect_failure("latest sharding report ratchet", corrupted_sharding_errors),
+        expect_failure(
+            "latest stabilization report ratchet", corrupted_stabilization_errors
+        ),
     ]
     warning = subprocess.run(
         ["lake", "env", "lean", "-DwarningAsError=true", "Tests/Negative/Warning.lean"],
@@ -1401,6 +1600,7 @@ def main() -> int:
         errors += historical_report_errors()
         errors += latest_replay_report_errors()
         errors += latest_sharding_report_errors()
+        errors += latest_stabilization_report_errors()
         errors += audit_errors
         errors += report_staleness_errors(report)
         return print_errors(errors)

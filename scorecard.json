@@ -64,16 +64,16 @@
   },
   "features": {
     "byStatus": {
-      "unsupported": 5,
+      "unsupported": 4,
       "partial": 5,
-      "implemented": 66,
+      "implemented": 67,
       "verified": 0
     },
     "coverage": {
-      "positive": 71,
-      "negative": 71,
-      "differential": 71,
-      "executableSemantics": 71,
+      "positive": 72,
+      "negative": 72,
+      "differential": 72,
+      "executableSemantics": 72,
       "proofObligationsDischarged": 27
     },
     "total": 76,
@@ -115,7 +115,7 @@
   },
   "generatedValidation": {
     "actions": 1000000,
-    "featuresCovered": 71,
+    "featuresCovered": 72,
     "fixedSeedReplayDigest": "5b8a44c5f7f8d7083d9c681a176e589804a9bbaa1d4acea81d41d01af3171ae6",
     "mutationScore": 100.0,
     "seed": 1
@@ -153,14 +153,25 @@
   },
   "generatedLatestSharding": {
     "blocks": 100,
-    "crossShardReceipts": 2120,
+    "crossShardReceipts": 3790,
     "independentRuntimeExecution": false,
-    "latestHeight": 211319916,
+    "latestHeight": 211321920,
     "routeMismatches": 0,
-    "routedReceipts": 3038,
+    "routedReceipts": 5460,
     "shards": 10,
     "validators": 414
   },
+  "generatedLatestStabilization": {
+    "blocks": 100,
+    "blocksPerSecond": 12.238,
+    "independentRuntimeExecution": false,
+    "latestHeight": 211321940,
+    "peakRssMiB": 263.422,
+    "exactlyReplayedProtocolEras": 0,
+    "observedProjectionMismatches": 0,
+    "observedProtocolEras": 1,
+    "observedUpgradeBoundaries": 0
+  },
   "observationLevel": "L7",
-  "schemaVersion": 12
+  "schemaVersion": 13
 }

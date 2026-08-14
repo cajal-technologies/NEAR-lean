@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "network": "mainnet",
+  "referenceNearcoreCommit": "5af9ca74631e6cf0dae33e77d1a632e94d2952ce",
+  "protocolVersion": 86,
+  "scope": "bounded-latest-finalized-window",
+  "replayMode": "latest-window-stabilization",
+  "sources": {
+    "finalizedHead": "https://mainnet.neardata.xyz/v0/last_block/final",
+    "commitmentStreamer": "https://mainnet.neardata.xyz/v0/block/{height}",
+    "protocolRpc": "https://rpc.mainnet.near.org",
+    "shardingStreamer": "https://mainnet.neardata.xyz/v0/block/{height}"
+  },
+  "window": {
+    "producedBlocks": 100,
+    "oldestHeight": 211321840,
+    "latestHeight": 211321940,
+    "latestBlockHash": "E9Dsb7QQakjrXpNq1GeRsa13H5F8DfzLjtjFmTrjTkA4",
+    "largestContiguousLatestWindow": 100,
+    "blockProjectionSha256": "a84a82e24c709877546b614bb6de286457a51619a0b92835bf047c881b3423ee",
+    "chunkProjectionSha256": "eb79513b198b6adb66454ac69977f4ba54b6d7f81b63d8ef66c0be198e02d6bb",
+    "latestTimestampNanosec": "1786723419583344986"
+  },
+  "compatibility": {
+    "observedProtocolEras": 1,
+    "exactlyReplayedProtocolEras": 0,
+    "observedUpgradeBoundaries": 0,
+    "exactlyReplayedUpgradeBoundaries": 0,
+    "includedChunks": 1000,
+    "importedOutcomes": 4977,
+    "routedReceipts": 5577,
+    "validatedSourceReceipts": 3093,
+    "systemReceipts": 2484,
+    "crossShardReceipts": 3867,
+    "routeMismatches": 0,
+    "unroutableReceipts": 0,
+    "observedProjectionMismatches": 0,
+    "independentRuntimeExecution": false
+  },
+  "performance": {
+    "elapsedSeconds": 8.171207,
+    "blocksPerSecond": 12.238,
+    "chunksPerSecond": 122.381,
+    "peakRssMiB": 263.422
+  },
+  "quality": {
+    "repositoryValidationMutationScore": 100.0,
+    "repositoryValidationReportSha256": "bd6fe9e6ba313404dd9e99c2b7e006cbbb828753fa6c93da5a1b480de7118909",
+    "latestWindowMutationScore": null,
+    "routingPassRatePercent": 100.0
+  },
+  "trustedAssumptionSummary": [
+    "NEAR Data and mainnet RPC responses faithfully expose finalized consensus data",
+    "the Python projection and comparison scripts are trusted adapters",
+    "Python wall-clock, getrusage, operating-system, and hardware measurements are accurate",
+    "validation/report.json faithfully records the repository semantic mutation campaign",
+    "missing pre-state witnesses prevent independent runtime execution and root recomputation"
+  ],
+  "intentionalScopeExclusions": [
+    "genesis-to-checkpoint replay",
+    "historical protocol transitions and runtime migrations",
+    "upgrade-boundary and resharding replay",
+    "independent current-runtime execution from complete state witnesses",
+    "reproducibility from archived latest-window inputs",
+    "stratified historical sampled-block replay"
+  ],
+  "firstDifference": null
+}

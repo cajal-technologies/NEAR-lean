@@ -150,6 +150,14 @@ def report_from_inputs(
                     cross_shard += 1
     first_header = streams[0]["block"]["header"]
     last_header = streams[-1]["block"]["header"]
+    epoch_start_height = validator_info.get("epoch_start_height")
+    epoch_length = protocol_config.get("epoch_length")
+    if (
+        not isinstance(epoch_start_height, int)
+        or not isinstance(epoch_length, int)
+        or not epoch_start_height <= last_header["height"] < epoch_start_height + epoch_length
+    ):
+        raise ValueError("latest validator set does not contain the replay head height")
     config_projection = {
         "protocolVersion": protocol_config.get("protocol_version"),
         "epochLength": protocol_config.get("epoch_length"),
@@ -184,6 +192,8 @@ def report_from_inputs(
             "nextEpochIds": sorted(next_epoch_ids),
             "epochHeight": validator_info.get("epoch_height"),
             "epochStartHeight": validator_info.get("epoch_start_height"),
+            "validatorReference": "latest-at-query-time-checked-against-head-height",
+            "validatorScope": "replay-head-epoch-only",
             "currentValidators": len(validator_info.get("current_validators", [])),
             "currentProposals": len(validator_info.get("current_proposals", [])),
             "validatorProjectionSha256": hashlib.sha256(
@@ -247,6 +257,20 @@ def report_errors(report: object, expected_count: int = DEFAULT_COUNT) -> list[s
         errors.append("latest sharding epoch ids are missing")
     if not isinstance(epoch.get("currentValidators"), int) or epoch["currentValidators"] <= 0:
         errors.append("latest sharding validator inputs are missing")
+    if epoch.get("validatorReference") != "latest-at-query-time-checked-against-head-height":
+        errors.append("latest sharding validator reference is not tied to the head height")
+    if epoch.get("validatorScope") != "replay-head-epoch-only":
+        errors.append("latest sharding validator scope must remain limited to the replay head epoch")
+    epoch_start = epoch.get("epochStartHeight")
+    latest_height = window.get("latestHeight")
+    epoch_length = config.get("epochLength")
+    if (
+        not isinstance(epoch_start, int)
+        or not isinstance(latest_height, int)
+        or not isinstance(epoch_length, int)
+        or not epoch_start <= latest_height < epoch_start + epoch_length
+    ):
+        errors.append("latest sharding replay head is outside the validator epoch")
     validator_projection = epoch.get("validatorProjectionSha256")
     if not isinstance(validator_projection, str) or len(validator_projection) != 64:
         errors.append("latest sharding validator projection digest is invalid")

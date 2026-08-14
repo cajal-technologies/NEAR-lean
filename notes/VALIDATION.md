@@ -44,3 +44,13 @@ validation, and checked 100-block sharding report. `make m13-latest` refreshes
 that artifact, while `make m13-latest-smoke` repeats the RPC configuration and
 routing checks over the newest 10 finalized produced blocks. Any non-system
 predecessor whose routed shard differs from the producing shard is a hard failure.
+
+Milestone 14 adds `make m14-validation` for the combined checked stabilization
+report and its corruption tests. `make m14-latest` measures a shared 100-block
+commitment and sharding window, including throughput and peak RSS.
+`make m14-latest-smoke` repeats the combined campaign over the newest 10 blocks.
+The gate requires zero observed projection mismatches and a 100% non-system
+source-routing pass rate. It carries the separate repository validation report's
+ratcheted 100% semantic mutation score with a SHA-256 digest; no latest-window
+mutation score is claimed. Performance values must be positive and internally
+consistent but are not ratcheted.

@@ -3,7 +3,7 @@
 NEAR Protocol semantics in Lean, with a proof-friendly abstract model and a
 separate nearcore-compatible execution model.
 
-The project is at **Milestone 13 (latest-window scope)**. The proof-friendly kernel covers transactions,
+The project is at **Milestone 14 (latest-window scope)**. The proof-friendly kernel covers transactions,
 receipts, block scheduling, verification APIs, and aggregate economics. Generated
 campaigns compare the model with the pinned nearcore 2.13.3 sandbox through L5.
 A scheduled validation suite executes one million model actions and 10,000
@@ -25,6 +25,10 @@ The current-protocol layer selects exactly protocol 86, implements the active
 cross-shard delay, and imports current epoch and validator inputs. Historical
 migrations and upgrade boundaries remain intentionally unsupported under the
 latest-block-only scope.
+The final scoped stabilization gate combines one latest window across commitment,
+sharding, epoch, throughput, and peak-memory evidence, and carries the separately
+generated repository mutation score with a pinned artifact digest. Genesis and
+historical protocol support remain explicit exclusions, so v1.0 is withheld.
 
 ## Quick start
 
@@ -70,6 +74,10 @@ for the exact compatibility boundary.
 sharding artifact. `make m13-latest` refreshes 100 finalized blocks of receipt
 routing and epoch evidence; `make m13-latest-smoke` validates the newest 10. See
 [docs/CURRENT_PROTOCOL.md](docs/CURRENT_PROTOCOL.md) for the exact scope.
+`make m14-validation` checks the latest stabilization artifact and corruption
+tests. `make m14-latest` refreshes its 100-block performance and compatibility
+measurements; `make m14-latest-smoke` repeats the campaign over the newest 10.
+See [docs/LATEST_STABILIZATION.md](docs/LATEST_STABILIZATION.md).
 
 Individual workflows include `make build`, `make test`, `make lint`, `make audit`,
 `make format-check`, and `make scorecard`. `make format` remains an alias for the
@@ -109,6 +117,7 @@ CI verifies that snapshot against the pinned upstream commit.
 - [`docs/TRUSTED_COMPUTING_BASE.md`](docs/TRUSTED_COMPUTING_BASE.md) records what is trusted.
 - [`docs/KNOWN_DEVIATIONS.md`](docs/KNOWN_DEVIATIONS.md) records compatibility gaps.
 - [`docs/CURRENT_PROTOCOL.md`](docs/CURRENT_PROTOCOL.md) defines the latest-only protocol and sharding scope.
+- [`docs/LATEST_STABILIZATION.md`](docs/LATEST_STABILIZATION.md) records the final scoped campaign and withheld historical release.
 - [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) documents the gates and update workflow.
 - [`notes/milestones.html`](notes/milestones.html) is the development roadmap.
 - [`notes/evaluation.html`](notes/evaluation.html) defines the correctness signals and metrics.
